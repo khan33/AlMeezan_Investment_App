@@ -1,0 +1,89 @@
+PODS:
+  - Alamofire (4.9.1)
+  - AlamofireObjectMapper (5.2.1):
+    - Alamofire (~> 4.7)
+    - ObjectMapper (~> 3.4)
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
+  - CryptoSwift (1.6.0)
+  - DatePickerDialog (4.0)
+  - EasyTipView (2.1.0)
+  - GoogleMaps (6.2.1):
+    - GoogleMaps/Maps (= 6.2.1)
+  - GoogleMaps/Base (6.2.1)
+  - GoogleMaps/Maps (6.2.1):
+    - GoogleMaps/Base
+  - GooglePlaces (6.2.1)
+  - IQKeyboardManagerSwift (6.5.10)
+  - ObjectMapper (3.5.3)
+  - PKRevealController (2.0.6)
+  - SDWebImage (5.13.5):
+    - SDWebImage/Core (= 5.13.5)
+  - SDWebImage/Core (5.13.5)
+  - SnapKit (5.6.0)
+  - SVPinView (1.0.11)
+  - SVProgressHUD (2.2.5)
+  - SwiftAlgorithms (1.0.0)
+  - SwiftKeychainWrapper (4.0.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - AlamofireObjectMapper (~> 5.0)
+  - Charts
+  - CryptoSwift
+  - DatePickerDialog
+  - EasyTipView (~> 2.1)
+  - GoogleMaps
+  - GooglePlaces
+  - IQKeyboardManagerSwift
+  - PKRevealController
+  - SDWebImage (~> 5.0)
+  - SnapKit
+  - SVPinView (~> 1.0)
+  - SVProgressHUD
+  - SwiftKeychainWrapper
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AlamofireObjectMapper
+    - Charts
+    - CryptoSwift
+    - DatePickerDialog
+    - EasyTipView
+    - GoogleMaps
+    - GooglePlaces
+    - IQKeyboardManagerSwift
+    - ObjectMapper
+    - PKRevealController
+    - SDWebImage
+    - SnapKit
+    - SVPinView
+    - SVProgressHUD
+    - SwiftAlgorithms
+    - SwiftKeychainWrapper
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AlamofireObjectMapper: 1989f690e982b71921b9253f53a4f33a9bc00d88
+  Charts: 354f86803d11d9c35de280587fef50d1af063978
+  CryptoSwift: 562f8eceb40e80796fffc668b0cad9313284cfa6
+  DatePickerDialog: ccff2f91ff7a018057a4d72fa5ad6de49c8cb0cd
+  EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
+  GoogleMaps: 20d7b12be49a14287f797e88e0e31bc4156aaeb4
+  GooglePlaces: 94974aa119573d5acc2a35a699948dac838abd73
+  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
+  ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
+  PKRevealController: ffb45a16f5a5032ad90a3d16e5cbb0d8e035bd58
+  SDWebImage: 23d714cd599354ee7906dbae26dff89b421c4370
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SVPinView: 9b538d0ba68cdb092afe4f0f67ec84cbed079466
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
+
+PODFILE CHECKSUM: dc845df551d51b8b9a664f0a66d0871a23cd1364
+
+COCOAPODS: 1.11.3

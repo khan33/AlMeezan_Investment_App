@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="CircularStd-Book.otf">
+            <string>CircularStd-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MoneyMarketViewCell" customModule="AlMeezan_Dev" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W3Q-Np-edi">
+                        <rect key="frame" x="0.0" y="42.5" width="320" height="0.5"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="LcK-iu-xpx"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13.81" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XiH-mD-A4L">
+                        <rect key="frame" x="224" y="14.5" width="96" height="15.5"/>
+                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                        <color key="textColor" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13.31" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uo3-N3-mgd">
+                        <rect key="frame" x="128" y="14.5" width="96" height="15.5"/>
+                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                        <color key="textColor" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kibor 1M" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEt-nO-K8W">
+                        <rect key="frame" x="0.0" y="14.5" width="96" height="15.5"/>
+                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                        <color key="textColor" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="dEt-nO-K8W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9Pj-hx-Qhk"/>
+                    <constraint firstItem="W3Q-Np-edi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="CBp-YN-0ZR"/>
+                    <constraint firstItem="dEt-nO-K8W" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.3" id="EmH-X1-E94"/>
+                    <constraint firstItem="uo3-N3-mgd" firstAttribute="centerY" secondItem="XiH-mD-A4L" secondAttribute="centerY" id="I5m-sR-QcR"/>
+                    <constraint firstItem="XiH-mD-A4L" firstAttribute="width" secondItem="dEt-nO-K8W" secondAttribute="width" id="Oat-Oa-laP"/>
+                    <constraint firstItem="uo3-N3-mgd" firstAttribute="width" secondItem="XiH-mD-A4L" secondAttribute="width" id="Osc-vv-lNF"/>
+                    <constraint firstItem="dEt-nO-K8W" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="SIL-8s-VH9"/>
+                    <constraint firstAttribute="trailing" secondItem="XiH-mD-A4L" secondAttribute="trailing" id="Sil-jX-zkJ"/>
+                    <constraint firstItem="XiH-mD-A4L" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ZFm-gA-6y1"/>
+                    <constraint firstAttribute="trailing" secondItem="W3Q-Np-edi" secondAttribute="trailing" id="e82-lK-g2K"/>
+                    <constraint firstAttribute="bottom" secondItem="W3Q-Np-edi" secondAttribute="bottom" constant="1" id="txz-d9-Tgi"/>
+                    <constraint firstItem="XiH-mD-A4L" firstAttribute="leading" secondItem="uo3-N3-mgd" secondAttribute="trailing" id="wr1-Zh-Cx6"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="askLbl" destination="XiH-mD-A4L" id="u4L-PH-bZI"/>
+                <outlet property="bidLbl" destination="uo3-N3-mgd" id="WzI-NP-Nl6"/>
+                <outlet property="titleLbl" destination="dEt-nO-K8W" id="Gih-CJ-KbD"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="150.66964285714286"/>
+        </tableViewCell>
+    </objects>
+</document>

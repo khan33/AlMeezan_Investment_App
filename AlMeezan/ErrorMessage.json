@@ -1,0 +1,149 @@
+[
+    {
+        "id" : "001",
+        "message" : "Successful Login"
+    },
+    {
+        "id" : "002",
+        "message": "Unsuccessful Login"
+    },
+    {
+        "id" : "101",
+        "message": "Data Not Found"
+    },
+    {
+        "id" : "102",
+        "message": "Invalid User"
+    },
+    {
+        "id" : "103",
+        "message": "Session Expire"
+    },
+    {
+        "id" : "104",
+        "message": "You Are not Register Customer"
+    },
+    {
+        "id" : "105",
+        "message": "Insufficient Balance"
+    },
+    
+    {
+        "id" : "106",
+        "message": "Parameter Not Found"
+    },
+    {
+        "id" : "107",
+        "message": "Complain Submission Failed"
+    },
+    {
+        "id" : "108",
+        "message": "You are already applied for Registration. Email has been Resent."
+    },
+    {
+        "id" : "109",
+        "message": "Enter valid information for subscription."
+    },
+    {
+        "id" : "110",
+        "message": "You are Registered Customer."
+    },
+    
+    {
+        "id" : "111",
+        "message": "You are not able to register from here, Please contact Customer Service for registration."
+    },
+    {
+        "id" : "112",
+        "message": "Thank you for submitting your registration information to Al Meezan. An email has been sent to your email address, to complete your registration and continue with your request, please login to your email account and follow the instructions."
+    },
+    {
+        "id" : "113",
+        "message": "Old Password is Incorrect."
+    },
+    {
+        "id" : "114",
+        "message": "You are not Registered Client"
+    },
+    {
+        "id" : "115",
+        "message": "You are not Registered Customer"
+    },
+    {
+        "id" : "116",
+        "message": "Incorrect Information Provided"
+    },
+    {
+        "id" : "117",
+        "message": "Email has been sent to your email address, please login to your email account and follow the instructions."
+    },
+    {
+        "id" : "118",
+        "message": "Dear Customer, Your account is marked as UNVERIFIED, please contact your Sales Advisor or call 0800-42525 for information."
+    },
+    {
+        "id" : "119",
+        "message": "Sorry, Meezan Easy Cash transaction can not be entertained after Cut-Off Time."
+    },
+    {
+        "id" : "120",
+        "message": "Sorry, Your transaction amount should be less than or equal to 100,000 or 80% of balance whichever is lower."
+    },
+    
+    {
+        "id" : "121",
+        "message": "Minimum investment amount for Meezan Rozana Amdani Fund is Rs. 500,000."
+    },
+    {
+        "id" : "122",
+        "message": "Your selected fund is temporarily unavailable."
+    },
+    {
+        "id" : "201",
+        "message": "Request Has been Sent"
+    },
+    {
+        "id" : "210",
+        "message": "An account is already registered against this CNIC. For more details contact 0800-42525 (HALAL)."
+    },
+    {
+        "id" : "211",
+        "message": "You are exisiting customer of almeezan and not registerd Meezan Funds Online user"
+    },
+    {
+        "id" : "212",
+        "message": "You are exisiting customer of almeezan and registerd Meezan Funds Online user"
+    },
+    {
+        "id" : "213",
+        "message": "Some fields are missing."
+    },
+    {
+        "id" : "214",
+        "message": "Invalid SMS or Email Pin"
+    },
+    {
+        "id" : "215",
+        "message": "Investment Amount should be 5,000 (min) or 25,000 (max)"
+    },
+    {
+        "id" : "216",
+        "message": "You are unable to perform any transaction due to Dormant Account."
+    },
+    {
+        "id" : "217",
+        "message": "This account against this CNIC is already under process. For more details contact 0800-42525 (HALAL)"
+    },
+    {
+        "id" : "301",
+        "message": "Your account is temporarily blocked."
+    },
+    {
+        "id" : "401",
+        "message": "You desired CNIC is already registered."
+    }
+
+
+
+    
+]

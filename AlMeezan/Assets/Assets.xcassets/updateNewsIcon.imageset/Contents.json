@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "updateNewsIcon.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

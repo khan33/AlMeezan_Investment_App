@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="CircularStd-Book.otf">
+            <string>CircularStd-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="101" id="KGk-i7-Jjw" customClass="SectorViewCell" customModule="AlMeezan" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="420" height="101"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="420" height="101"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Chemical" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WO-Im-JDd">
+                        <rect key="frame" x="20" y="16" width="272" height="15.5"/>
+                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                        <color key="textColor" red="0.35686274509803922" green="0.37254901960784315" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lotchem" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yo7-6W-XgX">
+                        <rect key="frame" x="20" y="47.5" width="272" height="28.5"/>
+                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="16"/>
+                        <color key="textColor" red="0.43921568630000002" green="0.1215686275" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHN-mC-b94">
+                        <rect key="frame" x="308" y="34" width="88" height="33"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="88" id="Spd-Mb-0JS"/>
+                            <constraint firstAttribute="height" constant="33" id="zXA-VX-kRa"/>
+                        </constraints>
+                        <state key="normal" title="ADD">
+                            <color key="titleColor" red="0.43921568630000002" green="0.1215686275" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="REt-UR-v2o">
+                        <rect key="frame" x="20" y="88" width="380" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Wdi-qR-F1g"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="0WO-Im-JDd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="1Qr-QZ-Elf"/>
+                    <constraint firstItem="DHN-mC-b94" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="AdH-7e-frN"/>
+                    <constraint firstItem="Yo7-6W-XgX" firstAttribute="trailing" secondItem="0WO-Im-JDd" secondAttribute="trailing" id="An4-M6-Jbp"/>
+                    <constraint firstItem="Yo7-6W-XgX" firstAttribute="top" secondItem="0WO-Im-JDd" secondAttribute="bottom" constant="16" id="BGm-YD-Rrf"/>
+                    <constraint firstItem="DHN-mC-b94" firstAttribute="leading" secondItem="0WO-Im-JDd" secondAttribute="trailing" constant="16" id="DaV-LM-lET"/>
+                    <constraint firstAttribute="bottom" secondItem="REt-UR-v2o" secondAttribute="bottom" constant="12" id="HgR-22-hCE"/>
+                    <constraint firstAttribute="trailing" secondItem="REt-UR-v2o" secondAttribute="trailing" constant="20" id="OYF-xQ-MB1"/>
+                    <constraint firstItem="Yo7-6W-XgX" firstAttribute="leading" secondItem="0WO-Im-JDd" secondAttribute="leading" id="TL8-oG-pNT"/>
+                    <constraint firstItem="0WO-Im-JDd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="WRn-WT-fDT"/>
+                    <constraint firstItem="REt-UR-v2o" firstAttribute="top" secondItem="Yo7-6W-XgX" secondAttribute="bottom" constant="12" id="WY4-l0-ata"/>
+                    <constraint firstItem="REt-UR-v2o" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="XrT-7N-gFv"/>
+                    <constraint firstAttribute="trailing" secondItem="DHN-mC-b94" secondAttribute="trailing" constant="24" id="mem-H4-dkM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addBtn" destination="DHN-mC-b94" id="g4h-41-NMa"/>
+                <outlet property="companyLbl" destination="Yo7-6W-XgX" id="Q0j-y3-jGr"/>
+                <outlet property="industryLbl" destination="0WO-Im-JDd" id="yfk-Ej-Uvd"/>
+            </connections>
+            <point key="canvasLocation" x="-505.79710144927537" y="93.415178571428569"/>
+        </tableViewCell>
+    </objects>
+</document>

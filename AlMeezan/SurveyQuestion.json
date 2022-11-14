@@ -1,0 +1,69 @@
+{
+    "questions":
+    [
+        {
+            "question":"How likely are you to recommend Al Meezan Investments to you family, friends and colleagues?",
+            "id": 1,
+            "isSelected": false,
+            "options":[{"answer": "Very Likely"},{"answer": "Neutral"},{"answer": "Not Likely"}],
+          "sub_questions": [
+                {
+                    "question":"Product Offering ",
+                    "id": 1,
+                    "isSelected": false,
+                    "options":[{"answer": "Satisfactory"},{"answer": "Un Satisfactory"},{"answer": "Not Applicable"}]
+                }
+            ]
+        
+      
+        },
+
+        {
+            "question":"Why did you give this score?",
+            "id": 1,
+            "isSelected": false,
+            "options":[{"answer": "Satisfactory"},{"answer": "Un Satisfactory"},{"answer": "Not Applicable"}],
+            "sub_questions": [
+                {
+                    "question":"Product Offering ",
+                    "id": 2,
+                    "isSelected": false,
+                    "options":[{"answer": "Satisfactory"},{"answer": "Un Satisfactory "},{"answer": "Not Applicable"}]
+                },
+                {
+                    "question":"Returns",
+                    "id": 3,
+                    "isSelected": false,
+                    "options":[{"answer": "Satisfactory"},{"answer": "Un Satisfactory"},{"answer": "Not Applicable"}]
+                },
+                
+                {
+                    "question":"Services by Al Meezan Staff ",
+                    "id": 4,
+                    "isSelected": false,
+                    "options":[{"answer": "Satisfactory"},{"answer": "Un Satisfactory"},{"answer": "Not Applicable"}]
+                },
+                {
+                    "question":"Value Added Services offered by Al Meezan ",
+                    "id": 5,
+                    "isSelected": false,
+                    "options":[{"answer": "Satisfactory"},{"answer": "Un Satisfactory"},{"answer": "Not Applicable"}]
+                },
+                {
+                    "question":"Management Credibility ",
+                    "id": 6,
+                    "isSelected": false,
+                    "options":[{"answer": "Satisfactory"},{"answer": "Un Satisfactory"},{"answer": "Not Applicable"}]
+                },
+                {
+                    "question":"Shariah Compliant Values",
+                    "id": 7,
+                    "isSelected": false,
+                    "options":[{"answer": "Satisfactory"},{"answer": "Un Satisfactory"},{"answer": "Not Applicable"}]
+                }
+            ]
+        }
+        
+    ]
+}
+

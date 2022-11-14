@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="CircularStd-Book.otf">
+            <string>CircularStd-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="144" id="KGk-i7-Jjw" customClass="DeclinersTableViewCell" customModule="AlMeezan" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="494" height="144"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="494" height="144"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rfy-fN-iMb">
+                        <rect key="frame" x="20" y="14" width="454" height="126"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wqn-Dj-PsX">
+                                <rect key="frame" x="8" y="16" width="438" height="48.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="INDU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GNk-dl-8rV">
+                                        <rect key="frame" x="8" y="8" width="29" height="15.5"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                        <color key="textColor" red="0.55294117647058827" green="0.15294117647058825" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Indus Motor Company" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7s-k0-J43">
+                                        <rect key="frame" x="8" y="27.5" width="184" height="13"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="10"/>
+                                        <color key="textColor" red="0.35686274509803922" green="0.37254901960784315" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="369.9" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LRi-ua-hOn">
+                                        <rect key="frame" x="229" y="16.5" width="30.5" height="15.5"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                        <color key="textColor" red="0.55294117647058827" green="0.15294117647058825" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="256" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Rm-gB-t87">
+                                        <rect key="frame" x="344.5" y="16.5" width="20" height="15.5"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                        <color key="textColor" red="0.35686274509999999" green="0.37254901959999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="58000.0" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pp6-EJ-Hzw">
+                                        <rect key="frame" x="372.5" y="16.5" width="45.5" height="15.5"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                        <color key="textColor" red="0.55294117649999996" green="0.1529411765" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="decliners-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="Dk8-2y-XHP">
+                                        <rect key="frame" x="212" y="18" width="9" height="13"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.96322073063380287" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="h7s-k0-J43" firstAttribute="width" secondItem="Wqn-Dj-PsX" secondAttribute="width" multiplier="0.420489" id="1Ym-NA-euA"/>
+                                    <constraint firstItem="Dk8-2y-XHP" firstAttribute="centerY" secondItem="Wqn-Dj-PsX" secondAttribute="centerY" id="1u4-60-cFq"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pp6-EJ-Hzw" secondAttribute="trailing" constant="20" id="3sO-gv-aur"/>
+                                    <constraint firstItem="8Rm-gB-t87" firstAttribute="centerY" secondItem="Pp6-EJ-Hzw" secondAttribute="centerY" id="75Q-AF-fjx"/>
+                                    <constraint firstItem="Pp6-EJ-Hzw" firstAttribute="leading" secondItem="8Rm-gB-t87" secondAttribute="trailing" constant="8" id="BGE-Up-gZr"/>
+                                    <constraint firstItem="h7s-k0-J43" firstAttribute="leading" secondItem="GNk-dl-8rV" secondAttribute="leading" id="FPn-hn-0Qo"/>
+                                    <constraint firstItem="GNk-dl-8rV" firstAttribute="top" secondItem="Wqn-Dj-PsX" secondAttribute="top" constant="8" id="Nsu-yw-R75"/>
+                                    <constraint firstItem="LRi-ua-hOn" firstAttribute="centerY" secondItem="Dk8-2y-XHP" secondAttribute="centerY" id="Sv6-Ne-dOs"/>
+                                    <constraint firstItem="Pp6-EJ-Hzw" firstAttribute="centerY" secondItem="Wqn-Dj-PsX" secondAttribute="centerY" id="UT7-kj-McV"/>
+                                    <constraint firstItem="GNk-dl-8rV" firstAttribute="leading" secondItem="Wqn-Dj-PsX" secondAttribute="leading" constant="8" id="WcL-ra-SQZ"/>
+                                    <constraint firstItem="Dk8-2y-XHP" firstAttribute="leading" secondItem="h7s-k0-J43" secondAttribute="trailing" constant="20" id="eGE-dm-Ph6"/>
+                                    <constraint firstItem="h7s-k0-J43" firstAttribute="top" secondItem="GNk-dl-8rV" secondAttribute="bottom" constant="4" id="qfq-c9-eGk"/>
+                                    <constraint firstAttribute="bottom" secondItem="h7s-k0-J43" secondAttribute="bottom" constant="8" id="vjr-cc-J62"/>
+                                    <constraint firstItem="LRi-ua-hOn" firstAttribute="leading" secondItem="Dk8-2y-XHP" secondAttribute="trailing" constant="8" id="xmh-Rq-720"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LDCP" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pu9-MY-7st">
+                                <rect key="frame" x="8" y="72.5" width="109.5" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.55294117649999996" green="0.1529411765" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIh-JI-yaa">
+                                <rect key="frame" x="8" y="96" width="109.5" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.3529411764705882" green="0.37254901960784315" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cI-I0-fQ9">
+                                <rect key="frame" x="148" y="72.5" width="73" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.55294117649999996" green="0.1529411765" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnF-Bk-8v1">
+                                <rect key="frame" x="226" y="72.5" width="73.5" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.55294117649999996" green="0.1529411765" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnO-EL-53L">
+                                <rect key="frame" x="299.5" y="72.5" width="73" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.55294117649999996" green="0.1529411765" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Volume" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPG-qR-Fol">
+                                <rect key="frame" x="372.5" y="72.5" width="73.5" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.55294117649999996" green="0.1529411765" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0002" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wy-Fj-UJS">
+                                <rect key="frame" x="148" y="96" width="73" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.3529411764705882" green="0.37254901960784315" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFI-vo-0ua">
+                                <rect key="frame" x="323.5" y="96" width="25" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.3529411764705882" green="0.37254901960784315" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ce-Q7-WFA">
+                                <rect key="frame" x="397" y="96" width="25" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.3529411764705882" green="0.37254901960784315" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.001" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dx-0q-CEv">
+                                <rect key="frame" x="248.5" y="96" width="29" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.3529411764705882" green="0.37254901960784315" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="1ce-Q7-WFA" firstAttribute="centerY" secondItem="GFI-vo-0ua" secondAttribute="centerY" id="5gh-GM-wkT"/>
+                            <constraint firstItem="1ce-Q7-WFA" firstAttribute="centerX" secondItem="zPG-qR-Fol" secondAttribute="centerX" id="BDZ-rF-Zn1"/>
+                            <constraint firstItem="pu9-MY-7st" firstAttribute="width" secondItem="Wqn-Dj-PsX" secondAttribute="width" multiplier="0.25" id="Cqw-zm-3Xv"/>
+                            <constraint firstItem="1wy-Fj-UJS" firstAttribute="leading" secondItem="2cI-I0-fQ9" secondAttribute="leading" id="D8g-Vj-CTo"/>
+                            <constraint firstAttribute="trailing" secondItem="Wqn-Dj-PsX" secondAttribute="trailing" constant="8" id="Gby-US-Mg1"/>
+                            <constraint firstItem="zPG-qR-Fol" firstAttribute="width" secondItem="qnO-EL-53L" secondAttribute="width" id="HZM-A9-lIR"/>
+                            <constraint firstItem="zPG-qR-Fol" firstAttribute="leading" secondItem="qnO-EL-53L" secondAttribute="trailing" id="IT6-Et-9n0"/>
+                            <constraint firstItem="1wy-Fj-UJS" firstAttribute="trailing" secondItem="2cI-I0-fQ9" secondAttribute="trailing" id="Iem-tt-Lje"/>
+                            <constraint firstItem="zPG-qR-Fol" firstAttribute="centerY" secondItem="qnO-EL-53L" secondAttribute="centerY" id="K6J-Tu-aLz"/>
+                            <constraint firstItem="zPG-qR-Fol" firstAttribute="trailing" secondItem="Wqn-Dj-PsX" secondAttribute="trailing" id="NH9-tw-22G"/>
+                            <constraint firstItem="dnF-Bk-8v1" firstAttribute="width" secondItem="2cI-I0-fQ9" secondAttribute="width" id="OKR-HD-xgh"/>
+                            <constraint firstItem="2cI-I0-fQ9" firstAttribute="width" secondItem="pu9-MY-7st" secondAttribute="width" multiplier="0.66" constant="1" id="Wd4-tB-bhc"/>
+                            <constraint firstItem="qnO-EL-53L" firstAttribute="centerY" secondItem="dnF-Bk-8v1" secondAttribute="centerY" id="X1i-bS-XcA"/>
+                            <constraint firstItem="aIh-JI-yaa" firstAttribute="top" secondItem="pu9-MY-7st" secondAttribute="bottom" constant="8" id="Y5q-ek-Y7i"/>
+                            <constraint firstItem="qnO-EL-53L" firstAttribute="width" secondItem="dnF-Bk-8v1" secondAttribute="width" id="YK9-sa-s5s"/>
+                            <constraint firstItem="2cI-I0-fQ9" firstAttribute="centerY" secondItem="pu9-MY-7st" secondAttribute="centerY" id="YbQ-mO-kFD"/>
+                            <constraint firstItem="qnO-EL-53L" firstAttribute="leading" secondItem="dnF-Bk-8v1" secondAttribute="trailing" id="Z4i-PP-1JO"/>
+                            <constraint firstItem="dnF-Bk-8v1" firstAttribute="leading" secondItem="2cI-I0-fQ9" secondAttribute="trailing" constant="5" id="axS-QH-0Pc"/>
+                            <constraint firstItem="dnF-Bk-8v1" firstAttribute="centerY" secondItem="2cI-I0-fQ9" secondAttribute="centerY" id="bwT-xt-gNk"/>
+                            <constraint firstItem="aIh-JI-yaa" firstAttribute="leading" secondItem="pu9-MY-7st" secondAttribute="leading" id="dIg-Eg-t4t"/>
+                            <constraint firstItem="pu9-MY-7st" firstAttribute="leading" secondItem="Wqn-Dj-PsX" secondAttribute="leading" id="dMg-i7-aFl"/>
+                            <constraint firstItem="2dx-0q-CEv" firstAttribute="centerY" secondItem="1wy-Fj-UJS" secondAttribute="centerY" id="dXj-0l-uTi"/>
+                            <constraint firstItem="Wqn-Dj-PsX" firstAttribute="top" secondItem="Rfy-fN-iMb" secondAttribute="top" constant="16" id="err-8D-iLV"/>
+                            <constraint firstItem="GFI-vo-0ua" firstAttribute="centerX" secondItem="qnO-EL-53L" secondAttribute="centerX" id="hlL-fo-gZh"/>
+                            <constraint firstItem="aIh-JI-yaa" firstAttribute="trailing" secondItem="pu9-MY-7st" secondAttribute="trailing" id="kzS-nE-FKc"/>
+                            <constraint firstItem="2dx-0q-CEv" firstAttribute="centerX" secondItem="dnF-Bk-8v1" secondAttribute="centerX" id="mBD-YV-rGv"/>
+                            <constraint firstItem="1wy-Fj-UJS" firstAttribute="centerY" secondItem="aIh-JI-yaa" secondAttribute="centerY" id="mNF-t6-1Wr"/>
+                            <constraint firstItem="Wqn-Dj-PsX" firstAttribute="leading" secondItem="Rfy-fN-iMb" secondAttribute="leading" constant="8" id="sar-kU-g91"/>
+                            <constraint firstItem="GFI-vo-0ua" firstAttribute="centerY" secondItem="2dx-0q-CEv" secondAttribute="centerY" id="sko-09-15U"/>
+                            <constraint firstAttribute="bottom" secondItem="aIh-JI-yaa" secondAttribute="bottom" constant="14.5" id="ssj-gl-NPQ"/>
+                            <constraint firstItem="pu9-MY-7st" firstAttribute="top" secondItem="Wqn-Dj-PsX" secondAttribute="bottom" constant="8" id="uaY-BB-zXc"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="0.0" height="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.95686274509803915" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="Rfy-fN-iMb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="0Sy-lu-dht"/>
+                    <constraint firstAttribute="trailing" secondItem="Rfy-fN-iMb" secondAttribute="trailing" constant="20" id="4Mp-7E-MkW"/>
+                    <constraint firstAttribute="bottom" secondItem="Rfy-fN-iMb" secondAttribute="bottom" constant="4" id="GfF-Af-YxZ"/>
+                    <constraint firstItem="Rfy-fN-iMb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="eXw-ge-Lxf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="changePrcLbl" destination="Pp6-EJ-Hzw" id="yhR-Nb-dA1"/>
+                <outlet property="closeValueLbl" destination="aIh-JI-yaa" id="yfm-ve-Wy3"/>
+                <outlet property="companyNameLbl" destination="GNk-dl-8rV" id="2Dk-5g-yxo"/>
+                <outlet property="highLbl" destination="2dx-0q-CEv" id="2pQ-Lt-2rz"/>
+                <outlet property="imgView" destination="Dk8-2y-XHP" id="Jj5-fM-9BO"/>
+                <outlet property="lastLbl" destination="LRi-ua-hOn" id="y5Y-LJ-yyk"/>
+                <outlet property="lowLbl" destination="GFI-vo-0ua" id="vEz-pV-vGx"/>
+                <outlet property="netChange" destination="8Rm-gB-t87" id="ahJ-sn-Ucp"/>
+                <outlet property="openLbl" destination="1wy-Fj-UJS" id="mFe-ah-Cho"/>
+                <outlet property="sectorLbl" destination="h7s-k0-J43" id="IHQ-2a-ccD"/>
+                <outlet property="volumeLbl" destination="1ce-Q7-WFA" id="G4T-l7-fmi"/>
+            </connections>
+            <point key="canvasLocation" x="-38" y="68"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="decliners-arrow" width="9" height="13"/>
+    </resources>
+</document>

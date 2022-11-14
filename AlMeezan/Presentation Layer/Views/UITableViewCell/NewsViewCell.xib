@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="CircularStd-Book.otf">
+            <string>CircularStd-Book</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="256" id="KGk-i7-Jjw" customClass="NewsViewCell" customModule="AlMeezan" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="501" height="256"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="501" height="256"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ns1-z4-VGN">
+                        <rect key="frame" x="20" y="10" width="461" height="236"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="news1" translatesAutoresizingMaskIntoConstraints="NO" id="Hrs-Q8-v4U">
+                                <rect key="frame" x="20" y="20" width="88" height="88"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="88" id="79L-1k-aoQ"/>
+                                    <constraint firstAttribute="height" constant="88" id="axr-b6-tW2"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QIf-ky-zFP">
+                                <rect key="frame" x="20" y="124" width="421" height="96"/>
+                                <string key="text">The federal government has so far released Rs102.935 billion for various ongoing and new social sector uplift projects under its Public Sector Development Programme (PSDP) 2019-20, as against the total allocation of Rs 701 billion.</string>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wI7-EN-b77">
+                                <rect key="frame" x="124" y="25" width="321" height="35.5"/>
+                                <string key="text">US stocks tumble on weak 
+manufacturing data</string>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="14"/>
+                                <color key="textColor" red="0.43921568630000002" green="0.1215686275" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oct 02, 2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYo-Fr-Lhj">
+                                <rect key="frame" x="124" y="68" width="67.5" height="14.5"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                                <color key="textColor" red="0.13725490200000001" green="0.1529411765" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Hrs-Q8-v4U" firstAttribute="leading" secondItem="ns1-z4-VGN" secondAttribute="leading" constant="20" id="2sh-yf-otX"/>
+                            <constraint firstItem="wI7-EN-b77" firstAttribute="top" secondItem="ns1-z4-VGN" secondAttribute="top" constant="25" id="3pj-qR-mlS"/>
+                            <constraint firstAttribute="bottom" secondItem="QIf-ky-zFP" secondAttribute="bottom" constant="16" id="9PS-Df-jNm"/>
+                            <constraint firstItem="fYo-Fr-Lhj" firstAttribute="leading" secondItem="wI7-EN-b77" secondAttribute="leading" id="IIA-9a-IW8"/>
+                            <constraint firstItem="QIf-ky-zFP" firstAttribute="top" secondItem="Hrs-Q8-v4U" secondAttribute="bottom" constant="16" id="NkS-xS-4vs"/>
+                            <constraint firstItem="fYo-Fr-Lhj" firstAttribute="top" secondItem="wI7-EN-b77" secondAttribute="bottom" constant="7.5" id="RPb-dD-8xg"/>
+                            <constraint firstAttribute="trailing" secondItem="wI7-EN-b77" secondAttribute="trailing" constant="16" id="RfF-Cy-YJ4"/>
+                            <constraint firstItem="Hrs-Q8-v4U" firstAttribute="top" secondItem="ns1-z4-VGN" secondAttribute="top" constant="20" id="U5W-O5-6Se"/>
+                            <constraint firstItem="QIf-ky-zFP" firstAttribute="leading" secondItem="ns1-z4-VGN" secondAttribute="leading" constant="20" id="cnX-Np-Kbu"/>
+                            <constraint firstAttribute="trailing" secondItem="QIf-ky-zFP" secondAttribute="trailing" constant="20" id="irK-zT-jCO"/>
+                            <constraint firstItem="wI7-EN-b77" firstAttribute="leading" secondItem="Hrs-Q8-v4U" secondAttribute="trailing" constant="16" id="xaN-3J-Suv"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="0.0" height="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.95686274509803915" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="ns1-z4-VGN" secondAttribute="trailing" constant="20" id="243-Am-dbM"/>
+                    <constraint firstItem="ns1-z4-VGN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="BsY-gt-P41"/>
+                    <constraint firstAttribute="bottom" secondItem="ns1-z4-VGN" secondAttribute="bottom" constant="10" id="TzQ-jC-ArJ"/>
+                    <constraint firstItem="ns1-z4-VGN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="o87-fh-GAM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="imgView" destination="Hrs-Q8-v4U" id="SPW-4X-5sd"/>
+                <outlet property="newsDescription" destination="QIf-ky-zFP" id="Uv1-Yb-Qa5"/>
+                <outlet property="newsTitle" destination="wI7-EN-b77" id="hw2-jc-fiU"/>
+                <outlet property="pubDate" destination="fYo-Fr-Lhj" id="M1L-bp-Vic"/>
+            </connections>
+            <point key="canvasLocation" x="116.66666666666667" y="39.508928571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="news1" width="60" height="60"/>
+    </resources>
+</document>

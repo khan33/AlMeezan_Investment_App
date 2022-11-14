@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "blog_notify.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

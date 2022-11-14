@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="CircularStd-Book.otf">
+            <string>CircularStd-Book</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="154" id="KGk-i7-Jjw" customClass="ExtraFeatureCell" customModule="AlMeezan" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="154"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="154"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Extra Features" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWr-0a-tMG">
+                        <rect key="frame" x="20" y="8" width="96.5" height="19"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="P3j-u9-YaH"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="15"/>
+                        <color key="textColor" red="0.13725490200000001" green="0.1529411765" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="AMZ-bo-GY5">
+                        <rect key="frame" x="20" y="35" width="335" height="91"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJM-Oq-u3L">
+                                <rect key="frame" x="0.0" y="0.0" width="157.5" height="91"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payout Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJU-6h-coa">
+                                        <rect key="frame" x="16" y="16" width="125.5" height="13"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="10"/>
+                                        <color key="textColor" red="0.13725490200000001" green="0.1529411765" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Not Available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OH-b7-1QA">
+                                        <rect key="frame" x="16" y="45" width="125.5" height="14.5"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                                        <color key="textColor" red="0.4392156862745098" green="0.12156862745098039" blue="0.49411764705882355" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="5OH-b7-1QA" firstAttribute="leading" secondItem="fJU-6h-coa" secondAttribute="leading" id="1bc-iG-8kA"/>
+                                    <constraint firstItem="fJU-6h-coa" firstAttribute="leading" secondItem="yJM-Oq-u3L" secondAttribute="leading" constant="16" id="HfD-t5-ypL"/>
+                                    <constraint firstItem="fJU-6h-coa" firstAttribute="top" secondItem="yJM-Oq-u3L" secondAttribute="top" constant="16" id="pxn-NO-zew"/>
+                                    <constraint firstAttribute="trailing" secondItem="fJU-6h-coa" secondAttribute="trailing" constant="16" id="qi5-9y-ljt"/>
+                                    <constraint firstItem="5OH-b7-1QA" firstAttribute="top" secondItem="fJU-6h-coa" secondAttribute="bottom" constant="16" id="uJk-5B-upl"/>
+                                    <constraint firstItem="5OH-b7-1QA" firstAttribute="trailing" secondItem="fJU-6h-coa" secondAttribute="trailing" id="ywP-5x-Nqg"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="0.0" height="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2M-dc-3go">
+                                <rect key="frame" x="177.5" y="0.0" width="157.5" height="91"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="None" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fac-bw-Qfh">
+                                        <rect key="frame" x="16" y="45" width="125.5" height="14.5"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                                        <color key="textColor" red="0.43921568630000002" green="0.1215686275" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lock-in-Period" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wz3-DE-5if">
+                                        <rect key="frame" x="16" y="15" width="66" height="13"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="10"/>
+                                        <color key="textColor" red="0.13725490200000001" green="0.1529411765" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="fac-bw-Qfh" firstAttribute="top" secondItem="Wz3-DE-5if" secondAttribute="bottom" constant="17" id="22j-hr-W8F"/>
+                                    <constraint firstItem="Wz3-DE-5if" firstAttribute="leading" secondItem="d2M-dc-3go" secondAttribute="leading" constant="16" id="9bb-N5-rpk"/>
+                                    <constraint firstItem="fac-bw-Qfh" firstAttribute="leading" secondItem="Wz3-DE-5if" secondAttribute="leading" id="cRZ-3h-umh"/>
+                                    <constraint firstItem="Wz3-DE-5if" firstAttribute="top" secondItem="d2M-dc-3go" secondAttribute="top" constant="15" id="cnx-IZ-kwo"/>
+                                    <constraint firstItem="4Fp-ao-DCh" firstAttribute="trailing" secondItem="fac-bw-Qfh" secondAttribute="trailing" constant="16" id="gEt-QQ-Qib"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="4Fp-ao-DCh"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="0.0" height="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="91" id="zbz-EM-RSp"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="AMZ-bo-GY5" secondAttribute="bottom" constant="8" id="4Sl-Aj-PQW"/>
+                    <constraint firstItem="nWr-0a-tMG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="5pr-6z-gSX"/>
+                    <constraint firstItem="nWr-0a-tMG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="7Hs-OU-vxe"/>
+                    <constraint firstAttribute="trailing" secondItem="AMZ-bo-GY5" secondAttribute="trailing" constant="20" id="BRP-zp-8Dq"/>
+                    <constraint firstItem="AMZ-bo-GY5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Cqn-kP-10Z"/>
+                    <constraint firstItem="AMZ-bo-GY5" firstAttribute="top" secondItem="nWr-0a-tMG" secondAttribute="bottom" constant="8" id="pM8-LX-QhG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lockInPeriodLbl" destination="fac-bw-Qfh" id="nPv-uH-KDs"/>
+                <outlet property="payoutPolicyLbl" destination="5OH-b7-1QA" id="5Oo-lb-edM"/>
+                <outlet property="payoutView" destination="yJM-Oq-u3L" id="Do1-iU-ffX"/>
+                <outlet property="stackViewHeight" destination="zbz-EM-RSp" id="Saq-l1-g2u"/>
+            </connections>
+            <point key="canvasLocation" x="183.33333333333334" y="198.21428571428569"/>
+        </tableViewCell>
+    </objects>
+</document>

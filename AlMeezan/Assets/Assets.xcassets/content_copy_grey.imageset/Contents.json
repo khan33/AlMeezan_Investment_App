@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "content_copy_grey_192x192.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AllFundsDescription" representedClassName="AllFundsDescription" syncable="YES">
+        <attribute name="fundGroup" optional="YES" attributeType="String"/>
+        <attribute name="sort" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="fundDescription" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FundDescription"/>
+    </entity>
+    <entity name="CommoditiesModel" representedClassName="CommoditiesModel" syncable="YES">
+        <attribute name="close" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="dateTime" optional="YES" attributeType="String"/>
+        <attribute name="diff" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="entryDate" optional="YES" attributeType="String"/>
+        <attribute name="high" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="low" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="open" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="perc" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="range" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="symbol" optional="YES" attributeType="String"/>
+        <relationship name="trends" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Trend"/>
+    </entity>
+    <entity name="CustomerInvestment" representedClassName="CustomerInvestment" syncable="YES">
+        <attribute name="customerName" optional="YES" attributeType="String"/>
+        <attribute name="portfolioID" optional="YES" attributeType="String"/>
+        <relationship name="summary" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Summary"/>
+    </entity>
+    <entity name="ForexModel" representedClassName="ForexModel" syncable="YES">
+        <attribute name="ask" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bid" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="close" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="datetime" optional="YES" attributeType="String"/>
+        <attribute name="entrydatetime" optional="YES" attributeType="String"/>
+        <attribute name="high" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="low" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="open" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="symbol" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="FundDescription" representedClassName="FundDescription" syncable="YES">
+        <attribute name="benchmark" optional="YES" attributeType="String"/>
+        <attribute name="cAGR" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="dateOfInception" optional="YES" attributeType="String"/>
+        <attribute name="disclaimer" optional="YES" attributeType="String"/>
+        <attribute name="entryLoad" optional="YES" attributeType="String"/>
+        <attribute name="exitLoad" optional="YES" attributeType="String"/>
+        <attribute name="fundGroup" optional="YES" attributeType="String"/>
+        <attribute name="fundName" optional="YES" attributeType="String"/>
+        <attribute name="fundName1" optional="YES" attributeType="String"/>
+        <attribute name="fY1" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fY2" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="fY3" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fY4" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fYTD" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="investorRiskProfile" optional="YES" attributeType="String"/>
+        <attribute name="keyBenefits" optional="YES" attributeType="String"/>
+        <attribute name="lockInPeriod" optional="YES" attributeType="String"/>
+        <attribute name="managementFee" optional="YES" attributeType="String"/>
+        <attribute name="minimumInvestmentAmount" optional="YES" attributeType="String"/>
+        <attribute name="mnemonic" optional="YES" attributeType="String"/>
+        <attribute name="mtd" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="objective" optional="YES" attributeType="String"/>
+        <attribute name="payoutPolicy" optional="YES" attributeType="String"/>
+        <attribute name="serial" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sFID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sinceInception" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="String"/>
+        <attribute name="whoShouldInvest" optional="YES" attributeType="String"/>
+        <attribute name="youtubeLink" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="FundEntity" representedClassName="FundEntity" syncable="YES">
+        <attribute name="entryLoad" optional="YES" attributeType="String"/>
+        <attribute name="exitLoad" optional="YES" attributeType="String"/>
+        <attribute name="fund_group" optional="YES" attributeType="String"/>
+        <attribute name="fund_name" optional="YES" attributeType="String"/>
+        <attribute name="fund_size" optional="YES" attributeType="String"/>
+        <attribute name="fundCategory" optional="YES" attributeType="String"/>
+        <attribute name="management_fee" optional="YES" attributeType="String"/>
+        <attribute name="risk_level" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="FundHistoryModel" representedClassName="FundHistoryModel" syncable="YES">
+        <attribute name="fUND_NAME" optional="YES" attributeType="String"/>
+        <relationship name="history" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="History"/>
+    </entity>
+    <entity name="History" representedClassName="History" syncable="YES">
+        <attribute name="fUND_NAME" optional="YES" attributeType="String"/>
+        <attribute name="nav_date" optional="YES" attributeType="String"/>
+        <attribute name="nav_value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="KIBORDelayModel" representedClassName="KIBORDelayModel" syncable="YES">
+        <attribute name="ask" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bid" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="dateTime" optional="YES" attributeType="String"/>
+        <attribute name="days" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="entryTime" optional="YES" attributeType="String"/>
+        <attribute name="tenor" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="NavModel" representedClassName="NavModel" syncable="YES">
+        <attribute name="fundGroup" optional="YES" attributeType="String"/>
+        <attribute name="fundsort" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="navPerformance" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="NavPerformance"/>
+    </entity>
+    <entity name="NavPerformance" representedClassName="NavPerformance" syncable="YES">
+        <attribute name="currentFY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="cYTD" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="descriptionStr" optional="YES" attributeType="String"/>
+        <attribute name="fund_name" optional="YES" attributeType="String"/>
+        <attribute name="fundGroup" optional="YES" attributeType="String"/>
+        <attribute name="fundiD" optional="YES" attributeType="String"/>
+        <attribute name="fundshortname" optional="YES" attributeType="String"/>
+        <attribute name="fY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="inceptiondate" optional="YES" attributeType="String"/>
+        <attribute name="mTD" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="nAVDate" optional="YES" attributeType="String"/>
+        <attribute name="nAVPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="offerPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="previousFY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="redemptionPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="sign" optional="YES" attributeType="String"/>
+        <attribute name="sinceInception" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NavModel"/>
+    </entity>
+    <entity name="PKRVDelayModel" representedClassName="PKRVDelayModel" syncable="YES">
+        <attribute name="bid" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="datetime" optional="YES" attributeType="String"/>
+        <attribute name="days" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="entrydatetime" optional="YES" attributeType="String"/>
+        <attribute name="ord" optional="YES" attributeType="String"/>
+        <attribute name="tenor" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="PSXCompaniesModel" representedClassName="PSXCompaniesModel" syncable="YES">
+        <attribute name="ask" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="askVolume" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="averagePrice" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bid" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bidVolume" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="datetime" optional="YES" attributeType="String"/>
+        <attribute name="direction" optional="YES" attributeType="String"/>
+        <attribute name="entrydatetime" optional="YES" attributeType="String"/>
+        <attribute name="high" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="isAdded" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="last" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lastTradeVolume" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lDCP" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="low" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="marketCode" optional="YES" attributeType="String"/>
+        <attribute name="marketStatus" optional="YES" attributeType="String"/>
+        <attribute name="netChange" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="open" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="sector" optional="YES" attributeType="String"/>
+        <attribute name="symbol" optional="YES" attributeType="String"/>
+        <attribute name="totalTrades" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="volume" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="PSXCompaniesTopModel" representedClassName="PSXCompaniesTopModel" syncable="YES">
+        <attribute name="ask" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="askVolume" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="averagePrice" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bid" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bidVolume" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="changePerc" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="datetime" optional="YES" attributeType="String"/>
+        <attribute name="direction" optional="YES" attributeType="String"/>
+        <attribute name="entrydatetime" optional="YES" attributeType="String"/>
+        <attribute name="high" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="index" optional="YES" attributeType="Transformable"/>
+        <attribute name="last" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lastTradeVolume" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lDCP" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="low" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="marketCode" optional="YES" attributeType="String"/>
+        <attribute name="marketStatus" optional="YES" attributeType="String"/>
+        <attribute name="netChange" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="open" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="sector" optional="YES" attributeType="String"/>
+        <attribute name="symbol" optional="YES" attributeType="String"/>
+        <attribute name="totalTrades" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="volume" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Summary" representedClassName="Summary" syncable="YES">
+        <attribute name="agentId" optional="YES" attributeType="String"/>
+        <attribute name="agentName" optional="YES" attributeType="String"/>
+        <attribute name="balunits" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fundAgentId" optional="YES" attributeType="String"/>
+        <attribute name="fundAgentName" optional="YES" attributeType="String"/>
+        <attribute name="fundGroupName" optional="YES" attributeType="String"/>
+        <attribute name="fundid" optional="YES" attributeType="String"/>
+        <attribute name="fundShortName" optional="YES" attributeType="String"/>
+        <attribute name="fYGain" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="initailCost" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="marketValue" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="monthyIncome" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="nav" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="nav_date" optional="YES" attributeType="String"/>
+        <attribute name="portfolioID" optional="YES" attributeType="String"/>
+        <attribute name="purchases" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="redemption" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="relizedGain" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="sinceInceptionGain" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="unrelizedGain" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="SymbolEntity" representedClassName="SymbolEntity" syncable="YES">
+        <attribute name="symbol" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Trend" representedClassName="Trend" syncable="YES">
+        <attribute name="close" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="AllFundsDescription" positionX="-27" positionY="144" width="128" height="88"/>
+        <element name="CommoditiesModel" positionX="-9" positionY="180" width="128" height="208"/>
+        <element name="CustomerInvestment" positionX="-18" positionY="144" width="128" height="88"/>
+        <element name="ForexModel" positionX="-45" positionY="144" width="128" height="178"/>
+        <element name="FundDescription" positionX="-18" positionY="162" width="128" height="478"/>
+        <element name="FundEntity" positionX="-54" positionY="-9" width="128" height="165"/>
+        <element name="FundHistoryModel" positionX="9" positionY="198" width="128" height="73"/>
+        <element name="History" positionX="0" positionY="180" width="128" height="88"/>
+        <element name="KIBORDelayModel" positionX="-36" positionY="153" width="128" height="28"/>
+        <element name="NavModel" positionX="-36" positionY="144" width="128" height="88"/>
+        <element name="NavPerformance" positionX="-27" positionY="153" width="128" height="313"/>
+        <element name="PKRVDelayModel" positionX="-27" positionY="162" width="128" height="133"/>
+        <element name="PSXCompaniesModel" positionX="-36" positionY="144" width="128" height="373"/>
+        <element name="PSXCompaniesTopModel" positionX="-27" positionY="171" width="128" height="374"/>
+        <element name="Summary" positionX="-9" positionY="153" width="128" height="329"/>
+        <element name="SymbolEntity" positionX="-54" positionY="144" width="128" height="58"/>
+        <element name="Trend" positionX="-18" positionY="171" width="128" height="73"/>
+    </elements>
+</model>

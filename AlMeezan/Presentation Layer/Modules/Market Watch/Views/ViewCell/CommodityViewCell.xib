@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="CircularStd-Bold_1.ttf">
+            <string>CircularStd-Bold</string>
+        </array>
+        <array key="CircularStd-Book.otf">
+            <string>CircularStd-Book</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="583" id="KGk-i7-Jjw" customClass="CommodityViewCell" customModule="AlMeezan_Investment" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="466" height="583"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="466" height="583"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cme-CH-3xJ">
+                        <rect key="frame" x="0.0" y="0.0" width="466" height="583"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vCp-Rp-p5P">
+                                <rect key="frame" x="8" y="8" width="450" height="36"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16.375" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Wp-zs-LHD">
+                                        <rect key="frame" x="8" y="7" width="49.5" height="22"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Bold" family="Circular Std" pointSize="17"/>
+                                        <color key="textColor" red="0.43921568630000002" green="0.1215686275" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD/OZ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uz3-4d-bEU">
+                                        <rect key="frame" x="63.5" y="14" width="43.5" height="14.5"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                                        <color key="textColor" red="0.43921568630000002" green="0.1215686275" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-38.26 / -70.03%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mf-Yu-XEa">
+                                        <rect key="frame" x="339.5" y="9" width="102.5" height="18"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="14"/>
+                                        <color key="textColor" red="0.35686274509803922" green="0.37254901960784315" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.96249633215962438" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="0mf-Yu-XEa" secondAttribute="trailing" constant="8" id="4u6-d6-wtU"/>
+                                    <constraint firstAttribute="height" constant="36" id="PVa-d9-D3g"/>
+                                    <constraint firstItem="uz3-4d-bEU" firstAttribute="leading" secondItem="9Wp-zs-LHD" secondAttribute="trailing" constant="6" id="RUF-2C-9Jd"/>
+                                    <constraint firstItem="uz3-4d-bEU" firstAttribute="centerY" secondItem="9Wp-zs-LHD" secondAttribute="centerY" constant="3" id="UpM-TI-SNE"/>
+                                    <constraint firstItem="9Wp-zs-LHD" firstAttribute="centerY" secondItem="vCp-Rp-p5P" secondAttribute="centerY" id="lpu-ce-rtS"/>
+                                    <constraint firstItem="9Wp-zs-LHD" firstAttribute="leading" secondItem="vCp-Rp-p5P" secondAttribute="leading" constant="8" id="xjG-Ps-XQR"/>
+                                    <constraint firstItem="0mf-Yu-XEa" firstAttribute="centerY" secondItem="vCp-Rp-p5P" secondAttribute="centerY" id="zZ3-2E-la2"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxw-k0-rEp">
+                                <rect key="frame" x="16" y="60" width="30" height="18"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="14"/>
+                                <color key="textColor" red="0.35686274509803922" green="0.37254901960784315" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16.375" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxk-No-yKf">
+                                <rect key="frame" x="410.5" y="60" width="39.5" height="18"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="14"/>
+                                <color key="textColor" red="0.43921568630000002" green="0.1215686275" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hn-hO-EGq">
+                                <rect key="frame" x="16" y="86" width="434" height="0.5"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="FYE-Ja-iJi"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Low" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FmU-fE-WeH">
+                                <rect key="frame" x="16" y="94.5" width="27" height="18"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="14"/>
+                                <color key="textColor" red="0.35686274509999999" green="0.37254901959999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.375" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DeW-hw-bAI">
+                                <rect key="frame" x="416" y="94.5" width="34" height="18"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="14"/>
+                                <color key="textColor" red="0.43921568630000002" green="0.1215686275" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYq-De-Lkf">
+                                <rect key="frame" x="16" y="120.5" width="434" height="0.5"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="QDL-dI-3vv"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Range" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJD-UK-Gv2">
+                                <rect key="frame" x="16" y="129" width="39.5" height="18"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="14"/>
+                                <color key="textColor" red="0.35686274509999999" green="0.37254901959999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="753" text="USD/Oz" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSl-0z-v9r">
+                                <rect key="frame" x="27" y="215" width="51" height="18"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="14"/>
+                                <color key="textColor" red="0.35686274509999999" green="0.37254901959999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last 30 Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OxZ-sc-Gx5">
+                                <rect key="frame" x="381" y="216.5" width="69" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.35686274509999999" green="0.37254901959999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25.369" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEv-rJ-qPr">
+                                <rect key="frame" x="407" y="129" width="43" height="18"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="14"/>
+                                <color key="textColor" red="0.43921568630000002" green="0.1215686275" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAK-QZ-KlG">
+                                <rect key="frame" x="16" y="213" width="7" height="22"/>
+                                <state key="normal" image="long_arrow_up"/>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88N-C7-n07" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="249" width="434" height="295.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="295.5" id="Llb-P9-luy"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9T4-mQ-ghP">
+                                <rect key="frame" x="436" y="548" width="14" height="22"/>
+                                <state key="normal" image="long_arrow_right"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZd-qG-fXU">
+                                <rect key="frame" x="401.5" y="549.5" width="26.5" height="15.5"/>
+                                <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="12"/>
+                                <color key="textColor" red="0.35686274509803922" green="0.37254901960784315" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="JXf-wc-iCr">
+                                <rect key="frame" x="16" y="169" width="434" height="32"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CuW-1v-VrQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="87" height="32"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="13"/>
+                                        <state key="normal" title="7 D">
+                                            <color key="titleColor" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" red="0.54117647059999996" green="0.14901960780000001" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.40000000000000002"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="0.61676232990000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="182-bD-GSl">
+                                        <rect key="frame" x="87" y="0.0" width="86.5" height="32"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="13"/>
+                                        <state key="normal" title="1 M">
+                                            <color key="titleColor" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" red="0.54117647059999996" green="0.14901960780000001" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.40000000000000002"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="0.61676232990000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ED-LS-O2X">
+                                        <rect key="frame" x="173.5" y="0.0" width="87" height="32"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="13"/>
+                                        <state key="normal" title="3 M">
+                                            <color key="titleColor" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.40000000000000002"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="0.61676232990000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0G-TV-Pxz">
+                                        <rect key="frame" x="260.5" y="0.0" width="86.5" height="32"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="13"/>
+                                        <state key="normal" title="6 M">
+                                            <color key="titleColor" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.40000000000000002"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="0.61676232990000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTU-U7-xRz">
+                                        <rect key="frame" x="347" y="0.0" width="87" height="32"/>
+                                        <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="13"/>
+                                        <state key="normal" title="1 Y">
+                                            <color key="titleColor" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.40000000000000002"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.30980392159999998" green="0.35294117650000001" blue="0.39607843139999999" alpha="0.61676232990000002" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="CFT-4x-NsD"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FmU-fE-WeH" firstAttribute="leading" secondItem="oxw-k0-rEp" secondAttribute="leading" id="0TZ-rD-KyK"/>
+                            <constraint firstAttribute="trailing" secondItem="vCp-Rp-p5P" secondAttribute="trailing" constant="8" id="0nP-jq-0YB"/>
+                            <constraint firstItem="OxZ-sc-Gx5" firstAttribute="trailing" secondItem="CEv-rJ-qPr" secondAttribute="trailing" id="1lM-Qe-0lx"/>
+                            <constraint firstItem="Lxk-No-yKf" firstAttribute="centerY" secondItem="oxw-k0-rEp" secondAttribute="centerY" id="2X1-Ns-UYd"/>
+                            <constraint firstItem="9T4-mQ-ghP" firstAttribute="leading" secondItem="rZd-qG-fXU" secondAttribute="trailing" constant="8" id="4x7-Ez-jYk"/>
+                            <constraint firstItem="JXf-wc-iCr" firstAttribute="trailing" secondItem="CEv-rJ-qPr" secondAttribute="trailing" id="5Js-yc-dTl"/>
+                            <constraint firstItem="88N-C7-n07" firstAttribute="top" secondItem="nSl-0z-v9r" secondAttribute="bottom" constant="16" id="6h0-St-8Fh"/>
+                            <constraint firstItem="3hn-hO-EGq" firstAttribute="leading" secondItem="oxw-k0-rEp" secondAttribute="leading" id="93T-5q-qr2"/>
+                            <constraint firstItem="9T4-mQ-ghP" firstAttribute="centerY" secondItem="rZd-qG-fXU" secondAttribute="centerY" constant="1.5" id="Bap-P3-TgQ"/>
+                            <constraint firstItem="rZd-qG-fXU" firstAttribute="top" secondItem="88N-C7-n07" secondAttribute="bottom" constant="5" id="C3p-dd-qpv"/>
+                            <constraint firstItem="BJD-UK-Gv2" firstAttribute="leading" secondItem="oxw-k0-rEp" secondAttribute="leading" id="EOj-Ws-xqS"/>
+                            <constraint firstItem="oxw-k0-rEp" firstAttribute="leading" secondItem="cme-CH-3xJ" secondAttribute="leading" constant="16" id="FCd-Na-REC"/>
+                            <constraint firstItem="aYq-De-Lkf" firstAttribute="top" secondItem="FmU-fE-WeH" secondAttribute="bottom" constant="8" id="HT6-k0-aTd"/>
+                            <constraint firstItem="88N-C7-n07" firstAttribute="leading" secondItem="BJD-UK-Gv2" secondAttribute="leading" id="Hhk-E8-dCi"/>
+                            <constraint firstItem="WAK-QZ-KlG" firstAttribute="centerY" secondItem="nSl-0z-v9r" secondAttribute="centerY" id="IjN-yS-EAQ"/>
+                            <constraint firstItem="OxZ-sc-Gx5" firstAttribute="centerY" secondItem="nSl-0z-v9r" secondAttribute="centerY" id="LNj-eI-FLE"/>
+                            <constraint firstItem="3hn-hO-EGq" firstAttribute="trailing" secondItem="Lxk-No-yKf" secondAttribute="trailing" id="PAc-cy-Vje"/>
+                            <constraint firstItem="FmU-fE-WeH" firstAttribute="top" secondItem="3hn-hO-EGq" secondAttribute="bottom" constant="8" id="RPc-S2-wUg"/>
+                            <constraint firstItem="JXf-wc-iCr" firstAttribute="top" secondItem="BJD-UK-Gv2" secondAttribute="bottom" constant="22" id="SWW-Pd-0fX"/>
+                            <constraint firstItem="oxw-k0-rEp" firstAttribute="top" secondItem="vCp-Rp-p5P" secondAttribute="bottom" constant="16" id="Sb4-K0-b0F"/>
+                            <constraint firstItem="aYq-De-Lkf" firstAttribute="height" secondItem="3hn-hO-EGq" secondAttribute="height" id="SrT-oC-xGb"/>
+                            <constraint firstItem="aYq-De-Lkf" firstAttribute="leading" secondItem="3hn-hO-EGq" secondAttribute="leading" id="TYf-5y-ICq"/>
+                            <constraint firstAttribute="bottom" secondItem="rZd-qG-fXU" secondAttribute="bottom" constant="18" id="Tgl-qg-zL9"/>
+                            <constraint firstItem="nSl-0z-v9r" firstAttribute="leading" secondItem="WAK-QZ-KlG" secondAttribute="trailing" constant="4" id="Wid-xd-kKX"/>
+                            <constraint firstAttribute="trailing" secondItem="88N-C7-n07" secondAttribute="trailing" constant="16" id="YHl-pS-Wuz"/>
+                            <constraint firstItem="DeW-hw-bAI" firstAttribute="centerY" secondItem="FmU-fE-WeH" secondAttribute="centerY" id="YeP-vJ-Nr8"/>
+                            <constraint firstItem="aYq-De-Lkf" firstAttribute="trailing" secondItem="3hn-hO-EGq" secondAttribute="trailing" id="cDc-Kw-tqx"/>
+                            <constraint firstItem="BJD-UK-Gv2" firstAttribute="top" secondItem="aYq-De-Lkf" secondAttribute="bottom" constant="8" id="dqW-T9-Mln"/>
+                            <constraint firstItem="3hn-hO-EGq" firstAttribute="top" secondItem="oxw-k0-rEp" secondAttribute="bottom" constant="8" id="dsJ-Lq-2W8"/>
+                            <constraint firstItem="WAK-QZ-KlG" firstAttribute="leading" secondItem="BJD-UK-Gv2" secondAttribute="leading" id="hdI-uO-BIO"/>
+                            <constraint firstItem="vCp-Rp-p5P" firstAttribute="top" secondItem="cme-CH-3xJ" secondAttribute="top" constant="8" id="iNF-vq-vPY"/>
+                            <constraint firstAttribute="trailing" secondItem="9T4-mQ-ghP" secondAttribute="trailing" constant="16" id="kvk-Ur-Iik"/>
+                            <constraint firstItem="CEv-rJ-qPr" firstAttribute="centerY" secondItem="BJD-UK-Gv2" secondAttribute="centerY" id="lyt-R0-dkJ"/>
+                            <constraint firstItem="JXf-wc-iCr" firstAttribute="leading" secondItem="BJD-UK-Gv2" secondAttribute="leading" id="miO-ag-KyM"/>
+                            <constraint firstAttribute="trailing" secondItem="Lxk-No-yKf" secondAttribute="trailing" constant="16" id="n1V-9u-fsf"/>
+                            <constraint firstItem="nSl-0z-v9r" firstAttribute="top" secondItem="JXf-wc-iCr" secondAttribute="bottom" constant="14" id="q7z-yf-wK7"/>
+                            <constraint firstItem="CEv-rJ-qPr" firstAttribute="trailing" secondItem="Lxk-No-yKf" secondAttribute="trailing" id="r17-BS-apu"/>
+                            <constraint firstItem="DeW-hw-bAI" firstAttribute="trailing" secondItem="Lxk-No-yKf" secondAttribute="trailing" id="v8c-ZM-rf6"/>
+                            <constraint firstItem="vCp-Rp-p5P" firstAttribute="leading" secondItem="cme-CH-3xJ" secondAttribute="leading" constant="8" id="whz-QO-nXU"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="0.0" height="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" systemColor="systemGrayColor"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.95686274509803915" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="cme-CH-3xJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="HD7-mR-7qj"/>
+                    <constraint firstItem="cme-CH-3xJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="JRF-G8-LfQ"/>
+                    <constraint firstAttribute="bottom" secondItem="cme-CH-3xJ" secondAttribute="bottom" id="Pbc-bT-Xvm"/>
+                    <constraint firstAttribute="trailing" secondItem="cme-CH-3xJ" secondAttribute="trailing" id="tgz-GQ-Wk3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="differencLbl" destination="0mf-Yu-XEa" id="WvF-M9-2yw"/>
+                <outlet property="highLbl" destination="Lxk-No-yKf" id="O7O-mG-eAV"/>
+                <outlet property="lastdaysLbl" destination="OxZ-sc-Gx5" id="bw2-wg-RnC"/>
+                <outlet property="lineChartView" destination="88N-C7-n07" id="VEH-y7-x3M"/>
+                <outlet property="lowLbl" destination="DeW-hw-bAI" id="vkV-l1-Ivx"/>
+                <outlet property="oneMonthBtn" destination="182-bD-GSl" id="XmX-GV-gbi"/>
+                <outlet property="oneYearBtn" destination="mTU-U7-xRz" id="0WR-J2-3el"/>
+                <outlet property="openLbl" destination="9Wp-zs-LHD" id="xPU-9L-0CK"/>
+                <outlet property="rangeLbl" destination="CEv-rJ-qPr" id="aFl-2F-CSV"/>
+                <outlet property="sixMonthBtn" destination="h0G-TV-Pxz" id="Cbw-ro-bm1"/>
+                <outlet property="symbolLbl" destination="nSl-0z-v9r" id="LKm-oy-b2S"/>
+                <outlet property="symoblTypeLbl" destination="uz3-4d-bEU" id="1fP-rT-gHr"/>
+                <outlet property="threeMonthBtn" destination="0ED-LS-O2X" id="imY-gT-tRf"/>
+                <outlet property="weeklyBtn" destination="CuW-1v-VrQ" id="eDl-cR-5pt"/>
+            </connections>
+            <point key="canvasLocation" x="208.69565217391306" y="167.07589285714286"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="long_arrow_right" width="14" height="7"/>
+        <image name="long_arrow_up" width="7" height="14"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

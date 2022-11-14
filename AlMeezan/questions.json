@@ -1,0 +1,62 @@
+{
+    "questions":
+    [
+        {
+            "question":"My age falls in the following bracket",
+            "id": 1,
+            "isSelected": false,
+            "options":[{"answer": "A. Less than 40"},{"answer": "B. 40 - 50"},{"answer": "C. 50 - 60"},{"answer": "D. 60+"}],
+            "weight":[{"value": 4 },{"value": 3},{"value": 2},{"value": 1}
+            ]
+        },
+        {
+            "id": 2,
+            "question":"I can take the following level of “Risk” on my investment",
+            "isSelected": false,
+            "options":[{"answer": "A. Low Risk"},{"answer": "B. Medicore Risk"},{"answer": "C. High Risk"}],
+            "weight":[{"value": 1 },{"value": 4},{"value": 8}
+            ]
+        },
+        
+        {
+            "question":"My Monthly savings are close to the following bracket",
+            "id": 3,
+            "isSelected": false,
+            "options":[{"answer": "A. Rs. 25,000 - Rs. 150,000"},{"answer": "B. Rs. 150,000+"}],
+            "weight":[{"value": 2 },{"value": 3}
+            ]
+        },
+        {
+            "question":"I am currently a",
+            "id": 4,
+            "isSelected": false,
+            "options":[{"answer": "A. Salaried Employee"},{"answer": "B. Buisness Owner/Self Employed"},{"answer": "C. Housewife/Student"},{"answer": "D. Retired Individual"}],
+            "weight":[{"value": 3 },{"value": 4},{"value": 2},{"value": 1}
+            ]
+        },
+        {
+            "question":"I wish to invest my money to",
+            "id": 5,
+            "isSelected": false,
+            "options":[{"answer": "A. Cash Management for short term"},{"answer": "B. Get Monthly Stable Income"},{"answer": "C. Save for longer term objectives such as capital growth or retirement"}],
+            "weight":[{"value": 2 },{"value": 4},{"value": 8}
+            ]
+        },
+        {
+            "question":"My knowledge of Financial Markets is",
+            "id": 6,
+            "isSelected": false,
+            "options":[{"answer": "A. Limited/Basic/Average"},{"answer": "B. Comprehensive/Good"}],
+            "weight":[{"value": 2 },{"value": 3}
+            ]
+        },
+        {
+            "question":"I wish to invest for",
+            "id": 7,
+            "isSelected": false,
+            "options":[{"answer": "A. Less than six months only"},{"answer": "B. Less than 1 year"},{"answer": "C. 2-3 Years"},{"answer": "D. More than 3 years"}],
+            "weight":[{"value": 2 },{"value": 4},{"value": 6},{"value": 8}
+            ]
+        }
+    ]
+}
