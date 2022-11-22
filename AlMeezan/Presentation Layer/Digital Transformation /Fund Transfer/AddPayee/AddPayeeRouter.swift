@@ -10,8 +10,8 @@ import Foundation
 
 class AddPayeeRouter: AddPayeeRouterProtocol {
     weak var navigationController: UINavigationController?
-    func navigateToOTPScreen(_ payee: FundTransferEntity.FetchPayeeTitleResponseModel, _ id: String){
-        let vc = AddPayeeOTPViewController(payee: payee, unique_id: id)
+    func navigateToOTPScreen(_ payee: FundTransferEntity.FetchPayeeTitleResponseModel, _ id: String, request: FundTransferEntity.AddPayeeRequest?){
+        let vc = AddPayeeOTPViewController(payee: payee, unique_id: id, type: .fundTransfer, transferReq: request, billReq: nil)
         PayeeOTPConfigurator.configureModule(viewController: vc)
         self.navigationController?.pushViewController(vc, animated: true)
     }

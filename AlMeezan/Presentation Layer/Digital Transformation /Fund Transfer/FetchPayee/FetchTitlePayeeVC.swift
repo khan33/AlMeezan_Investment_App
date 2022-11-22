@@ -194,7 +194,7 @@ class FetchTitlePayeeVC: UIViewController {
 
         addBeneficiaryBtn.centerYAnchor.constraint(equalTo: buttonView.centerYAnchor, constant: -5).isActive = true
         addBeneficiaryBtn.centerXAnchor.constraint(equalTo: buttonView.centerXAnchor).isActive = true
-        addBeneficiaryBtn.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        addBeneficiaryBtn.heightAnchor.constraint(equalToConstant: 44).isActive = true
         addBeneficiaryBtn.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
 
         bankView = ButtonPickerView(heading:  AppString.Heading.bankName, placeholder: AppString.PlaceHoderText.enterBankName, image: "down_Arrow") {
@@ -260,7 +260,7 @@ extension FetchTitlePayeeVC: SearchBankProtocol {
         transactionLimitView.isHidden = false
         bankView.txtField.isUserInteractionEnabled = false
 
-        let limitStr = (bank?.IBANFormat ?? "") + " <br> " + (bank?.LocalFormat ?? "")
+        let limitStr = (bank?.LocalFormat ?? "") + " <br> " + (bank?.IBANFormat ?? "")
         transactionLimitView.limitLbl.attributedText = limitStr.htmlToAttributedString
     }
 }

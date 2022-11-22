@@ -76,7 +76,7 @@ class PaymentViewController: UIViewController {
     
     public var containerView: UIView = {
         var view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .gray2
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -91,6 +91,7 @@ class PaymentViewController: UIViewController {
     lazy var innerScrollView: UIScrollView = {
         let scrollview = UIScrollView()
         scrollview.translatesAutoresizingMaskIntoConstraints = false
+        scrollview.isScrollEnabled = false
         return scrollview
     }()
     
@@ -116,7 +117,7 @@ class PaymentViewController: UIViewController {
         btn.setTitle("CONTINUE", for: .normal)
         btn.tintColor = .white
         btn.backgroundColor = UIColor.purple
-        btn.layer.cornerRadius = 20
+        btn.layer.cornerRadius = 16
         btn.addTarget(self, action: #selector(didTapOnTranferBtn), for: .touchUpInside)
         return btn
     }()
@@ -178,7 +179,7 @@ class PaymentViewController: UIViewController {
     private var agreementView: UIView = {
         var view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
+        view.backgroundColor = .gray2
         return view
     }()
     
@@ -229,6 +230,7 @@ class PaymentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.customGray
+        transactionLimitView.isHidden = true
         addSubViews()
         setupConstraint()
     }
@@ -261,9 +263,9 @@ class PaymentViewController: UIViewController {
         headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         headerView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
-        transferBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        transferBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        transferBtn.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        transferBtn.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        transferBtn.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
+        transferBtn.heightAnchor.constraint(equalToConstant: 40).isActive = true
         transferBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
         
         scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -275,7 +277,7 @@ class PaymentViewController: UIViewController {
         uiview.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
         
         dotImage.topAnchor.constraint(equalTo: uiview.topAnchor, constant: 13).isActive = true
-        dotImage.leadingAnchor.constraint(equalTo: uiview.leadingAnchor, constant: 20).isActive = true
+        dotImage.leadingAnchor.constraint(equalTo: uiview.leadingAnchor, constant: 18).isActive = true
         dotImage.widthAnchor.constraint(equalToConstant: 10).isActive = true
         dotImage.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
@@ -290,7 +292,7 @@ class PaymentViewController: UIViewController {
         customView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         customView.topAnchor.constraint(equalTo: titleLbl.bottomAnchor, constant: 5).isActive = true
         customView.leadingAnchor.constraint(equalTo: titleLbl.leadingAnchor).isActive = true
-        customView.trailingAnchor.constraint(equalTo:  uiview.trailingAnchor, constant: -15).isActive = true
+        customView.trailingAnchor.constraint(equalTo:  uiview.trailingAnchor, constant: -20).isActive = true
         
         midDotImage.topAnchor.constraint(equalTo: customView.bottomAnchor, constant: 13).isActive = true
         midDotImage.leadingAnchor.constraint(equalTo: dotImage.leadingAnchor).isActive = true
@@ -315,7 +317,7 @@ class PaymentViewController: UIViewController {
         dashedImageTwo.widthAnchor.constraint(equalToConstant: 10).isActive = true
         dashedImageTwo.heightAnchor.constraint(equalToConstant: 95).isActive = true
         
-        enterAmountLbl.topAnchor.constraint(equalTo: accountView.bottomAnchor, constant: 30).isActive = true
+        enterAmountLbl.topAnchor.constraint(equalTo: accountView.bottomAnchor, constant: 10).isActive = true
         enterAmountLbl.leadingAnchor.constraint(equalTo: accountView.leadingAnchor).isActive = true
         
         amountPKR = TextInputView(heading: "Enter Amount", placeholder: "PKR", isPasswordEnable: false) { [weak self] (enteredText) in
@@ -323,14 +325,14 @@ class PaymentViewController: UIViewController {
             self.amountTxt = enteredText
         }
         amountPKR.txtField.keyboardType = .asciiCapableNumberPad
-        amountPKR.setData(text: amountTxt)
+        //        amountPKR.setData(text: amountTxt)
         self.amountPKR.lblHeading.isHidden = true
         self.amountPKR.translatesAutoresizingMaskIntoConstraints = false
         uiview.addSubview(amountPKR)
         
-        amountPKR.leadingAnchor.constraint(equalTo: enterAmountLbl.leadingAnchor).isActive = true
+        amountPKR.leadingAnchor.constraint(equalTo: self.customView.leadingAnchor).isActive = true
         amountPKR.topAnchor.constraint(equalTo: enterAmountLbl.bottomAnchor, constant: 10).isActive = true
-        amountPKR.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        amountPKR.heightAnchor.constraint(equalToConstant: 50).isActive = true
         amountPKR.trailingAnchor.constraint(equalTo: accountView.trailingAnchor).isActive = true
         
         
@@ -338,7 +340,6 @@ class PaymentViewController: UIViewController {
         transactionLimitView.heightAnchor.constraint(equalToConstant: 0).isActive = true
         transactionLimitView.leadingAnchor.constraint(equalTo: uiview.leadingAnchor, constant: 40).isActive = true
         transactionLimitView.trailingAnchor.constraint(equalTo: uiview.trailingAnchor, constant: -20).isActive = true
-        transactionLimitView.isHidden = true
         
         containerView.widthAnchor.constraint(equalTo: uiview.widthAnchor).isActive = true
         containerView.bottomAnchor.constraint(equalTo: uiview.bottomAnchor).isActive = true
@@ -351,7 +352,7 @@ class PaymentViewController: UIViewController {
         innerScrollView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0).isActive = true
         
         stackView.topAnchor.constraint(equalTo: innerScrollView.topAnchor).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: innerScrollView.leadingAnchor, constant: 20).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: innerScrollView.leadingAnchor, constant: 30).isActive = true
         stackView.trailingAnchor.constraint(equalTo: innerScrollView.trailingAnchor, constant: -20).isActive = true
         stackView.centerXAnchor.constraint(equalTo: innerScrollView.centerXAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: innerScrollView.bottomAnchor).isActive = true
@@ -361,6 +362,7 @@ class PaymentViewController: UIViewController {
             self.purposeTxt = enteredText
         }
         purpose.txtField.keyboardType = .default
+        purpose.containerView.backgroundColor = .gray2
         purpose.setData(text: purposeTxt)
         stackView.addArrangedSubview(purpose)
         
@@ -370,7 +372,7 @@ class PaymentViewController: UIViewController {
         
         
         checkBoxBtn.centerYAnchor.constraint(equalTo: agreementView.centerYAnchor, constant: 0).isActive = true
-        checkBoxBtn.leadingAnchor.constraint(equalTo: agreementView.leadingAnchor, constant: 20).isActive = true
+        checkBoxBtn.leadingAnchor.constraint(equalTo: agreementView.leadingAnchor, constant: 10).isActive = true
         
         agreementLbl.centerYAnchor.constraint(equalTo: agreementView.centerYAnchor, constant: 0).isActive = true
         agreementLbl.leadingAnchor.constraint(equalTo: checkBoxBtn.trailingAnchor, constant: 10).isActive = true
@@ -398,13 +400,7 @@ class PaymentViewController: UIViewController {
         let formatter4 = DateFormatter()
         formatter4.dateFormat = "yyyyMMdd"
         let systemDate = formatter4.string(from: today)
-        
-        
-        
-        
-        
-        
-        
+
         
         if self.amountTxt == "" {
             self.showAlert(title: "Alert", message: "Please enter your amount.", controller: self) {
@@ -451,6 +447,9 @@ extension PaymentViewController: PaymentViewProtocol {
             if response.count > 0 {
                 if response[0].responseCode == "00" {
                     let vc = PayemntSuccessView()
+                    vc.amount = self.amountTxt
+                    vc.accountTo = self.payee?.bankAccountTitle
+                    vc.accountFrom = self.portfolio?.customerName
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }

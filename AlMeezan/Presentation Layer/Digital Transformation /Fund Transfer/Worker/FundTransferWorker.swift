@@ -11,6 +11,8 @@ import Foundation
 
 class FundTransferWorker: FundTransferWorkerProtocol {
     
+    
+    
     func getBankList(encryptedString: String, completion: @escaping (Result<String, Error>) -> Void){
         ServiceManager.shared.sendRequest(request: FundTransferEntity.BankListRequestModel(KeyValue: encryptedString)) { response in
             completion(response)
@@ -49,5 +51,10 @@ class FundTransferWorker: FundTransferWorkerProtocol {
         }
     }
     
+    func billInquiry(encryptedString: String, completion: @escaping (Result<String, Error>) -> Void) {
+        ServiceManager.shared.sendRequest(request: BillInquiryEntity.BillInquiryRequestModel(KeyValue: encryptedString)) { result in
+            completion(result)
+        }
+    }
     
 }

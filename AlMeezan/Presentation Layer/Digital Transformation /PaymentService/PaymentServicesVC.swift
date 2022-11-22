@@ -81,14 +81,16 @@ class PaymentServicesVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.billPaymentView.isUserInteractionEnabled = false
-        self.fundTransferView.isUserInteractionEnabled = false
+//        self.billPaymentView.isUserInteractionEnabled = false
+//        self.fundTransferView.isUserInteractionEnabled = false
         self.showLoader()
         interactor?.viewDidLoad()
     }
     
     
     @objc func fundTranferTapped(sender: UITapGestureRecognizer) {
+        var payee: FundTransferEntity.FetchPayeeTitleResponseModel =  FundTransferEntity.FetchPayeeTitleResponseModel(responseCode: "00", authIdResponse: "", transactionLogID: "", accountTitle: "ABC", branchName: "", bankName: "Meezan Bank", beneficiaryIBAN: "0101354833")
+
         let vc = PayeeViewController()
         PayeeViewControllerConfigurator.configureModule(viewController: vc)
         self.navigationController?.pushViewController(vc, animated: true)
@@ -101,8 +103,11 @@ class PaymentServicesVC: UIViewController {
     }
     
     @objc func billPaymentTapped(sender: UITapGestureRecognizer) {
-        let vc = BillListController()
-        BillListConfigurator.configureModule(viewController: vc)
+//        let vc = BillListController()
+//        BillListConfigurator.configureModule(viewController: vc)
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
+        let vc = PayemntSuccessView()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -143,11 +148,11 @@ class PaymentServiceView: UIView {
         view.backgroundColor = .white
         // view.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
         view.layer.borderColor = UIColor.gray.cgColor
-        view.layer.shadowOpacity = 0.3
+        view.layer.shadowOpacity = 0.1
         view.layer.shadowColor = UIColor.gray.cgColor
-        view.layer.shadowRadius = 10
+        view.layer.shadowRadius = 8
         view.layer.borderWidth = 0.1
-        view.layer.cornerRadius = 20
+        view.layer.cornerRadius = 28
         view.isUserInteractionEnabled = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -167,10 +172,10 @@ class PaymentServiceView: UIView {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = UIColor.gray
+        label.textColor = UIColor.rgb(red: 35 / 255, green: 39 / 255, blue: 70 / 255, alpha: 0.7)
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.font = UIFont(name: AppFontName.robotoRegular, size: 15)
+        label.font = UIFont(name: AppFontName.circularStdRegular, size: 14)
         label.clipsToBounds = true
         return label
     }()
@@ -219,9 +224,9 @@ class PaymentServiceView: UIView {
         self.views.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
         self.image.centerYAnchor.constraint(equalTo: self.views.centerYAnchor).isActive = true
-        self.image.leadingAnchor.constraint(equalTo: self.views.leadingAnchor, constant: 20).isActive = true
-        self.image.widthAnchor.constraint(equalToConstant: 36).isActive = true
-        self.image.heightAnchor.constraint(equalToConstant: 36).isActive = true
+        self.image.leadingAnchor.constraint(equalTo: self.views.leadingAnchor, constant: 16).isActive = true
+        self.image.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        self.image.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         
         
@@ -233,8 +238,8 @@ class PaymentServiceView: UIView {
         self.subLbl.trailingAnchor.constraint(equalTo: btnImage.leadingAnchor, constant: -15).isActive = true
         
         btnImage.centerYAnchor.constraint(equalTo: views.centerYAnchor).isActive = true
-        btnImage.trailingAnchor.constraint(equalTo: views.trailingAnchor, constant: -12).isActive = true
-        btnImage.heightAnchor.constraint(equalTo: views.heightAnchor, multiplier: 0.06).isActive = true
+        btnImage.trailingAnchor.constraint(equalTo: views.trailingAnchor, constant: -16).isActive = true
+//        btnImage.heightAnchor.constraint(equalTo: views.heightAnchor, multiplier: 0.06).isActive = true
         
     }
     

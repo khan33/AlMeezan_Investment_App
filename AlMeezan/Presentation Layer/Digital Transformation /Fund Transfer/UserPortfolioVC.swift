@@ -35,6 +35,28 @@ class UserPortfolioVC: UIViewController {
         tableview.backgroundColor = UIColor.clear
         return tableview
     }()
+    
+    
+    public var  titleLbl: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.black
+        label.text = "From Account"
+        label.font = UIFont(name: AppFontName.circularStdBold, size: 14)
+        return label
+    }()
+    
+    public var subLbl: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.gray
+        label.text = "Select Portfolio Id you would like to transfer from"
+        label.font = UIFont(name: AppFontName.robotoRegular, size: 10)
+        return label
+    }()
+    
+    
+    
     var list: [CustomerInvestment]?
     var payee_detail: FundTransferEntity.PayeeResponseModel?
     var billing_detail: BillListEntity.BillListResponse?
@@ -45,6 +67,8 @@ class UserPortfolioVC: UIViewController {
         router.navigationController = navigationController
 
         view.addSubview(headerView)
+        view.addSubview(titleLbl)
+        view.addSubview(subLbl)
         view.addSubview(tableview)
         list = getPortfolio()
         
@@ -63,9 +87,20 @@ class UserPortfolioVC: UIViewController {
         headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         headerView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
+        
+        titleLbl.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 20).isActive = true
+        titleLbl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        titleLbl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        
+        subLbl.topAnchor.constraint(equalTo: titleLbl.bottomAnchor, constant: 6).isActive = true
+        subLbl.leadingAnchor.constraint(equalTo: titleLbl.leadingAnchor, constant: 0).isActive = true
+        subLbl.trailingAnchor.constraint(equalTo: titleLbl.trailingAnchor).isActive = true
+
+        
+        
         tableview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24).isActive = true
         tableview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24).isActive = true
-        tableview.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+        tableview.topAnchor.constraint(equalTo: subLbl.bottomAnchor, constant: 20).isActive = true
         tableview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         self.tableview.separatorStyle  = .none
 

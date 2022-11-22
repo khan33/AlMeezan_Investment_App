@@ -78,7 +78,7 @@ class BillTransferViewController: UIViewController {
     
     public var containerView: UIView = {
         var view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .gray2
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -92,6 +92,7 @@ class BillTransferViewController: UIViewController {
     
     lazy var innerScrollView: UIScrollView = {
         let scrollview = UIScrollView()
+        scrollview.isScrollEnabled = false
         scrollview.translatesAutoresizingMaskIntoConstraints = false
         return scrollview
     }()
@@ -178,7 +179,7 @@ class BillTransferViewController: UIViewController {
     private var agreementView: UIView = {
         var view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
+        view.backgroundColor = .gray2
         return view
     }()
     
@@ -204,14 +205,14 @@ class BillTransferViewController: UIViewController {
         label.font = UIFont(name: AppFontName.circularStdRegular, size: 13)
         return label
     }()
-    
+    var accountBalance: String?
+    var availableBalance = Double .nan
     private var amountPKR: TextInputView!
     private var amountTxt: String = ""
     private var purpose: TextInputView!
     private var purposeTxt: String = " "
     var interactor: BillTransferInteractorProtocol?
     var router: BillTransferRouterProtocol?
-    var responseOfBillList: [BillListEntity.BillListResponse]?
     var billTransferResponse: [BillTransferEntity.BillTransferResponse]?
     var date = Date()
     var isTapped: Bool = true
@@ -241,6 +242,10 @@ class BillTransferViewController: UIViewController {
         setupConstraint()
         amountToTransfer()
         transactionLimitView.isHidden = true
+
+        if let total = portfolio?.summary?.map( { Double($0.marketValue )} ).reduce(0, +) {
+            availableBalance = total
+        }
     }
     
     func addSubViews() {
@@ -288,7 +293,7 @@ class BillTransferViewController: UIViewController {
         let dueDateFormatter = DateFormatter()
         dueDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         
-        let dueDateString = responseOfBillList?[0].dueDate ?? ""
+        let dueDateString = bill?.dueDate ?? ""
         let dueDate = dueDateFormatter.date(from: dueDateString)
     
         let currentDateString = currentDateFormatter.string(from: date)
@@ -298,12 +303,12 @@ class BillTransferViewController: UIViewController {
             print("Current Date is \(currentDate), \n Due Date: \(dueDate)")
             
             if dueDate < currentDate {
-                let afterDueAmount = String(responseOfBillList?[0].amountAfterDueDate ?? 0)
+                let afterDueAmount = String(bill?.amountAfterDueDate ?? 0)
                 self.amountTxt = afterDueAmount
                 amountPKR.setData(text: amountTxt)
             }
             else {
-                let withinDueamount = String(responseOfBillList?[0].amountWithinDueDate ?? 0)
+                let withinDueamount = String(bill?.amountWithinDueDate ?? 0)
                 self.amountTxt = withinDueamount
                 amountPKR.setData(text: amountTxt)
             }
@@ -332,7 +337,7 @@ class BillTransferViewController: UIViewController {
         uiview.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
         
         dotImage.topAnchor.constraint(equalTo: uiview.topAnchor, constant: 13).isActive = true
-        dotImage.leadingAnchor.constraint(equalTo: uiview.leadingAnchor, constant: 40).isActive = true
+        dotImage.leadingAnchor.constraint(equalTo: uiview.leadingAnchor, constant: 18).isActive = true
         dotImage.widthAnchor.constraint(equalToConstant: 10).isActive = true
         dotImage.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
@@ -347,7 +352,7 @@ class BillTransferViewController: UIViewController {
         customView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         customView.topAnchor.constraint(equalTo: titleLbl.bottomAnchor, constant: 5).isActive = true
         customView.leadingAnchor.constraint(equalTo: titleLbl.leadingAnchor).isActive = true
-        customView.trailingAnchor.constraint(equalTo:  uiview.trailingAnchor, constant: -15).isActive = true
+        customView.trailingAnchor.constraint(equalTo:  uiview.trailingAnchor, constant: -20).isActive = true
         
         midDotImage.topAnchor.constraint(equalTo: customView.bottomAnchor, constant: 13).isActive = true
         midDotImage.leadingAnchor.constraint(equalTo: dotImage.leadingAnchor).isActive = true
@@ -380,13 +385,13 @@ class BillTransferViewController: UIViewController {
             self.amountTxt = enteredText
         }
         amountPKR.txtField.keyboardType = .asciiCapableNumberPad
-//        amountPKR.setData(text: amountTxt)
+        //        amountPKR.setData(text: amountTxt)
         self.amountPKR.lblHeading.isHidden = true
         amountPKR.txtField.isUserInteractionEnabled = false
         self.amountPKR.translatesAutoresizingMaskIntoConstraints = false
         uiview.addSubview(amountPKR)
         
-        amountPKR.leadingAnchor.constraint(equalTo: uiview.leadingAnchor, constant: 55).isActive = true
+        amountPKR.leadingAnchor.constraint(equalTo: self.customView.leadingAnchor).isActive = true
         amountPKR.topAnchor.constraint(equalTo: enterAmountLbl.bottomAnchor, constant: 10).isActive = true
         amountPKR.heightAnchor.constraint(equalToConstant: 50).isActive = true
         amountPKR.trailingAnchor.constraint(equalTo: accountView.trailingAnchor).isActive = true
@@ -408,7 +413,7 @@ class BillTransferViewController: UIViewController {
         innerScrollView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0).isActive = true
         
         stackView.topAnchor.constraint(equalTo: innerScrollView.topAnchor).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: innerScrollView.leadingAnchor, constant: 20).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: innerScrollView.leadingAnchor, constant: 30).isActive = true
         stackView.trailingAnchor.constraint(equalTo: innerScrollView.trailingAnchor, constant: -20).isActive = true
         stackView.centerXAnchor.constraint(equalTo: innerScrollView.centerXAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: innerScrollView.bottomAnchor).isActive = true
@@ -418,7 +423,7 @@ class BillTransferViewController: UIViewController {
             self.purposeTxt = enteredText
         }
         purpose.txtField.keyboardType = .default
-        
+        purpose.containerView.backgroundColor = .gray2
         purpose.setData(text: purposeTxt)
         stackView.addArrangedSubview(purpose)
         
@@ -428,12 +433,10 @@ class BillTransferViewController: UIViewController {
         
         
         checkBoxBtn.centerYAnchor.constraint(equalTo: agreementView.centerYAnchor, constant: 0).isActive = true
-        checkBoxBtn.leadingAnchor.constraint(equalTo: agreementView.leadingAnchor, constant: 20).isActive = true
+        checkBoxBtn.leadingAnchor.constraint(equalTo: agreementView.leadingAnchor, constant: 10).isActive = true
         
         agreementLbl.centerYAnchor.constraint(equalTo: agreementView.centerYAnchor, constant: 0).isActive = true
         agreementLbl.leadingAnchor.constraint(equalTo: checkBoxBtn.trailingAnchor, constant: 10).isActive = true
-        
-        
         
         
         
@@ -456,21 +459,27 @@ class BillTransferViewController: UIViewController {
     }
     
     @objc func sendPayment() {
-        
-        if self.amountTxt == "" {
-            self.showAlert(title: "Alert", message: "Please enter your amount.", controller: self) {
+        let amount = Double(amountTxt) ?? .nan
+        availableBalance = 5739572.0
+        if checkBoxBtn.isSelected == false {
+            self.showAlert(title: "Error", message: "please check box!", controller: self) {
+                return
             }
-            return
-        }  else if self.isTapped == false {
-            self.showAlert(title: "Alert", message: "Please select the terms and conditions.", controller: self) {
+        } else if availableBalance < amount {
+            self.showAlert(title: "Error", message: "You do not have sufficient balance to pay this Bill", controller: self) {
+                return
             }
-            return
         } else {
-            let request = BillTransferEntity.BillTransferRequest(transmissionDate: "20220610", transmissionTime: "135630", accountNumber: bill?.accountNumber, utilityCompanyID: bill?.utilityCompanyID, utilityConsumerNumber: "1700416100034", transactionAmount: amountTxt, branchCode: "1001", branchName: "Meezan Main Branch Lahore")
-            
-            interactor?.saveBillPayment(request: request)
+            if let bill = bill {
+                let account_number = "03001111111" // bill.accountNumber
+                let utilityCompanyID = "KESC0001" // bill.utilityCompanyID
+                
+                
+                let request = BillTransferEntity.BillTransferRequest(transmissionDate: "20220610", transmissionTime: "135630", accountNumber: account_number, utilityCompanyID: utilityCompanyID, utilityConsumerNumber: "1700416100034", transactionAmount: amountTxt, branchCode: "1001", branchName: "Meezan Main Branch Lahore")
+                
+                interactor?.saveBillPayment(request: request)
+            }
         }
-        
     }
 }
 

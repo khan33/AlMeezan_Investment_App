@@ -223,7 +223,7 @@ class BillListController: UIViewController {
             historyBtn.setTitleColor(.offwhite, for: .normal)
             myPayeesBtn.setTitleColor(.white, for: .normal)
             self.pagetoShow = PageToShow.myPayees
-            self.addBeneficiaryBtnHeightConstraint?.constant = 55
+            self.addBeneficiaryBtnHeightConstraint?.constant = 40
 
             self.tableview.reloadData()
         case 1 :
@@ -307,7 +307,7 @@ class BillListController: UIViewController {
         addBeneficiaryBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24).isActive = true
         addBeneficiaryBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24).isActive = true
         addBeneficiaryBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16).isActive = true
-        addBeneficiaryBtnHeightConstraint = addBeneficiaryBtn.heightAnchor.constraint(equalToConstant: 55)
+        addBeneficiaryBtnHeightConstraint = addBeneficiaryBtn.heightAnchor.constraint(equalToConstant: 40)
         addBeneficiaryBtnHeightConstraint.isActive = true
     }
     @objc func didTapOnInfoBtn(_ sender: UIButton) {
@@ -367,11 +367,13 @@ extension BillListController:  UITableViewDelegate, UITableViewDataSource {
         
         if pagetoShow == PageToShow.myPayees {
             guard let cell = tableview.dequeueReusableCell(withIdentifier: BillPaymentCell.identifier, for: indexPath) as? BillPaymentCell else {return UITableViewCell()}
-            if let image = billPayment[indexPath.row].imagePath {
-                cell.image.setImage(with: image)
-            } else {
-                cell.image.image = UIImage(named: "Group 769")
-            }
+//            if let image = billPayment[indexPath.row].imagePath {
+//                cell.image.setImage(with: image)
+//            } else {
+//                cell.image.image = UIImage(named: "Group 769")
+//            }
+            
+            cell.image.image = UIImage(named: "Group 725")
             cell.portfolioLbl.text = billPayment[indexPath.row].utilityCompanyID
             cell.balanceLbl.text = billPayment[indexPath.row].billingMonth
             cell.layer.borderColor = UIColor.gray2.cgColor

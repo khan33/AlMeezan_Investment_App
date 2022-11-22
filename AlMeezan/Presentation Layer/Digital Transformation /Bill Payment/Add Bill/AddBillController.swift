@@ -37,7 +37,7 @@ class AddBillController: UIViewController {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.clipsToBounds = true
-        btn.setTitle("SAVE", for: .normal)
+        btn.setTitle("CONTINUE", for: .normal)
         btn.tintColor = .white
         btn.addTarget(self, action: #selector(nextToOTP), for: .touchUpInside)
         btn.backgroundColor = UIColor.purple
@@ -79,10 +79,9 @@ class AddBillController: UIViewController {
     var billCompanyName: String = ""
     let noInternet: String = "The Internet connection appears to be offline."
 
-    
+    var request: BillInquiryEntity.BillInquiryRequest?
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         self.navigationItem.hidesBackButton = true
         addViews()
         setupContraints()
@@ -96,6 +95,7 @@ class AddBillController: UIViewController {
     }
     
     func addViews() {
+        view.backgroundColor = .gray2
         view.addSubview(headerView)
         view.addSubview(containerView)
         view.addSubview(saveBtn)
@@ -128,8 +128,11 @@ class AddBillController: UIViewController {
             }
         }
         else {
-            let request = BillInquiryEntity.BillInquiryRequest(transmissionDate: systemDate, transmissionTime: systemTime, utilityCompanyID: self.billCompanyID, utilityConsumerNumber: self.consumerNumberTxt, nickName: "saad home")
-            interactor?.loadBillInquiry(request: request)
+             request = BillInquiryEntity.BillInquiryRequest(transmissionDate: systemDate, transmissionTime: systemTime, utilityCompanyID: self.billCompanyID, utilityConsumerNumber: self.consumerNumberTxt, nickName: "saad home")
+            self.showLoader()
+            if let req = request {
+                interactor?.loadBillInquiry(request: req)
+            }
   
         }
         
@@ -207,7 +210,14 @@ extension AddBillController: AddBillViewProtocol {
     
     func successBillAdd(response: [BillAddEntity.BillAddResponse]) {
         DispatchQueue.main.async {
+            self.hideLoader()
             print(response)
+//            if response[0].ErrID == "00" {
+            let vc = AddPayeeOTPViewController(payee: nil, unique_id: "", type: .billPayement, transferReq: nil, billReq: self.request)
+            PayeeOTPConfigurator.configureModule(viewController: vc)
+            self.navigationController?.pushViewController(vc, animated: true)
+//            }
+
         }
     }
     

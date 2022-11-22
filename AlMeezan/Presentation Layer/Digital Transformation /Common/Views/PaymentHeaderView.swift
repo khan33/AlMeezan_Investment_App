@@ -36,7 +36,7 @@ class PaymentHeaderView: UIView {
         return label
     }()
     
-    private let backBtn: UIButton = {
+    let backBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.clipsToBounds = true

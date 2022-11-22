@@ -9,8 +9,21 @@
 import Foundation
 
 class PayeeOTPPresetner : PayeeOTPPresenterProtocol {
+    
+    
+    
     weak var viewController: PayeeOTPViewProtocol?
     func otpVerificationResponse(_ response: otpVerifcationResponse) {
         viewController?.otpVerificationSuccess(response)
     }
+    func addPayee(_ response: [FundTransferEntity.AddPayeeResponseModel]) {
+        viewController?.addPayee(response)
+    }
+    
+    func setupBillInquiry(response: [BillInquiryEntity.BillInquiryResponse]) {
+        viewController?.successBillInquiry(response: response)
+    }
+    
+    
+
 }

@@ -13,6 +13,9 @@ import Foundation
 
 protocol PayeeOTPInteractorProtocol: AnyObject {
     func otpVerify(_ data: otpVerificationReqeust)
+    func addPayee(_ data: addPayeeRequestData)
+    func loadBillInquiry(request: BillInquiryEntity.BillInquiryRequest)
+
 }
 
 
@@ -21,12 +24,16 @@ protocol PayeeOTPInteractorProtocol: AnyObject {
 
 protocol PayeeOTPViewProtocol: MainViewProtocol {
     func otpVerificationSuccess(_ response: otpVerifcationResponse)
+    func addPayee(_ response: [FundTransferEntity.AddPayeeResponseModel])
+    func successBillInquiry(response: [BillInquiryEntity.BillInquiryResponse])
 }
 
 // MARK: - INTERACTOR INPUT (INTERACTOR -> PRESENTER)
 
 protocol PayeeOTPPresenterProtocol: AnyObject {
     func otpVerificationResponse(_ response: otpVerifcationResponse)
+    func addPayee(_ response: [FundTransferEntity.AddPayeeResponseModel])
+    func setupBillInquiry(response: [BillInquiryEntity.BillInquiryResponse])
 }
 
 

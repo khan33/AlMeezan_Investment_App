@@ -28,7 +28,7 @@ class PayemntSuccessView: UIViewController {
             self.navigationController?.popViewController(animated: true)
         })
         view.translatesAutoresizingMaskIntoConstraints = false
-        
+        view.backBtn.isHidden = true
         return view
     }()
     
@@ -93,7 +93,7 @@ class PayemntSuccessView: UIViewController {
         btn.setTitleColor(.black, for: .normal)
         btn.titleLabel?.font = UIFont(name: AppFontName.robotoRegular, size: 12)
         btn.setImage(UIImage(named: "share")?.transform(withNewColor: .black), for: .normal)
-        btn.imageEdgeInsets = UIEdgeInsets(top: -50, left: 30, bottom: 0, right: 0)
+        btn.imageEdgeInsets = UIEdgeInsets(top: -40, left: 30, bottom: 0, right: 0)
         btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
         btn.tintColor = .white
         btn.addTarget(self, action: #selector(isTapped), for: .touchUpInside)
@@ -103,7 +103,7 @@ class PayemntSuccessView: UIViewController {
     }()
     
     private let downloadButton: UIButton = {
-        let btn = UIButton()
+        let btn = UIButton(type: .custom)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.clipsToBounds = true
         btn.layer.borderWidth = 1
@@ -114,7 +114,7 @@ class PayemntSuccessView: UIViewController {
         btn.setTitleColor(.black, for: .normal)
         btn.titleLabel?.font = UIFont(name: AppFontName.robotoRegular, size: 12)
         btn.setImage(UIImage(named: "download")?.transform(withNewColor: .black), for: .normal)
-        btn.imageEdgeInsets = UIEdgeInsets(top: -50, left: 60, bottom: 0, right: 0)
+        btn.imageEdgeInsets = UIEdgeInsets(top: -40, left: 60, bottom: 0, right: 0)
         btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
         btn.tintColor = .white
         btn.tag = 2
@@ -130,12 +130,11 @@ class PayemntSuccessView: UIViewController {
         btn.addTarget(self, action: #selector(isTapped), for: .touchUpInside)
         btn.layer.borderColor = UIColor.gray2.cgColor
         btn.setTitle("Done", for: .normal)
-        btn.setTitleColor(UIColor.white, for: .normal)
-        btn.backgroundColor = UIColor.themeColor
+        btn.backgroundColor = .white
         btn.setTitleColor(.black, for: .normal)
         btn.titleLabel?.font = UIFont(name: AppFontName.robotoRegular, size: 12)
-        btn.setImage(UIImage(named: "tick")?.transform(withNewColor: .white), for: .normal)
-        btn.imageEdgeInsets = UIEdgeInsets(top: -50, left: 30, bottom: 0, right: 0)
+        btn.setImage(UIImage(named: "done")?.transform(withNewColor: .black), for: .normal)
+        btn.imageEdgeInsets = UIEdgeInsets(top: -40, left: 30, bottom: 0, right: 0)
         btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
         btn.tintColor = .white
         btn.tag = 3
@@ -144,10 +143,16 @@ class PayemntSuccessView: UIViewController {
     }()
 
     var congoView = CongratulationView(titleLabl: "Congratulations", subLabel: "You have added the bill payee.")
-    var fromAccountView = View(titleLabl: "From", subLabel: "AlMeezan Investment Wallet", imageName: IconName.receiver)
-    var toAcocuntView = View(titleLabl: "To", subLabel: "Mohammad Ahmed", imageName: IconName.sender)
-    var amountView = View(titleLabl: "Amount", subLabel: "PKR 1,500.00", imageName: IconName.payment)
-    var dateView = View(titleLabl: "Date", subLabel: "10 monday", imageName: IconName.calendar)
+    var fromAccountView = View(titleLabl: "From", subLabel: "", imageName: IconName.receiver)
+    var toAcocuntView = View(titleLabl: "To", subLabel: "", imageName: IconName.sender)
+    var amountView = View(titleLabl: "Amount", subLabel: "", imageName: IconName.payment)
+    var dateView = View(titleLabl: "Date", subLabel: "", imageName: IconName.calendar)
+    
+    
+    var accountFrom: String?
+    var accountTo: String?
+    var amount: String?
+    
     
 //    var router: BillTransactionCompleteRouterProtocol?
 //    var billTransfer: [BillTransferEntity.BillTransferResponse]?
@@ -172,6 +177,13 @@ class PayemntSuccessView: UIViewController {
         setupConstraint()
         //print("Response of BillList \(self.billTransfer)")
         configureDateLabel()
+        
+        
+        let dateStr = Date().toString(format: "d MMM yyyy")
+        dateView.subLbl.text = dateStr
+        fromAccountView.subLbl.text = accountFrom ?? ""
+        amountView.subLbl.text =  "PKR. \(amount ?? "")"
+        toAcocuntView.subLbl.text = accountTo ?? ""
     }
     
     func configureDateLabel() {
@@ -188,6 +200,7 @@ class PayemntSuccessView: UIViewController {
             shareButton.setTitleColor(.white, for: .normal)
             downloadButton.setTitleColor(.black, for: .normal)
             downloadButton.setImage(UIImage(named: "download")?.transform(withNewColor: .black), for: .normal)
+            self.shareScreenShot()
             print("share is tapped")
             
         }
@@ -205,13 +218,24 @@ class PayemntSuccessView: UIViewController {
            doneButton.backgroundColor = .purple
             doneButton.setImage(UIImage(named: "done")?.transform(withNewColor: .white), for: .normal)
             doneButton.setTitleColor(.white, for: .normal)
-            //router?.backToPaymentServices()
+//            router?.backToPaymentServices()
         } else {
             print("")
         }
+        
     }
     
-    open func takeScreenshot(_ shouldSave: Bool = true) -> UIImage? {
+    private func shareScreenShot() {
+        let bounds = UIScreen.main.bounds
+         UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
+         self.view.drawHierarchy(in: bounds, afterScreenUpdates: false)
+         let img = UIGraphicsGetImageFromCurrentImageContext()
+         UIGraphicsEndImageContext()
+         let activityViewController = UIActivityViewController(activityItems: [img!], applicationActivities: nil)
+         self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    private func takeScreenshot(_ shouldSave: Bool = true) -> UIImage? {
         print("takeScreenshot")
         var screenshotImage :UIImage?
         let layer = UIApplication.shared.keyWindow!.layer
@@ -223,6 +247,9 @@ class PayemntSuccessView: UIViewController {
         UIGraphicsEndImageContext()
         if let image = screenshotImage, shouldSave {
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        }
+        
+        self.showAlert(title: "Screenshot Taken!", message: "Your screenshot is saved in Gallery", controller: self) {
         }
         return screenshotImage
     }

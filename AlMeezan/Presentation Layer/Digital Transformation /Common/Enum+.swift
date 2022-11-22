@@ -34,7 +34,7 @@ enum IconName {
 
 enum Headings {
     static let fundTransfer = "Fund Transfer"
-    static let subscribe = "Subscribe"
+    static let subscribe = "Subscription"
     static let billPayment = "Bill Payment"
     static let paymentService = "Payment Services"
 }

@@ -67,6 +67,7 @@ class DashboardViewController: UIViewController {
    // var interactor: DashboardInteractorProtocol?
    // var router: DashboardRouterProtocol?
     
+    @IBOutlet weak var accountStatementIcon: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +93,12 @@ class DashboardViewController: UIViewController {
         countNotificationLbl.isHidden = true
         tableView.isScrollEnabled = false
         expandableBtn.setImage(UIImage(named: "down_Arrow"), for: .normal)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnAccountStatement))
+        accountStatementIcon.addGestureRecognizer(tap)
+        accountStatementIcon.isUserInteractionEnabled = true
+
+        
         
     }
     func setupViews() {
@@ -326,6 +333,13 @@ class DashboardViewController: UIViewController {
         
 
    }
+    
+    
+    @objc func didTapOnAccountStatement() {
+        print("print web view for account statement")
+    }
+    
+    
     
     
     @IBAction func logoutBtn(_ sender: Any) {

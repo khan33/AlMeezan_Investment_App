@@ -55,4 +55,5 @@ protocol FundTransferWorkerProtocol: AnyObject {
     func payeeList(encryptedString: String, completion: @escaping (Result<String, Error>) -> Void)
     func fundTransfer(encryptedString: String, completion: @escaping (Result<String, Error>) -> Void)
     func OTPVerification(encryptedString: String, completion: @escaping (Result<String, Error>) -> Void)
+    func billInquiry(encryptedString: String, completion: @escaping (Result<String, Error>) -> Void)
 }

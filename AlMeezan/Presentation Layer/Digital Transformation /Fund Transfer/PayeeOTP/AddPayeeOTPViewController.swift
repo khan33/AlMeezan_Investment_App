@@ -9,8 +9,16 @@
 import UIKit
 import SVPinView
 
+enum PaymentService {
+    case fundTransfer
+    case billPayement
+}
+
+
 class AddPayeeOTPViewController: UIViewController {
 
+    
+    
     //MARK: Properties
     private (set) lazy var headerView: PaymentHeaderView = { [unowned self] in
         let view = PaymentHeaderView.init(titleLbl: "Add Beneficiary", closeAction: {
@@ -23,8 +31,6 @@ class AddPayeeOTPViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    
     
     private (set) lazy var containerView: UIView = { [unowned self] in
         let view = UIView()
@@ -95,12 +101,19 @@ class AddPayeeOTPViewController: UIViewController {
     }()
     
     var unique_id: String
-    var payee: FundTransferEntity.FetchPayeeTitleResponseModel
-    init(payee: FundTransferEntity.FetchPayeeTitleResponseModel, unique_id : String) {
+    var payee: FundTransferEntity.FetchPayeeTitleResponseModel?
+    var type: PaymentService
+    var fundTransfer_request: FundTransferEntity.AddPayeeRequest?
+    var billPayemnt_request: BillInquiryEntity.BillInquiryRequest?
+    init(payee: FundTransferEntity.FetchPayeeTitleResponseModel?, unique_id : String, type: PaymentService, transferReq: FundTransferEntity.AddPayeeRequest?, billReq: BillInquiryEntity.BillInquiryRequest?) {
         self.unique_id = unique_id
         self.payee = payee
+        self.type = type
+        self.fundTransfer_request = transferReq
+        self.billPayemnt_request = billReq
         super.init(nibName: nil, bundle: nil)
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -117,15 +130,28 @@ class AddPayeeOTPViewController: UIViewController {
         otpView.didFinishCallback = { [weak self] pin in
             self?.pinCode = pin
             self?.showLoader()
-            let reqeust  = FundTransferEntity.OTPVerificationRequest(Otp: self?.pinCode, uniqueId: self?.unique_id)
-            self?.interactor?.otpVerify(reqeust)
+            if self?.type == .fundTransfer {
+                let reqeust  = FundTransferEntity.OTPVerificationRequest(Otp: self?.pinCode, uniqueId: self?.unique_id)
+                self?.interactor?.otpVerify(reqeust)
+            } else {
+                
+            }
         }
 
     }
     
     @objc private
     func didTapOnResendBtn(_ sender: UIButton) {
-        
+        if type == .fundTransfer {
+            self.showLoader()
+            if let req = fundTransfer_request {
+                interactor?.addPayee(req)
+            }
+        } else {
+            if let req = billPayemnt_request {
+                interactor?.loadBillInquiry(request: req)
+            }
+        }
     }
     
 }
@@ -240,4 +266,26 @@ extension AddPayeeOTPViewController: PayeeOTPViewProtocol {
             }
         }
     }
+    
+    func addPayee(_ response: [FundTransferEntity.AddPayeeResponseModel]) {
+        if response.count > 0 {
+            DispatchQueue.main.async {
+                self.hideLoader()
+                self.showAlert(title: "Alert", message: "OTP resend to your mobile number", controller: self) {
+                    
+                }
+            }
+        }
+    }
+    
+    func successBillInquiry(response: [BillInquiryEntity.BillInquiryResponse]) {
+        DispatchQueue.main.async {
+            self.hideLoader()
+            self.showAlert(title: "Alert", message: "OTP resend to your mobile number", controller: self) {
+                
+            }
+        }
+    }
+
+
 }

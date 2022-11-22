@@ -30,6 +30,21 @@ class BillPaymentCell: UITableViewCell {
         return view
     }()
     
+    
+    private let imageContentView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.borderColor = UIColor.gray.cgColor
+        view.layer.borderWidth = 0.4
+        view.layer.cornerRadius = 6
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+
+    
+    
     public var image: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +93,8 @@ class BillPaymentCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = UIColor.gray2
         contentView.addSubview(containerView)
-        containerView.addSubview(image)
+        containerView.addSubview(imageContentView)
+        imageContentView.addSubview(image)
         containerView.addSubview(portfolioLbl)
         containerView.addSubview(balanceLbl)
         containerView.addSubview(chevronImage)
@@ -101,11 +117,16 @@ class BillPaymentCell: UITableViewCell {
             containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             
+            imageContentView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
+            imageContentView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            imageContentView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.1),
+            imageContentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
             
-            image.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            image.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
-            image.widthAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.5),
-            image.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.45),
+            
+            image.widthAnchor.constraint(equalTo: imageContentView.widthAnchor, multiplier: 0.8),
+            image.heightAnchor.constraint(equalTo: imageContentView.heightAnchor, multiplier: 0.8),
+            image.centerXAnchor.constraint(equalTo: imageContentView.centerXAnchor),
+            image.centerYAnchor.constraint(equalTo: imageContentView.centerYAnchor),
             
             portfolioLbl.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -10),
             portfolioLbl.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 10),

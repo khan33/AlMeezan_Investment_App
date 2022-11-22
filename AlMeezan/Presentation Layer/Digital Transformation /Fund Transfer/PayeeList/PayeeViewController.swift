@@ -162,7 +162,7 @@ class PayeeViewController: UIViewController {
         btn.setTitle("ADD BENEFICIARY", for: .normal)
         btn.tintColor = .white
         btn.backgroundColor = UIColor.purple
-        btn.layer.cornerRadius = 20
+        btn.layer.cornerRadius = 16
         btn.addTarget(self, action: #selector(didTapOnAddPayeeBtn), for: .touchUpInside)
         return btn
     }()
@@ -227,7 +227,7 @@ class PayeeViewController: UIViewController {
             //self.addBeneficiaryBtn.isHidden = false
             self.tableview.reloadData()
             
-            self.addBeneficiaryBtnHeightConstraint?.constant = 55
+            self.addBeneficiaryBtnHeightConstraint?.constant = 44
             self.view.layoutIfNeeded()
             
             
@@ -313,7 +313,7 @@ extension PayeeViewController {
         addBeneficiaryBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24).isActive = true
         addBeneficiaryBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24).isActive = true
         addBeneficiaryBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16).isActive = true
-        addBeneficiaryBtnHeightConstraint = addBeneficiaryBtn.heightAnchor.constraint(equalToConstant: 55)
+        addBeneficiaryBtnHeightConstraint = addBeneficiaryBtn.heightAnchor.constraint(equalToConstant: 44)
         addBeneficiaryBtnHeightConstraint.isActive = true
         
         
@@ -431,7 +431,7 @@ extension PayeeViewController: PayeeViewProtocol {
 
 class CustomActivityViewController: UIActivityViewController {
 
-    private let controller: UIViewController!
+    let controller: UIViewController!
 
     required init(controller: UIViewController) {
         self.controller = controller
@@ -457,7 +457,7 @@ class PayeeNameView: UIView {
     
     let containerView: UIView = {
         let view = UIView()
-//        view.backgroundColor = .white
+//        view.backgroundColor = .red
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -493,7 +493,7 @@ class PayeeNameView: UIView {
     
     private var bottomLine: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.init(rgb:0xF2F4F8)
+        view.backgroundColor = UIColor.gray
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         return view
@@ -550,7 +550,7 @@ class PayeeNameView: UIView {
         self.bottomLine.topAnchor.constraint(equalTo: subLbl.bottomAnchor, constant: 16).isActive = true
         self.bottomLine.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0).isActive = true
         self.bottomLine.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 0).isActive = true
-        self.bottomLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        self.bottomLine.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
 //
         
     }

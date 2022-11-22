@@ -35,5 +35,5 @@ protocol AddPayeePresenterProtocol: AnyObject {
 // MARK: - ROUTER INPUT
 
 protocol AddPayeeRouterProtocol: MainRouterProtocol {
-    func navigateToOTPScreen(_ payee: FundTransferEntity.FetchPayeeTitleResponseModel, _ id: String)
+    func navigateToOTPScreen(_ payee: FundTransferEntity.FetchPayeeTitleResponseModel, _ id: String, request: FundTransferEntity.AddPayeeRequest?)
 }

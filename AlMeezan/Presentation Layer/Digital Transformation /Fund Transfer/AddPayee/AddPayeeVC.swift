@@ -107,7 +107,7 @@ class AddPayeeVC: UIViewController {
     private var mobileNumberTxt: String    =   ""
     private var relationshipTxt: String     =   ""
 
-    
+    var request: FundTransferEntity.AddPayeeRequest?
     var interactor: AddPayeeInteractorProtocol?
     var router: AddPayeeRouterProtocol?
     var payee: FundTransferEntity.FetchPayeeTitleResponseModel
@@ -152,9 +152,11 @@ class AddPayeeVC: UIViewController {
         
         
         
-        let request = FundTransferEntity.AddPayeeRequest(BeneficiaryNickName: nameTxt, BankAccountTitle: self.payee.accountTitle, BankBranch: self.payee.branchName, BankName: self.payee.bankName, BankAccountNo: self.payee.beneficiaryIBAN, mobile: mobileNumberTxt, email: emailTxt, relationship: relationshipTxt)
+        request = FundTransferEntity.AddPayeeRequest(BeneficiaryNickName: nameTxt, BankAccountTitle: self.payee.accountTitle, BankBranch: self.payee.branchName, BankName: self.payee.bankName, BankAccountNo: self.payee.beneficiaryIBAN, mobile: mobileNumberTxt, email: emailTxt, relationship: relationshipTxt)
         
-        interactor?.addPayee(request)
+        if let req = request {
+            interactor?.addPayee(req)
+        }
     }
 
 }
@@ -212,7 +214,7 @@ extension AddPayeeVC {
             continueBtn.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 20),
             continueBtn.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -20),
             continueBtn.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -20),
-            continueBtn.heightAnchor.constraint(equalToConstant: 55)
+            continueBtn.heightAnchor.constraint(equalToConstant: 44)
             
         ])
         bankView.backgroundColor = .gray2
@@ -274,7 +276,7 @@ extension AddPayeeVC: AddPayeeViewProtocol {
     func addPayee(_ response: [FundTransferEntity.AddPayeeResponseModel]) {
         if response.count > 0 {
             DispatchQueue.main.async {
-                self.router?.navigateToOTPScreen(self.payee, response[0].uniqueId ?? "")
+                self.router?.navigateToOTPScreen(self.payee, response[0].uniqueId ?? "", request: self.request)
             }
         }
     }
