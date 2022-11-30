@@ -104,17 +104,20 @@ class InvestmentVC: UIViewController {
         getBankData()
         getData()
         let portfolioID = UserDefaults.standard.string(forKey: "portfolioId")
-        if portfolioID?.contains("-") ?? false {
-            let ids = portfolioID?.components(separatedBy: "-")
-               let id = Int(ids?[1] ?? "0")!
-            let isExist = (900...999).contains(id)
-            if isExist == false {
-                self.portfolioTxtField.text = portfolioID
-            } else {
-                self.showAlert(title: "Alert", message: Message.MTPFPMessage, controller: self) {
-                }
-            }
+        for portId in portfolioid_list! {
+            self.portfolioTxtField.text = portId.portfolioID
         }
+//        if portfolioID?.contains("-") ?? false {
+//            let ids = portfolioID?.components(separatedBy: "-")
+//               let id = Int(ids?[1] ?? "0")!
+//            let isExist = (900...999).contains(id)
+//            if isExist == false {
+//                self.portfolioTxtField.text = portfolioID
+//            } else {
+//                self.showAlert(title: "Alert", message: Message.MTPFPMessage, controller: self) {
+//                }
+//            }
+//        }
         
         hideNavigationBar()
         updateMarketValue()
