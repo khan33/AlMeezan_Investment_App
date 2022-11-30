@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
         router?.navigationController = navigationController
         interactor?.viewDidLoad()
         
-        customerIdTxtField.text = "176399"
+        customerIdTxtField.text = "100132"
         passwordTxtField.text = "Today321"
 
         
