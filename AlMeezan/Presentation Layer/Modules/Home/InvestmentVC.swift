@@ -105,6 +105,7 @@ class InvestmentVC: UIViewController {
         getData()
         let portfolioID = UserDefaults.standard.string(forKey: "portfolioId")
         for portId in portfolioid_list! {
+            print("Portfolio IDs are \(portId.portfolioID)")
             self.portfolioTxtField.text = portId.portfolioID
         }
 //        if portfolioID?.contains("-") ?? false {

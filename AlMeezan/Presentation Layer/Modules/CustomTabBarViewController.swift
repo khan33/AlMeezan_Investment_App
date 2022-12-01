@@ -14,7 +14,7 @@ class CustomTabBarViewController: UITabBarController, UITabBarControllerDelegate
     var isFromSideMenu: Bool = true
     
     private var viewComponents : [BottomTabBarViews] = []
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,7 @@ class CustomTabBarViewController: UITabBarController, UITabBarControllerDelegate
     }
     
     deinit {
-//        NotificationCenter.default.removeObserver(
+        //        NotificationCenter.default.removeObserver(
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,7 +58,7 @@ class CustomTabBarViewController: UITabBarController, UITabBarControllerDelegate
     }
     
     @objc func notificationRecieved(notification: NSNotification) {
-//        guard let userType = notification.userInfo!["UserType"] as? String else { return }
+        //        guard let userType = notification.userInfo!["UserType"] as? String else { return }
         guard let userType = KeychainWrapper.standard.string(forKey: "UserType") else { return }
         let index = notification.userInfo?["Index"] as? Int ?? 0
         let item = notification.userInfo?["item"] as? LeftMenuPage ?? .login
@@ -77,7 +77,7 @@ class CustomTabBarViewController: UITabBarController, UITabBarControllerDelegate
         viewComponents.removeAll()
         let customerID = KeychainWrapper.standard.string(forKey: "CustomerId")!
         guard let userType = KeychainWrapper.standard.string(forKey: "UserType") else { return }
-
+        
         
         if userType == "loggedInUser" && customerID != "ibex" {
             viewComponents.append(.invest)
@@ -94,30 +94,30 @@ class CustomTabBarViewController: UITabBarController, UITabBarControllerDelegate
     }
     
     
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        let isCorporateId = UserDefaults.standard.bool(forKey: "isCorporateId")
-        print(tabBarController.tabBar.items![0])
-        if isCorporateId && tabBarController.tabBar.selectedItem!.title! == "Transactions" {
-            self.showAlert(title: "Alert", message: "Something went worng", controller: self) {
-                
-            }
-            return false
-        } else {
-            return true
-        }
-    }
+//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+//        let isCorporateId = UserDefaults.standard.bool(forKey: "isCorporateId")
+//                print(tabBarController.tabBar.items![0])
+//                if isCorporateId && tabBarController.tabBar.selectedItem!.title! == "Transactions" {
+//                    self.showAlert(title: "Alert", message: "Something went worng", controller: self) {
+//
+//                    }
+//                    return false
+//                } else {
+//                    return true
+//                }
+//    }
     
     
     // Left Menu For Investor User
     func updateTabBarFunction(_ index: Int, _ page: LeftMenuPage) {
         let selectedColor   = UIColor.themeColor
-         let unselectedColor = UIColor.lightGray
+        let unselectedColor = UIColor.lightGray
         UITabBarItem.appearance().setTitleTextAttributes(
-        [NSAttributedString.Key.foregroundColor: unselectedColor, NSAttributedString.Key.font: UIFont(name: "Roboto-Regular", size: 11)!],
-                    for: .normal)
+            [NSAttributedString.Key.foregroundColor: unselectedColor, NSAttributedString.Key.font: UIFont(name: "Roboto-Regular", size: 11)!],
+            for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes(
-                    [NSAttributedString.Key.foregroundColor: selectedColor, NSAttributedString.Key.font: UIFont(name: "Roboto-Regular", size: 11)!],
-                    for: .selected)
+            [NSAttributedString.Key.foregroundColor: selectedColor, NSAttributedString.Key.font: UIFont(name: "Roboto-Regular", size: 11)!],
+            for: .selected)
         
         
         
@@ -156,35 +156,54 @@ class CustomTabBarViewController: UITabBarController, UITabBarControllerDelegate
         var vc1 = EServicesVC.instantiateFromAppStroyboard(appStoryboard: .home)
         let a1 = UINavigationController(rootViewController: vc1)
         vc1.tabBarItem = tabOneBarItem
-//        self.viewControllers = [a1,a2,a3,a4,a5]
+        //        self.viewControllers = [a1,a2,a3,a4,a5]
         
+        let isCorporateId = UserDefaults.standard.bool(forKey: "isCorporateId")
         
-           
-        if selectedTabindex == 0 {
-            vc1.isFromSideMenu = isFromSideMenu
-            vc1.selectedMenuItem = index
-        } else if selectedTabindex == 1 {
-            vc2.isFromSideMenu = isFromSideMenu
-            vc2.selectedMenuItem = index
-            vc2.page = page
-        } else if selectedTabindex == 2 {
-            vc3.isFromSideMenu = isFromSideMenu
-            vc3.selectedMenuItem = index
-        } else if selectedTabindex == 3 {
-            vc4.isFromSideMenu = isFromSideMenu
-            vc4.selectedMenuItem = index
-        } else if selectedTabindex == 4 {
-            vc5.isFromSideMenu = isFromSideMenu
-            vc5.selectedMenuItem = index
+        if isCorporateId {
+            if selectedTabindex == 0 {
+                vc2.isFromSideMenu = isFromSideMenu
+                vc2.selectedMenuItem = index
+                vc2.page = page
+            } else if selectedTabindex == 1 {
+                vc3.isFromSideMenu = isFromSideMenu
+                vc3.selectedMenuItem = index
+            } else if selectedTabindex == 2 {
+                vc4.isFromSideMenu = isFromSideMenu
+                vc4.selectedMenuItem = index
+            } else if selectedTabindex == 3 {
+                vc5.isFromSideMenu = isFromSideMenu
+                vc5.selectedMenuItem = index
+            } else {
+                vc2.isFromSideMenu = isFromSideMenu
+                vc2.selectedMenuItem = index
+            }
+            self.viewControllers = [a2,a3,a4,a5]
+            
         } else {
-            vc1.isFromSideMenu = isFromSideMenu
-            vc1.selectedMenuItem = index
+            if selectedTabindex == 0 {
+                vc1.isFromSideMenu = isFromSideMenu
+                vc1.selectedMenuItem = index
+            } else if selectedTabindex == 1 {
+                vc2.isFromSideMenu = isFromSideMenu
+                vc2.selectedMenuItem = index
+                vc2.page = page
+            } else if selectedTabindex == 2 {
+                vc3.isFromSideMenu = isFromSideMenu
+                vc3.selectedMenuItem = index
+            } else if selectedTabindex == 3 {
+                vc4.isFromSideMenu = isFromSideMenu
+                vc4.selectedMenuItem = index
+            } else if selectedTabindex == 4 {
+                vc5.isFromSideMenu = isFromSideMenu
+                vc5.selectedMenuItem = index
+            } else {
+                vc1.isFromSideMenu = isFromSideMenu
+                vc1.selectedMenuItem = index
+            }
+            self.viewControllers = [a1,a2,a3,a4,a5]
         }
-        
-        
-        
-        
-        self.viewControllers = [a1,a2,a3,a4,a5]
+    
         self.selectedIndex = selectedTabindex
     }
     
@@ -194,11 +213,11 @@ class CustomTabBarViewController: UITabBarController, UITabBarControllerDelegate
         let selectedColor   = UIColor.themeColor
         let unselectedColor = UIColor.lightGray
         UITabBarItem.appearance().setTitleTextAttributes(
-        [NSAttributedString.Key.foregroundColor: unselectedColor, NSAttributedString.Key.font: UIFont(name: "Roboto-Regular", size: 11)!],
-                    for: .normal)
+            [NSAttributedString.Key.foregroundColor: unselectedColor, NSAttributedString.Key.font: UIFont(name: "Roboto-Regular", size: 11)!],
+            for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes(
-                    [NSAttributedString.Key.foregroundColor: selectedColor, NSAttributedString.Key.font: UIFont(name: "Roboto-Regular", size: 11)!],
-                    for: .selected)
+            [NSAttributedString.Key.foregroundColor: selectedColor, NSAttributedString.Key.font: UIFont(name: "Roboto-Regular", size: 11)!],
+            for: .selected)
         
         
         let homeSelectImage: UIImage! = UIImage(named: "nav_home")?.withRenderingMode(.alwaysOriginal)
@@ -221,19 +240,19 @@ class CustomTabBarViewController: UITabBarController, UITabBarControllerDelegate
         let vc4 = NewsFeedVC.instantiateFromAppStroyboard(appStoryboard: .main)
         let vc5 = ContactUsVC.instantiateFromAppStroyboard(appStoryboard: .main)
         
-
+        
         let a1 = UINavigationController(rootViewController: vc1)
         let a2 = UINavigationController(rootViewController: vc2)
         let a3 = UINavigationController(rootViewController: vc3)
         let a4 = UINavigationController(rootViewController: vc4)
         let a5 = UINavigationController(rootViewController: vc5)
-           
+        
         vc1.tabBarItem = tabOneBarItem
         vc2.tabBarItem = tabTwoBarItem
         vc3.tabBarItem = tabThreeBarItem
         vc4.tabBarItem = tabFourBarItem
         vc5.tabBarItem = tabFiveBarItem
-
+        
         
         if selectedTabindex == 0 {
             vc1.isFromSideMenu = isFromSideMenu
@@ -261,7 +280,7 @@ class CustomTabBarViewController: UITabBarController, UITabBarControllerDelegate
         self.viewControllers = [a1,a2,a3,a4,a5]
         self.selectedIndex = selectedTabindex
     }
-
+    
 }
 extension UIImage {
     

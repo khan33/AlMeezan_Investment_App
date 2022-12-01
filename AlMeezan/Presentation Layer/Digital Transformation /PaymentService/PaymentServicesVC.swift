@@ -48,21 +48,13 @@ class PaymentServicesVC: UIViewController {
     var router: SubscriptionRouterProtocol?
     var customerSubscribe: [SubscriptionEntity.CustomerSubscribed]?
 
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray2
 
-        
-        
         let subscribeGesture = UITapGestureRecognizer(target: self, action: #selector(subscribeTapped))
         self.subscriptionView.addGestureRecognizer(subscribeGesture)
 
-        
-        
         let billPaymentGesture = UITapGestureRecognizer(target: self, action: #selector(self.billPaymentTapped))
         self.billPaymentView.addGestureRecognizer(billPaymentGesture)
         
@@ -76,8 +68,6 @@ class PaymentServicesVC: UIViewController {
         
         setupConstraint()
     }
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -103,12 +93,10 @@ class PaymentServicesVC: UIViewController {
     }
     
     @objc func billPaymentTapped(sender: UITapGestureRecognizer) {
-//        let vc = BillListController()
-//        BillListConfigurator.configureModule(viewController: vc)
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
-        let vc = PayemntSuccessView()
+        let vc = BillListController()
+        BillListConfigurator.configureModule(viewController: vc)
         self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     

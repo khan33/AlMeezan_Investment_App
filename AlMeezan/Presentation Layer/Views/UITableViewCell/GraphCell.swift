@@ -108,7 +108,7 @@ class GraphCell: UITableViewCell {
         let set = BarChartDataSet(entries: dataEntries, label: "")
         set.colors = colors
         set.valueColors = colors
-        set.valueFormatter = ChartAxisValueFormatter(chart: chartView) as! any ValueFormatter
+        set.valueFormatter = ChartAxisValueFormatter(chart: chartView) as! ValueFormatter
         let data = BarChartData(dataSet: set)
         data.setValueFont(.systemFont(ofSize: 10))
         
