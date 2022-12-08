@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 import EasyTipView
+import SwiftKeychainWrapper
 
 class RedemptionVC: UIViewController {
 
@@ -63,6 +64,8 @@ class RedemptionVC: UIViewController {
     var funds_list: [Summary]?
     var transaction: [TransactionSubmission]?
     var cashTxt: [EasyCashModel]?
+    var vpsTax: [VpsTaxDocument] = [VpsTaxDocument]()
+    var redemption: [VpsRedemption] = [VpsRedemption]()
     var transactionDescription = "Redemption"
     var initialFieldString = ""
     
@@ -79,18 +82,19 @@ class RedemptionVC: UIViewController {
         portfolioid_list = Utility.shared.filterIdAscending()
         transactionTxtField.text = "0.0"
         transactionTxtField.textColor = UIColor.themeColor
-        let portfolioID = UserDefaults.standard.string(forKey: "portfolioId") ?? ""
-        if portfolioID.contains("-") ?? false {
-            let ids = portfolioID.components(separatedBy: "-")
-               let id = Int(ids[1])!
-            let isExist = (900...999).contains(id)
-            if isExist == false {
-                portfolioFunds(portfolioID)
-            } else {
-                self.showAlert(title: "Alert", message: Message.MTPFPMessage, controller: self) {
-                }
-            }
-        }
+        getTaxDocument()
+//        let portfolioID = UserDefaults.standard.string(forKey: "portfolioId") ?? ""
+//        if portfolioID.contains("-") ?? false {
+//            let ids = portfolioID.components(separatedBy: "-")
+//               let id = Int(ids[1])!
+//            let isExist = (900...999).contains(id)
+//            if isExist == false {
+//                portfolioFunds(portfolioID)
+//            } else {
+//                self.showAlert(title: "Alert", message: Message.MTPFPMessage, controller: self) {
+//                }
+//            }
+//        }
         
         scrollView.delegate = self
         minusBtn.isUserInteractionEnabled = false
@@ -120,6 +124,50 @@ class RedemptionVC: UIViewController {
             self?.funds_list = data1
         }
     }
+    
+    func getRedemptionData() {
+        let portId = portfolioid_list?[self.selectedPortfolioId].portfolioID
+        let customerID  :   String? = KeychainWrapper.standard.string(forKey: "CustomerId")
+        let accessToken :   String? = KeychainWrapper.standard.string(forKey: "AccessToken")
+        
+        let bodyParam = RequestBody(CustomerID: customerID, AccessToken: accessToken, PortfolioID: portId)
+        let bodyRequest = bodyParam.encryptData(bodyParam)
+        let url = URL(string: VPS_REDEMPTION)!
+        SVProgressHUD.show()
+        
+        WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Easy Txt", modelType: VpsRedemption.self, errorMessage: { (errorMessage) in
+            errorResponse = errorMessage
+            //self.showErrorMsg(errorMessage)
+        }, success: { (response) in
+            self.redemption = response
+            }
+        , fail: { (error) in
+            print(error.localizedDescription)
+        }, showHUD: true)
+    }
+    
+    func getTaxDocument() {
+        let portId = portfolioid_list?[self.selectedPortfolioId].portfolioID
+        let customerID  :   String? = KeychainWrapper.standard.string(forKey: "CustomerId")
+        let accessToken :   String? = KeychainWrapper.standard.string(forKey: "AccessToken")
+        
+        let bodyParam = RequestBody(CustomerID: customerID, AccessToken: accessToken, PortfolioID: portId)
+        let bodyRequest = bodyParam.encryptData(bodyParam)
+        let url = URL(string: VPS_TAX)!
+        SVProgressHUD.show()
+        
+        WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Easy Txt", modelType: VpsTaxDocument.self, errorMessage: { (errorMessage) in
+            errorResponse = errorMessage
+            //self.showErrorMsg(errorMessage)
+        }, success: { (response) in
+            self.vpsTax = response
+            }
+        , fail: { (error) in
+            print(error.localizedDescription)
+        }, showHUD: true)
+    }
+    
+
     private func chooseValue(_ tag: Int, title: String, _ selected: Int) {
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: 250,height: 200)
@@ -154,6 +202,7 @@ class RedemptionVC: UIViewController {
                 UserDefaults.standard.set(self.portfolioid_list?[self.selectedPortfolioId].portfolioID, forKey: "portfolioId")
                 if let id = self.portfolioid_list?[self.selectedPortfolioId].portfolioID {
                     self.portfolioFunds(id)
+                    self.getRedemptionData()
                 }
                 
             }

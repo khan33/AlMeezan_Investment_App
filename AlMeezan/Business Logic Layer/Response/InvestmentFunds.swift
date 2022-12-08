@@ -29,3 +29,45 @@ struct InvestmentFunds : Codable {
 	}
 
 }
+
+struct RestrictSeries: Codable {
+    var restrictedSeries: [RestrictedId]
+}
+
+// MARK: - RestrictedSery
+struct RestrictedId: Codable {
+    var id: String
+
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+    }
+}
+
+struct VpsInvestment: Codable {
+    let fundCategory: String
+    var funds: [Fund]?
+
+    enum CodingKeys: String, CodingKey {
+        case fundCategory = "FundCategory"
+        case funds = "Funds"
+    }
+}
+
+// MARK: - Fund
+struct Fund: Codable {
+    let portfolioID, fundID, agentID, fundName: String?
+    let category: String?
+    let ord, type: Int?
+    var isHighRisk: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case portfolioID = "Portfolio_ID"
+        case fundID = "FundID"
+        case agentID = "AgentID"
+        case fundName = "FundName"
+        case category = "Category"
+        case ord = "Ord"
+        case type = "Type"
+        case isHighRisk = "isHighRisk"
+    }
+}

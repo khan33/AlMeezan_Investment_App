@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 import AVFoundation
 import EasyTipView
+import SwiftKeychainWrapper
 
 class InvestmentVC: UIViewController {
     @IBOutlet weak var portfolioIdLbl: UILabel!
@@ -58,12 +59,15 @@ class InvestmentVC: UIViewController {
     var agent_id: String =  "0"
     
     var portfolioid_list: [CustomerInvestment]?
+    
     var investemnt_fund: [InvestmentFunds]?
     var mobile_invesment: [MobileInvestment]?
+    var restrict_Ids: RestrictSeries?
     var bank_list: [BankList]?
+    var fundCategory: VpsInvestment?
     var marketValue = 1000
     
-
+    
     @IBOutlet weak var checkedBtn: UIButton!
     var preferences = EasyTipView.globalPreferences
     let tipView = EasyTipView(text: "Tap to copy")
@@ -75,8 +79,6 @@ class InvestmentVC: UIViewController {
         fundValueTxtField.delegate = self
         successView.isHidden = true
         proceedView.isHidden = true
-        
-        
         scrollView.delegate = self
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         popupView.addGestureRecognizer(tap)
@@ -103,25 +105,11 @@ class InvestmentVC: UIViewController {
         portfolioid_list = Utility.shared.filterIdAscending()
         getBankData()
         getData()
-        let portfolioID = UserDefaults.standard.string(forKey: "portfolioId")
-        for portId in portfolioid_list! {
-            print("Portfolio IDs are \(portId.portfolioID)")
-            self.portfolioTxtField.text = portId.portfolioID
-        }
-//        if portfolioID?.contains("-") ?? false {
-//            let ids = portfolioID?.components(separatedBy: "-")
-//               let id = Int(ids?[1] ?? "0")!
-//            let isExist = (900...999).contains(id)
-//            if isExist == false {
-//                self.portfolioTxtField.text = portfolioID
-//            } else {
-//                self.showAlert(title: "Alert", message: Message.MTPFPMessage, controller: self) {
-//                }
-//            }
-//        }
-        
+   //     getFundData()
+        getRestrictedIDs()
         hideNavigationBar()
         updateMarketValue()
+       // showFundData()
         Utility.shared.analyticsCode("E-services (Investment)")
         //view7.roundCorners([.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 50, borderColor: .lightGray, borderWidth: 0.5)
         
@@ -141,8 +129,8 @@ class InvestmentVC: UIViewController {
         if !termsAndConditionView.isDescendant(of: proceedView) {
             proceedView.addSubview(termsAndConditionView)
         }
-
-       
+        
+        
         termsAndConditionView.leadingAnchor.constraint(equalTo: proceedView.leadingAnchor, constant: 0).isActive = true
         termsAndConditionView.trailingAnchor.constraint(equalTo: proceedView.trailingAnchor, constant: -16).isActive = true
         termsAndConditionView.topAnchor.constraint(equalTo: amountLbl.bottomAnchor, constant: 16).isActive = true
@@ -163,8 +151,10 @@ class InvestmentVC: UIViewController {
     private func copyIndicator() {
         tipView.show(forView: self.copyBtn, withinSuperview: self.navigationController?.view)
     }
+    
+    
     func getBankData() {
-
+        
         let bodyParam = RequestBody()
         let bodyRequest = bodyParam.encryptData(bodyParam)
         let url = URL(string: BANK_LIST)!
@@ -173,17 +163,84 @@ class InvestmentVC: UIViewController {
         WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: BankList.self, errorMessage: { (errorMessage) in
             errorResponse = errorMessage
             self.showErrorMsg(errorMessage)
-
+            
         }, success: { (response) in
             self.bank_list = response
             //self.configTableView()
         }, fail: { (error) in
             print(error.localizedDescription)
         }, showHUD: true)
-
+        
     }
-    func getData() {
 
+    
+    func filterRestrictedIds() {
+         if portfolioid_list?.count ?? 0 > 0 {
+             portfolioid_list = portfolioid_list?.filter { element in
+                 if let num = element.portfolioID?.components(separatedBy: "-").last {
+                     return !(((self.restrict_Ids?.restrictedSeries.contains(where: { $0.id == num })) ?? true))
+                 }
+                 else { return true }
+             }
+         }
+     }
+    
+    
+    func getFundData() {
+        
+//        let portId = UserDefaults.standard.string(forKey: "portfolioId")
+        let portId = portfolioid_list?[self.selectedPortfolioId].portfolioID
+        let customerID  :   String? = KeychainWrapper.standard.string(forKey: "CustomerId")
+        let accessToken :   String? = KeychainWrapper.standard.string(forKey: "AccessToken")
+        
+        let bodyParam = RequestBody(CustomerID: customerID, AccessToken: accessToken, PortfolioID: portId)
+        let bodyRequest = bodyParam.encryptData(bodyParam)
+        let url = URL(string: "https://members.almeezangroup.com/Webapitest/api/vpsinvestmentseries")!
+        SVProgressHUD.show()
+        
+        WebServiceManager.sharedInstance.fetchObject(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: VpsInvestment.self, errorMessage: { (errorMessage) in
+            errorResponse = errorMessage
+            self.showErrorMsg(errorMessage)
+            
+        }, success: { (response) in
+            self.fundCategory = response
+            self.fundCategoryTxtField.isUserInteractionEnabled = false
+            self.fundTxtField.isUserInteractionEnabled = false
+            self.fundCategoryTxtField.text = self.fundCategory?.funds?[0].category
+            self.fundTxtField.text = self.fundCategory?.funds?[0].fundName
+            self.agent_id = self.fundCategory?.funds?[0].agentID ?? ""
+            self.fund_id = self.fundCategory?.funds?[0].fundID ?? ""
+            self.fundCategory?.funds?[0].isHighRisk = 0
+            
+            
+            //self.configTableView()
+        }, fail: { (error) in
+            print(error.localizedDescription)
+        }, showHUD: true)
+    }
+    
+    func getRestrictedIDs() {
+        let bodyParam = RequestBody()
+        let bodyRequest = bodyParam.encryptData(bodyParam)
+        let url = URL(string: "https://members.almeezangroup.com/Webapitest/api/vpsinvestmentrestrictedseries")!
+        SVProgressHUD.show()
+        
+        WebServiceManager.sharedInstance.fetchObject(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: RestrictSeries.self, errorMessage: { (errorMessage) in
+            errorResponse = errorMessage
+            self.showErrorMsg(errorMessage)
+            
+        }, success: { (response) in
+            self.restrict_Ids = response
+            self.filterRestrictedIds()
+            //self.configTableView()
+        }, fail: { (error) in
+            print(error.localizedDescription)
+        }, showHUD: true)
+    }
+    
+    
+    func getData() {
+        
         let bodyParam = RequestBody()
         let bodyRequest = bodyParam.encryptData(bodyParam)
         let url = URL(string: INVESTMENT_FUND)!
@@ -192,7 +249,7 @@ class InvestmentVC: UIViewController {
         WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: InvestmentFunds.self, errorMessage: { (errorMessage) in
             errorResponse = errorMessage
             self.showErrorMsg(errorMessage)
-
+            
         }, success: { (response) in
             self.investemnt_fund = response
             
@@ -200,7 +257,24 @@ class InvestmentVC: UIViewController {
         }, fail: { (error) in
             print(error.localizedDescription)
         }, showHUD: true)
-
+        
+    }
+    
+    func showFilterFundData() {
+        if let portId = portfolioid_list?[self.selectedPortfolioId].portfolioID {
+            if portId.contains("-9") {
+                fundCategoryTxtField.isUserInteractionEnabled = false
+                fundTxtField.isUserInteractionEnabled = false
+                fundCategoryTxtField.text = fundCategory?.funds?[0].category
+                fundTxtField.text = fundCategory?.funds?[0].fundName
+            
+            }
+//            else {
+//                fundCategoryTxtField.isUserInteractionEnabled = true
+//                fundTxtField.isUserInteractionEnabled = true
+//            }
+        }
+    
     }
     
     private func chooseValue(_ tag: Int, title: String, _ selected: Int) {
@@ -228,9 +302,30 @@ class InvestmentVC: UIViewController {
                 self.bankLstTxtField.text = self.bank_list?[self.selectedBankId].bankName
                 self.bankID = self.bank_list?[self.selectedBankId].BankID ?? ""
             } else {
-                let portfolioID = self.portfolioid_list?[self.selectedPortfolioId].portfolioID
-                self.portfolioTxtField.text = self.portfolioid_list?[self.selectedPortfolioId].portfolioID
-                UserDefaults.standard.set(portfolioID, forKey: "portfolioId")
+           
+                if let portId = self.portfolioid_list?[self.selectedPortfolioId].portfolioID {
+                    self.portfolioTxtField.text = portId
+                   
+                        if portId.contains("-9") {
+                            self.fundCategoryTxtField.isEnabled = false
+                            self.fundTxtField.isUserInteractionEnabled = false
+                            pickerView.isUserInteractionEnabled = false
+                            pickerView.isHidden = true
+                        
+                            self.getFundData()
+
+                        } else {
+                            self.fundCategoryTxtField.isUserInteractionEnabled = true
+                            self.fundTxtField.isUserInteractionEnabled = true
+                            self.fundCategoryTxtField.text = ""
+                            self.fundTxtField.text = ""
+                        }
+                    
+                    UserDefaults.standard.set(portId, forKey: "portfolioId")
+                    }
+                //
+                //self.showFilterFundData()
+            
                 
             }
         }))
@@ -259,7 +354,11 @@ class InvestmentVC: UIViewController {
     }
     
     @IBAction func tapOnFundCategoryBtn(_ sender: Any) {
-        if investemnt_fund?.count ?? 0 > 0 {
+        
+        var disable = sender as? UIButton
+        disable?.isEnabled = false
+        
+        if investemnt_fund?.count ?? 0 > 0{
             chooseValue(1, title: "Choose Fund Category", selectedFundCategoryId)
         } else {
             showAlert(title: "Alert", message: "No fund avaliable for selected category.", controller: self) {
@@ -284,17 +383,17 @@ class InvestmentVC: UIViewController {
             print(string)
         }
         self.showToast(message: "Successfully reference id copied. ", font: .systemFont(ofSize: 12.0))
-
+        
         
     }
     
     func attributedString() -> NSAttributedString {
         let attributedString =
-          NSMutableAttributedString(string: "Tap to copy",
-                                    attributes: [.font: UIFont.systemFont(ofSize: 15)])
+        NSMutableAttributedString(string: "Tap to copy",
+                                  attributes: [.font: UIFont.systemFont(ofSize: 15)])
         
         return attributedString
-      }
+    }
     @IBAction func tapOnBankListBtn(_ sender: Any) {
         if portfolioid_list?.count ?? 0 > 0 {
             if bank_list?.count ?? 0 > 0 {
@@ -304,8 +403,8 @@ class InvestmentVC: UIViewController {
                 }
             }
         } else {
-//            showAlert(title: "Alert", message: Message.MTPFPMessage, controller: self) {
-//            }
+            //            showAlert(title: "Alert", message: Message.MTPFPMessage, controller: self) {
+            //            }
         }
     }
     
@@ -384,7 +483,6 @@ class InvestmentVC: UIViewController {
     
     @IBAction func tapOnResetBtn(_ sender: Any) {
         self.refreshFrom()
-        
     }
     
     
@@ -403,7 +501,7 @@ class InvestmentVC: UIViewController {
         vc.titleStr = "Meezan Funds Online"
         vc.isTransition = false
         navigationController?.pushViewController(vc, animated: true)
-//
+        //
     }
     
     
@@ -422,7 +520,6 @@ class InvestmentVC: UIViewController {
         marketValue = 1000
         updateMarketValue()
     }
-    
     
     @IBAction func tapOnContinueBtn(_ sender: Any) {
         guard let portfolioTxt  = portfolioTxtField.text, !portfolioTxt.isEmpty else {
@@ -489,8 +586,19 @@ class InvestmentVC: UIViewController {
             //\(String(describing: marketValue).toCurrencyFormat(withFraction: false))"
             bankLbl.text = bankTxt
             transactionLbl.text = "Investment"
-            let isHighRisk = self.investemnt_fund?[selectedFundCategoryId].funds?[selectedFundId].IsHighRisk
-            if isHighRisk == 1 {
+            
+            var highRisk: Int?
+            
+            if let portId = self.portfolioid_list?[self.selectedPortfolioId].portfolioID {
+                if portId.contains("-9") {
+                    highRisk = fundCategory?.funds?[0].isHighRisk
+                } else {
+                    highRisk = self.investemnt_fund?[selectedFundCategoryId].funds?[selectedFundId].IsHighRisk
+                }
+            }
+            
+          //  let isHighRisk = self.investemnt_fund?[selectedFundCategoryId].funds?[selectedFundId].IsHighRisk
+            if highRisk == 1 {
                 let vc = ETransactionWebViewVC.instantiateFromAppStroyboard(appStoryboard: .home)
                 if #available(iOS 10.0, *) {
                     vc.modalPresentationStyle = .overCurrentContext
@@ -504,10 +612,10 @@ class InvestmentVC: UIViewController {
                     print("abc")
                 })
             } else {
-               conituneFundTransaction(fundTxt)
+                conituneFundTransaction(fundTxt)
             }
         }
-
+        
     }
     func updateSuccessUI(_ id: String?) {
         let dateStr = Date().dateAndTimetoString(format: "EEEE, MMM d, YYYY")
@@ -531,7 +639,7 @@ class InvestmentVC: UIViewController {
         let url = URL(string: MOBILE_INVESTMENT)!
         print(url)
         SVProgressHUD.show()
-
+        
         WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: MobileInvestment.self, errorMessage: { (errorMessage) in
             errorResponse = errorMessage
             self.showErrorMsg(errorMessage)
@@ -552,7 +660,7 @@ class InvestmentVC: UIViewController {
         continueView.isHidden = true
         let point = CGPoint(x: 0, y: 0)
         scrollView.setContentOffset(point, animated: true)
-
+        
     }
     
     
@@ -636,7 +744,7 @@ extension InvestmentVC: UIPickerViewDelegate, UIPickerViewDataSource {
         }
         title.font = UIFont(name: "Roboto-Regular", size: pickerTitleFontSize)
         if pickerView.tag == 1 {
-         title.text = investemnt_fund?[row].fundCategory
+            title.text = investemnt_fund?[row].fundCategory
         } else if pickerView.tag == 2 {
             title.text =  investemnt_fund?[selectedFundCategoryId].funds?[row].fundName
         } else if pickerView.tag == 3 {
@@ -660,7 +768,7 @@ extension InvestmentVC: UITextFieldDelegate {
         let maxLength = 12
         let currentString: NSString = (textField.text ?? "") as NSString
         let newString: NSString =
-            currentString.replacingCharacters(in: range, with: string) as NSString
+        currentString.replacingCharacters(in: range, with: string) as NSString
         return newString.length <= maxLength
     }
 }
@@ -670,12 +778,12 @@ extension InvestmentVC: Transaction {
     }
 }
 extension NSMutableAttributedString {
-  
-  func highlight(text: String, with attributes: [NSAttributedString.Key: Any]) {
-    let range = (string as NSString).range(of: text)
-    setAttributes(attributes,
-                  range: range)
-  }
+    
+    func highlight(text: String, with attributes: [NSAttributedString.Key: Any]) {
+        let range = (string as NSString).range(of: text)
+        setAttributes(attributes,
+                      range: range)
+    }
 }
 
 extension InvestmentVC: UIScrollViewDelegate {

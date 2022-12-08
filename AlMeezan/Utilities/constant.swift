@@ -36,6 +36,7 @@ let tmpString = "[{\"statusCode\":\"001\",\"Customerid\":\"176399\",\"tokenID\":
 
 //let BASE_URL = "https://members.almeezangroup.com/MobileApiV2/api/"
 let BASE_URL = "https://members.almeezangroup.com/webapitest/api/"
+//let BASE_URL = "https://members.almeezangroup.com/DFN_MObileAPI/api/"
 
 
 let CUSTOMER_LOGIN      =   BASE_URL + "customerlogin"
@@ -84,6 +85,8 @@ let BANK_LIST           =   BASE_URL + "InvestmentBanks"
 let HIGHT_TEXT          =   BASE_URL + "HighRiskText"
 let SUKUK_LIST          =   BASE_URL + "GOPSukuk"
 let PKRV_PIB_LIST       =   BASE_URL + "PKRV_PIB_Returns"
+let VPS_REDEMPTION = BASE_URL + "vpsredemption"
+let VPS_TAX = BASE_URL + "vpstaxdocumentsetup"
 
 let OTP_SEND            =   BASE_URL + "OTPSend"
 let VERIFY_OTP          =   BASE_URL + "OTPVerify"

@@ -218,6 +218,8 @@ class DashboardViewController: UIViewController {
         } else {
             UserDefaults.standard.set(self.customerInvestment?[1].portfolioID ?? "", forKey: "portfolioId")
         }
+        
+        
     }
     
     func updateUI() {

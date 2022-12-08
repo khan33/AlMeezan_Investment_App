@@ -185,6 +185,7 @@ class WebServiceManager: NSObject {
                                 SVProgressHUD.dismiss()
                                 success(user)
                             } catch let error {
+                                
                                 print(error)
                             }
                         }

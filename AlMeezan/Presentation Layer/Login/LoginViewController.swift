@@ -242,7 +242,7 @@ class LoginViewController: UIViewController {
                     UserDefaults.standard.set(isNPSShow, forKey: "isSurveyShow")
                 }
                 
-                UserDefaults.standard.set(true, forKey: "isCorporateId")
+                UserDefaults.standard.set(false, forKey: "isCorporateId")
                 
                 
                 

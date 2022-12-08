@@ -130,17 +130,17 @@ class Utility: NSObject {
         var list: [CustomerInvestment]?
         PersistenceServices.shared.fetch(CustomerInvestment.self) { [weak self] (data) in
             list = data
-            if list?.count ?? 0 > 0 {
-                list = list?.filter({
-                        if let str = $0.portfolioID?.components(separatedBy: "-").last, let num = Int(str) {
-                            return !(900...999).contains(num)
-                        }
-                    return true
-                })
-            }
+//            if list?.count ?? 0 > 0 {
+//                list = list?.filter({
+//                        if let str = $0.portfolioID?.components(separatedBy: "-").last, let num = Int(str) {
+//                            return !(900...999).contains(num)
+//                        }
+//                    return true
+//                })
+//            }
         }
         
-        list = list?.filter( {$0.portfolioID != Message.allPortfolio} )
+       list = list?.filter( {$0.portfolioID != Message.allPortfolio} )
 
         list = list?.sorted {
             if let id1 = $0.portfolioID, let id2 = $1.portfolioID {
