@@ -35,7 +35,8 @@ let tmpString = "[{\"statusCode\":\"001\",\"Customerid\":\"176399\",\"tokenID\":
 #endif
 
 //let BASE_URL = "https://members.almeezangroup.com/MobileApiV2/api/"
-let BASE_URL = "https://members.almeezangroup.com/webapitest/api/"
+//let BASE_URL = "https://members.almeezangroup.com/webapitest/api/"
+let BASE_URL = "https://members.almeezangroup.com/DFN_MObileAPI/api/"
 
 
 let CUSTOMER_LOGIN      =   BASE_URL + "customerlogin"
