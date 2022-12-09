@@ -45,6 +45,8 @@ class InvestmentVC: UIViewController {
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var copyBtn: UIButton!
     
+    @IBOutlet weak var fundBtn: UIButton!
+    @IBOutlet weak var fundCategoryBtn: UIButton!
     
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var portfolio2View: UIView!
@@ -95,17 +97,13 @@ class InvestmentVC: UIViewController {
         preferences.animating.showDuration = 1
         preferences.drawing.arrowPosition = .top
         preferences.animating.dismissDuration = 0.5
-        
-        
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         portfolioid_list = Utility.shared.filterIdAscending()
         getBankData()
         getData()
-   //     getFundData()
         getRestrictedIDs()
         hideNavigationBar()
         updateMarketValue()
@@ -187,8 +185,7 @@ class InvestmentVC: UIViewController {
     
     
     func getFundData() {
-        
-//        let portId = UserDefaults.standard.string(forKey: "portfolioId")
+   
         let portId = portfolioid_list?[self.selectedPortfolioId].portfolioID
         let customerID  :   String? = KeychainWrapper.standard.string(forKey: "CustomerId")
         let accessToken :   String? = KeychainWrapper.standard.string(forKey: "AccessToken")
@@ -302,31 +299,27 @@ class InvestmentVC: UIViewController {
                 self.bankLstTxtField.text = self.bank_list?[self.selectedBankId].bankName
                 self.bankID = self.bank_list?[self.selectedBankId].BankID ?? ""
             } else {
-           
                 if let portId = self.portfolioid_list?[self.selectedPortfolioId].portfolioID {
                     self.portfolioTxtField.text = portId
                    
                         if portId.contains("-9") {
                             self.fundCategoryTxtField.isEnabled = false
                             self.fundTxtField.isUserInteractionEnabled = false
-                            pickerView.isUserInteractionEnabled = false
-                            pickerView.isHidden = true
-                        
+                            self.fundCategoryBtn.isEnabled = false
+                            self.fundBtn.isEnabled = false
                             self.getFundData()
 
                         } else {
                             self.fundCategoryTxtField.isUserInteractionEnabled = true
                             self.fundTxtField.isUserInteractionEnabled = true
+                            self.fundCategoryBtn.isEnabled = true
+                            self.fundBtn.isEnabled = true
                             self.fundCategoryTxtField.text = ""
                             self.fundTxtField.text = ""
                         }
                     
                     UserDefaults.standard.set(portId, forKey: "portfolioId")
                     }
-                //
-                //self.showFilterFundData()
-            
-                
             }
         }))
         self.present(editRadiusAlert, animated: true)
@@ -355,9 +348,6 @@ class InvestmentVC: UIViewController {
     
     @IBAction func tapOnFundCategoryBtn(_ sender: Any) {
         
-        var disable = sender as? UIButton
-        disable?.isEnabled = false
-        
         if investemnt_fund?.count ?? 0 > 0{
             chooseValue(1, title: "Choose Fund Category", selectedFundCategoryId)
         } else {
@@ -383,7 +373,6 @@ class InvestmentVC: UIViewController {
             print(string)
         }
         self.showToast(message: "Successfully reference id copied. ", font: .systemFont(ofSize: 12.0))
-        
         
     }
     
@@ -597,7 +586,6 @@ class InvestmentVC: UIViewController {
                 }
             }
             
-          //  let isHighRisk = self.investemnt_fund?[selectedFundCategoryId].funds?[selectedFundId].IsHighRisk
             if highRisk == 1 {
                 let vc = ETransactionWebViewVC.instantiateFromAppStroyboard(appStoryboard: .home)
                 if #available(iOS 10.0, *) {
@@ -633,7 +621,7 @@ class InvestmentVC: UIViewController {
     }
     func submitInvestment() {
         let portfolioId = UserDefaults.standard.string(forKey: "portfolioId")!
-        var transactionAmount = fundValueTxtField.text!
+        let transactionAmount = fundValueTxtField.text!
         let bodyParam = RequestBody(PortfolioID: portfolioId, FundID: self.fund_id, AgentID: self.agent_id, Amount: transactionAmount, Bank: bankID)
         let bodyRequest = bodyParam.encryptData(bodyParam)
         let url = URL(string: MOBILE_INVESTMENT)!
