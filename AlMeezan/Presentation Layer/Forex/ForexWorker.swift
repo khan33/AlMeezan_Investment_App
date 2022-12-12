@@ -13,7 +13,7 @@ protocol ForexWorkerProtocol: AnyObject {
 
 class ForexWorker: ForexWorkerProtocol {
     func fetch(encryptedString: String, completion: @escaping (Result<String, Error>) -> Void) {
-        
+        print(encryptedString)
         ServiceManager.shared.sendRequest(request: ForexEntity.ForexRequestModel(KeyValue: encryptedString)) { response in
             completion(response)
         }

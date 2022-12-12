@@ -19,15 +19,15 @@ class CustomerInvestment : NSManagedObject, Codable {
     var isExpandable        :   Bool = true
 	enum CodingKeys: String, CodingKey {
 
-		case portfolioID = "PortfolioID"
+		case portfolioID = "PortfolioId"
         case customerName = "CustomerName"
 		case summary = "Summary"
         case isExpandable = "isExpandable"
 	}
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CustomerInvestment> {
-           return NSFetchRequest<CustomerInvestment>(entityName: "CustomerInvestment")
-       }
+        return NSFetchRequest<CustomerInvestment>(entityName: "CustomerInvestment")
+    }
     
     
     

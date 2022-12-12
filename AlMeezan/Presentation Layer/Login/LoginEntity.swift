@@ -82,9 +82,9 @@ enum LoginEntity {
         var isCorporateId: Bool = true
         
         enum CodingKeys: String, CodingKey {
-            case statusCode = "statusCode"
-            case customerid = "Customerid"
-            case tokenID = "tokenID"
+            case statusCode = "StatusCode"
+            case customerid = "CustomerId"
+            case tokenID = "tokenid"
             case dataStatus = "DataStatus"
             case errId = "ErrID"
             case IsNPSShow = "IsNPSShow"

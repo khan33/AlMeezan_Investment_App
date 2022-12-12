@@ -63,8 +63,8 @@ class LoginViewController: UIViewController {
         router?.navigationController = navigationController
         interactor?.viewDidLoad()
         
-        customerIdTxtField.text = "176399"
-        passwordTxtField.text = "Today321"
+        customerIdTxtField.text = "130734"
+        passwordTxtField.text = "Today999"
 
         
         // 100132
@@ -72,13 +72,8 @@ class LoginViewController: UIViewController {
         // 186506
         // 138374
         
-        
-        
-        
         updatePlaceHolder()
         checkBiometricStatus()
-
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -242,7 +237,7 @@ class LoginViewController: UIViewController {
                     UserDefaults.standard.set(isNPSShow, forKey: "isSurveyShow")
                 }
                 
-                UserDefaults.standard.set(true, forKey: "isCorporateId")
+                UserDefaults.standard.set(false, forKey: "isCorporateId")
                 
                 
                 
