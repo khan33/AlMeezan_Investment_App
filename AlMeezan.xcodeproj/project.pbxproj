@@ -168,6 +168,7 @@
 		E8457EAD237DB3D600EAAFD9 /* InvestmentFundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8457EAB237DB3D600EAAFD9 /* InvestmentFundCell.xib */; };
 		E8460B7228D1B286009BCC51 /* BillPaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8460B7128D1B286009BCC51 /* BillPaymentCell.swift */; };
 		E8460B7428D1B2B8009BCC51 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8460B7328D1B2B8009BCC51 /* HistoryCell.swift */; };
+		E847230F29489E4D00BF8C66 /* DocuemntUploadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E847230E29489E4D00BF8C66 /* DocuemntUploadingCell.swift */; };
 		E849ACCD23F17028008091FD /* TimerUIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = E849ACCC23F17028008091FD /* TimerUIApplication.swift */; };
 		E849ACCF23F17053008091FD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E849ACCE23F17053008091FD /* main.swift */; };
 		E84A2DF8273C09B600FAF70E /* PersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84A2DF7273C09B500FAF70E /* PersonalInfoVC.swift */; };
@@ -786,6 +787,7 @@
 		E8457EAB237DB3D600EAAFD9 /* InvestmentFundCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InvestmentFundCell.xib; sourceTree = "<group>"; };
 		E8460B7128D1B286009BCC51 /* BillPaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillPaymentCell.swift; sourceTree = "<group>"; };
 		E8460B7328D1B2B8009BCC51 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		E847230E29489E4D00BF8C66 /* DocuemntUploadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocuemntUploadingCell.swift; sourceTree = "<group>"; };
 		E849ACCC23F17028008091FD /* TimerUIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerUIApplication.swift; sourceTree = "<group>"; };
 		E849ACCE23F17053008091FD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		E84A2DF7273C09B500FAF70E /* PersonalInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoVC.swift; sourceTree = "<group>"; };
@@ -2590,6 +2592,7 @@
 				E8FBEF44238D3F5500816352 /* FundDetailsViewController.swift */,
 				E8301F6423D8317800C3003A /* ETransactionPopupVC.swift */,
 				E829451D2507788800B05E77 /* ETransactionWebViewVC.swift */,
+				E847230E29489E4D00BF8C66 /* DocuemntUploadingCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -3048,6 +3051,7 @@
 				E8AA0C83239241B20014EF8A /* PersistenceServices.swift in Sources */,
 				4714588F28ED75D400FDD358 /* PaymentInteractor.swift in Sources */,
 				E8CE4B8323856873001C417C /* MarketPerformersVC.swift in Sources */,
+				E847230F29489E4D00BF8C66 /* DocuemntUploadingCell.swift in Sources */,
 				E8460B7228D1B286009BCC51 /* BillPaymentCell.swift in Sources */,
 				E8035093233215BD0034E8AB /* InvestNowViewCell.swift in Sources */,
 				E8A3F740278701FF00D9F92C /* QuestionViewCell.swift in Sources */,
@@ -3731,7 +3735,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ahmad/Documents/AlMeezan/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/attakhan/Documents/iOS Workspace/Al-Meezan-Investment-App/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3797,7 +3801,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ahmad/Documents/AlMeezan/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/attakhan/Documents/iOS Workspace/Al-Meezan-Investment-App/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

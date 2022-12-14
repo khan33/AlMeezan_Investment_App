@@ -49,7 +49,8 @@ class RedemptionVC: UIViewController {
     
     @IBOutlet weak var amountType: UILabel!
     
-    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     var selectedPortfolioId: Int = 0
     var selectedFundFromId: Int = 0
     var isSelectedFund: Bool = false
@@ -76,6 +77,11 @@ class RedemptionVC: UIViewController {
         transactionTxtField.isUserInteractionEnabled = false
         successView.isHidden = true
         proceedView.isHidden = true
+        
+        tableViewHeightConstraint.constant = 0
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -751,3 +757,21 @@ extension RedemptionVC: UIScrollViewDelegate {
         tipView.dismiss()
     }
 }
+
+
+extension RedemptionVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(with: DocuemntUploadingCell.self, for: indexPath)
+        return cell
+    }
+    
+    
+}
+
