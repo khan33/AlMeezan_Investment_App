@@ -328,8 +328,6 @@ class DocumentUploadVC: UIViewController {
         
         do {
             if let request = try createRequest() {
-               
-
                 let task = URLSession.shared.dataTask(with: request as URLRequest) {
                     data, response, error in
                     self.hideLoader()

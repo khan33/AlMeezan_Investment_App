@@ -26,21 +26,34 @@ struct EasyCashModel : Codable {
 }
 
 
-struct VpsRedemption: Codable {
-    let Portfolio_ID: String?
-    let description: String?
-//    let FundName: String?
-    let FundID: String?
-//    let AgentId: String?
-//    let AgentName: String?
-//    let isTaxable: Bool?
-//    let Balance: Double?
+struct VpsRedemptionModel: Codable {
+    let portfolio_ID : String?
+    let description : String?
+    let fundID : String?
+    let aGENT_ID : String?
+    let aGENT_NAME : String?
+    let isTaxabale : Bool?
+    let bal : Double?
+
+    enum CodingKeys: String, CodingKey {
+
+        case portfolio_ID = "Portfolio_ID"
+        case description = "description"
+        case fundID = "FundID"
+        case aGENT_ID = "AGENT_ID"
+        case aGENT_NAME = "AGENT_NAME"
+        case isTaxabale = "isTaxabale"
+        case bal = "Bal"
+    }
+    
+    
 }
 
 
 struct VpsTaxDocument: Codable {
-    let key, label: String
-    let yearList: [String]
+    let key, label: String?
+    let yearList: String?
+    var isExpandable: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case key = "Key"

@@ -10,6 +10,14 @@ import UIKit
 
 class DocuemntUploadingCell: UITableViewCell {
 
+    @IBOutlet weak var yearLbl: UILabel!
+    
+    @IBOutlet weak var uplaodingView: UIView!
+    
+    @IBOutlet weak var uploadBtn: UIButton!
+    
+    @IBOutlet weak var closeBtn: UIButton!
+    @IBOutlet weak var fileNameLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

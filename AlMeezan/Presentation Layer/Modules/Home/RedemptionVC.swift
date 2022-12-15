@@ -66,11 +66,17 @@ class RedemptionVC: UIViewController {
     var transaction: [TransactionSubmission]?
     var cashTxt: [EasyCashModel]?
     var vpsTax: [VpsTaxDocument] = [VpsTaxDocument]()
-    var redemption: [VpsRedemption] = [VpsRedemption]()
+    var redemptionMTPF: [VpsRedemptionModel]?
     var transactionDescription = "Redemption"
     var initialFieldString = ""
     
     let tipView = EasyTipView(text: "Tap to copy")
+    var rowHeight: CGFloat = 60.0
+    
+    var imagePicker: UIImagePickerController!
+    var image: UIImage? = UIImage()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         transactionTxtField.delegate = self
@@ -79,16 +85,14 @@ class RedemptionVC: UIViewController {
         proceedView.isHidden = true
         
         tableViewHeightConstraint.constant = 0
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.reloadData()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         portfolioid_list = Utility.shared.filterIdAscending()
         transactionTxtField.text = "0.0"
         transactionTxtField.textColor = UIColor.themeColor
-        getTaxDocument()
+    
 //        let portfolioID = UserDefaults.standard.string(forKey: "portfolioId") ?? ""
 //        if portfolioID.contains("-") ?? false {
 //            let ids = portfolioID.components(separatedBy: "-")
@@ -118,6 +122,16 @@ class RedemptionVC: UIViewController {
         tipView.dismiss()
     }
     
+    private func tableReload() {
+        tableViewHeightConstraint.constant = CGFloat(vpsTax.count) * rowHeight
+        
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.reloadData()
+    }
+    
+    
     private func portfolioFunds(_ id: String) {
         funds_list?.removeAll()
         fundFromTxtField.text = ""
@@ -141,11 +155,16 @@ class RedemptionVC: UIViewController {
         let url = URL(string: VPS_REDEMPTION)!
         SVProgressHUD.show()
         
-        WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Easy Txt", modelType: VpsRedemption.self, errorMessage: { (errorMessage) in
+        WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Easy Txt", modelType: VpsRedemptionModel.self, errorMessage: { (errorMessage) in
             errorResponse = errorMessage
             //self.showErrorMsg(errorMessage)
         }, success: { (response) in
-            self.redemption = response
+            self.redemptionMTPF = response
+            if self.redemptionMTPF?.count ?? 0 > 0 {
+                if let isTaxable = self.redemptionMTPF?[0].isTaxabale , isTaxable == false {
+                    self.getTaxDocument()
+                }
+            }
             }
         , fail: { (error) in
             print(error.localizedDescription)
@@ -167,6 +186,7 @@ class RedemptionVC: UIViewController {
             //self.showErrorMsg(errorMessage)
         }, success: { (response) in
             self.vpsTax = response
+            self.tableReload()
             }
         , fail: { (error) in
             print(error.localizedDescription)
@@ -207,8 +227,15 @@ class RedemptionVC: UIViewController {
                 self.portfolioTxtField.text = self.portfolioid_list?[self.selectedPortfolioId].portfolioID
                 UserDefaults.standard.set(self.portfolioid_list?[self.selectedPortfolioId].portfolioID, forKey: "portfolioId")
                 if let id = self.portfolioid_list?[self.selectedPortfolioId].portfolioID {
-                    self.portfolioFunds(id)
-                    self.getRedemptionData()
+                    
+                    if let lastId =  id.components(separatedBy: "-").last, let num = Int(lastId) {
+                        print(num)
+                        if !(900...999).contains(num) {
+                            self.portfolioFunds(id)
+                        } else {
+                            self.getRedemptionData()
+                        }
+                    }
                 }
                 
             }
@@ -673,6 +700,34 @@ class RedemptionVC: UIViewController {
             print(error.localizedDescription)
         }, showHUD: true)
     }
+    
+    
+    @objc func didTapOnUploadBtn(_ sender: UIButton) {
+        let tag = sender.tag
+        vpsTax[tag].isExpandable = true
+        
+        let indexPath = IndexPath(row: tag, section: 0)
+        let cell = tableView.cellForRow(at: indexPath) as? DocuemntUploadingCell
+        cell?.uplaodingView.isHidden = false
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+        let count = vpsTax.filter{ $0.isExpandable == true }.count
+        print(count)
+        tableViewHeightConstraint.constant = (CGFloat(vpsTax.count) * rowHeight ) + (CGFloat( count ) * rowHeight)
+
+    }
+    
+    @objc func didTapOnCloseBtn(_ sender: UIButton) {
+        let tag = sender.tag
+        vpsTax[tag].isExpandable = false
+        let indexPath = IndexPath(row: tag, section: 0)
+        let cell = tableView.cellForRow(at: indexPath) as? DocuemntUploadingCell
+        cell?.uplaodingView.isHidden = true
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+        let count = vpsTax.filter{ $0.isExpandable == true }.count
+        print(count)
+        tableViewHeightConstraint.constant = (CGFloat(vpsTax.count) * rowHeight ) + (CGFloat( count ) * rowHeight)
+        
+    }
 }
 extension RedemptionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -761,17 +816,126 @@ extension RedemptionVC: UIScrollViewDelegate {
 
 extension RedemptionVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return vpsTax.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        if vpsTax[indexPath.row].isExpandable == true {
+            return 120
+        } else {
+            return rowHeight
+            
+        }
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(with: DocuemntUploadingCell.self, for: indexPath)
+        cell.yearLbl.text = vpsTax[indexPath.row].yearList
+        if vpsTax[indexPath.row].isExpandable == false {
+            cell.uplaodingView.isHidden = true
+        } else {
+            cell.uplaodingView.isHidden = false
+        }
+        cell.uploadBtn.tag = indexPath.row
+        cell.uploadBtn.addTarget(self, action: #selector(didTapOnUploadBtn), for: .touchUpInside)
+        cell.closeBtn.tag = indexPath.row
+        cell.closeBtn.addTarget(self, action: #selector(didTapOnCloseBtn), for: .touchUpInside)
+        
         return cell
     }
     
     
 }
 
+struct Media {
+    let key: String
+    let filename: String
+    let data: Data
+    let mimeType: String
+    init?(withImage image: UIImage, forKey key: String) {
+        self.key = key
+        self.mimeType = "image/jpeg"
+        self.filename = "imagefile.jpg"
+        guard let data = image.jpegData(compressionQuality: 0.7) else { return nil }
+        self.data = data
+    }
+}
+
+
+extension RedemptionVC {
+    func createDataBody(withParameters params: [String: String]?, media: [Media]?, boundary: String) -> Data {
+       let lineBreak = "\r\n"
+       var body = Data()
+       if let parameters = params {
+          for (key, value) in parameters {
+             body.append("--\(boundary + lineBreak)")
+             body.append("Content-Disposition: form-data; name=\"\(key)\"\(lineBreak + lineBreak)")
+             body.append("\(value as! String + lineBreak)")
+          }
+       }
+       if let media = media {
+          for photo in media {
+             body.append("--\(boundary + lineBreak)")
+             body.append("Content-Disposition: form-data; name=\"\(photo.key)\"; filename=\"\(photo.filename)\"\(lineBreak)")
+             body.append("Content-Type: \(photo.mimeType + lineBreak + lineBreak)")
+             body.append(photo.data)
+             body.append(lineBreak)
+          }
+       }
+       body.append("--\(boundary)--\(lineBreak)")
+       return body
+    }
+    func uploadImageToServer() {
+        
+        let parameters = [
+            "CustomerID"  : "",
+            "AccessToken"    : "",
+            "Tax1-Year": "",
+            "Tax2-Year" : "",
+            "Tax3-Year" : "",
+        ]
+        
+        
+        guard let mediaImage = Media(withImage: "yourImage", forKey: "image") else { return }
+        guard let url = URL(string: "your url") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        //create boundary
+        let boundary = generateBoundary()
+        //set content type
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        //call createDataBody method
+        let dataBody = createDataBody(withParameters: parameters, media: [mediaImage], boundary: boundary)
+        request.httpBody = dataBody
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+          if let response = response {
+             print(response)
+          }
+          if let data = data {
+             do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+             } catch {
+                print(error)
+             }
+          }
+        }.resume()
+    }
+    
+    func generateBoundary() -> String {
+       return "Boundary-\(NSUUID().uuidString)"
+    }
+    
+    
+    public override func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("Cancel")
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+
+    override func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        imagePicker.dismiss(animated: true, completion: nil)
+        image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        
+        
+        
+    }
+}

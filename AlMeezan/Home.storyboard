@@ -3940,88 +3940,6 @@
                                                             <constraint firstAttribute="height" constant="0.5" id="OvH-eF-a4v"/>
                                                         </constraints>
                                                     </view>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="UmW-AU-EAm">
-                                                        <rect key="frame" x="24" y="101" width="334" height="163"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="163" id="lsa-NW-Bht"/>
-                                                        </constraints>
-                                                        <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="DocuemntUploadingCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DocuemntUploadingCell" rowHeight="98" id="4GH-Z8-j3k" customClass="DocuemntUploadingCell" customModule="AlMeezan_Investment" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="50" width="334" height="98"/>
-                                                                <autoresizingMask key="autoresizingMask"/>
-                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4GH-Z8-j3k" id="Uxr-gK-bdk">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="334" height="98"/>
-                                                                    <autoresizingMask key="autoresizingMask"/>
-                                                                    <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019-2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qyL-KI-zp0">
-                                                                            <rect key="frame" x="0.0" y="19" width="57.333333333333336" height="14.333333333333336"/>
-                                                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
-                                                                            <color key="textColor" red="0.13725490200000001" green="0.1529411765" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAA-Rd-ush">
-                                                                            <rect key="frame" x="0.0" y="52" width="334" height="30"/>
-                                                                            <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document" translatesAutoresizingMaskIntoConstraints="NO" id="NmA-2f-lVI">
-                                                                                    <rect key="frame" x="16" y="4" width="19" height="22"/>
-                                                                                </imageView>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FileName2020.pdf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HuI-H4-JV2">
-                                                                                    <rect key="frame" x="43.000000000000007" y="8" width="98.666666666666686" height="14.333333333333336"/>
-                                                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
-                                                                                    <nil key="textColor"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sY9-5z-ecR">
-                                                                                    <rect key="frame" x="303" y="5" width="20" height="20"/>
-                                                                                    <constraints>
-                                                                                        <constraint firstAttribute="height" constant="20" id="SJ2-1g-NI1"/>
-                                                                                        <constraint firstAttribute="width" constant="20" id="v5I-wT-3Z9"/>
-                                                                                    </constraints>
-                                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                                    <state key="normal" image="closebtn"/>
-                                                                                </button>
-                                                                            </subviews>
-                                                                            <color key="backgroundColor" red="0.95686274509803915" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="trailing" secondItem="sY9-5z-ecR" secondAttribute="trailing" constant="11" id="6Vu-Qr-Us6"/>
-                                                                                <constraint firstItem="NmA-2f-lVI" firstAttribute="leading" secondItem="eAA-Rd-ush" secondAttribute="leading" constant="16" id="IOv-oy-CNR"/>
-                                                                                <constraint firstItem="HuI-H4-JV2" firstAttribute="leading" secondItem="NmA-2f-lVI" secondAttribute="trailing" constant="8" symbolic="YES" id="J0C-CK-meQ"/>
-                                                                                <constraint firstItem="NmA-2f-lVI" firstAttribute="top" secondItem="eAA-Rd-ush" secondAttribute="top" constant="4" id="Oei-qv-rVm"/>
-                                                                                <constraint firstItem="HuI-H4-JV2" firstAttribute="centerY" secondItem="NmA-2f-lVI" secondAttribute="centerY" id="YcX-Zv-vSc"/>
-                                                                                <constraint firstItem="sY9-5z-ecR" firstAttribute="centerY" secondItem="eAA-Rd-ush" secondAttribute="centerY" id="mDH-k1-14b"/>
-                                                                                <constraint firstItem="NmA-2f-lVI" firstAttribute="centerY" secondItem="eAA-Rd-ush" secondAttribute="centerY" id="tte-gp-Neb"/>
-                                                                            </constraints>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                    <real key="value" value="8"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                            </userDefinedRuntimeAttributes>
-                                                                        </view>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Meo-sh-GYd">
-                                                                            <rect key="frame" x="224" y="8" width="120" height="36"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="120" id="AfV-yM-Kk6"/>
-                                                                                <constraint firstAttribute="height" constant="36" id="Hct-kD-Whe"/>
-                                                                            </constraints>
-                                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                            <state key="normal" image="uploadBtn"/>
-                                                                        </button>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="bottom" secondItem="eAA-Rd-ush" secondAttribute="bottom" constant="16" id="4Zf-BV-h5k"/>
-                                                                        <constraint firstItem="eAA-Rd-ush" firstAttribute="top" secondItem="Meo-sh-GYd" secondAttribute="bottom" constant="8" id="6eV-Nt-Upm"/>
-                                                                        <constraint firstItem="eAA-Rd-ush" firstAttribute="leading" secondItem="Uxr-gK-bdk" secondAttribute="leading" id="LZF-eP-zA5"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="eAA-Rd-ush" secondAttribute="trailing" id="S8V-Mv-1Kz"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="Meo-sh-GYd" secondAttribute="trailing" constant="-10" id="XwY-7h-SZA"/>
-                                                                        <constraint firstItem="qyL-KI-zp0" firstAttribute="leading" secondItem="Uxr-gK-bdk" secondAttribute="leading" id="ZH9-ns-IOf"/>
-                                                                        <constraint firstItem="Meo-sh-GYd" firstAttribute="top" secondItem="Uxr-gK-bdk" secondAttribute="top" constant="8" id="deY-RB-ikj"/>
-                                                                        <constraint firstItem="qyL-KI-zp0" firstAttribute="centerY" secondItem="Meo-sh-GYd" secondAttribute="centerY" id="jOM-m6-5bm"/>
-                                                                    </constraints>
-                                                                </tableViewCellContentView>
-                                                            </tableViewCell>
-                                                        </prototypes>
-                                                    </tableView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Funds/Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNR-1x-3iR">
                                                         <rect key="frame" x="24" y="281" width="61.333333333333485" height="14.333333333333258"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
@@ -4244,6 +4162,95 @@
                                                         <color key="textColor" red="0.23137254901960785" green="0.23137254901960785" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="UmW-AU-EAm">
+                                                        <rect key="frame" x="24" y="100" width="334" height="163"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="163" id="lsa-NW-Bht"/>
+                                                        </constraints>
+                                                        <prototypes>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="DocuemntUploadingCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DocuemntUploadingCell" rowHeight="98" id="4GH-Z8-j3k" customClass="DocuemntUploadingCell" customModule="AlMeezan_Investment" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="50" width="334" height="98"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4GH-Z8-j3k" id="Uxr-gK-bdk">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="334" height="98"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019-2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qyL-KI-zp0">
+                                                                            <rect key="frame" x="0.0" y="19" width="57.333333333333336" height="14.333333333333336"/>
+                                                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                                                                            <color key="textColor" red="0.13725490200000001" green="0.1529411765" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAA-Rd-ush">
+                                                                            <rect key="frame" x="0.0" y="52" width="334" height="30"/>
+                                                                            <subviews>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document" translatesAutoresizingMaskIntoConstraints="NO" id="NmA-2f-lVI">
+                                                                                    <rect key="frame" x="16" y="4" width="19" height="22"/>
+                                                                                </imageView>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FileName2020.pdf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HuI-H4-JV2">
+                                                                                    <rect key="frame" x="43.000000000000007" y="8" width="98.666666666666686" height="14.333333333333336"/>
+                                                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                                                                                    <nil key="textColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sY9-5z-ecR">
+                                                                                    <rect key="frame" x="303" y="5" width="20" height="20"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="20" id="SJ2-1g-NI1"/>
+                                                                                        <constraint firstAttribute="width" constant="20" id="v5I-wT-3Z9"/>
+                                                                                    </constraints>
+                                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                    <state key="normal" image="closebtn"/>
+                                                                                </button>
+                                                                            </subviews>
+                                                                            <color key="backgroundColor" red="0.95686274509803915" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="trailing" secondItem="sY9-5z-ecR" secondAttribute="trailing" constant="11" id="6Vu-Qr-Us6"/>
+                                                                                <constraint firstItem="NmA-2f-lVI" firstAttribute="leading" secondItem="eAA-Rd-ush" secondAttribute="leading" constant="16" id="IOv-oy-CNR"/>
+                                                                                <constraint firstItem="HuI-H4-JV2" firstAttribute="leading" secondItem="NmA-2f-lVI" secondAttribute="trailing" constant="8" symbolic="YES" id="J0C-CK-meQ"/>
+                                                                                <constraint firstItem="NmA-2f-lVI" firstAttribute="top" secondItem="eAA-Rd-ush" secondAttribute="top" constant="4" id="Oei-qv-rVm"/>
+                                                                                <constraint firstItem="HuI-H4-JV2" firstAttribute="centerY" secondItem="NmA-2f-lVI" secondAttribute="centerY" id="YcX-Zv-vSc"/>
+                                                                                <constraint firstItem="sY9-5z-ecR" firstAttribute="centerY" secondItem="eAA-Rd-ush" secondAttribute="centerY" id="mDH-k1-14b"/>
+                                                                                <constraint firstItem="NmA-2f-lVI" firstAttribute="centerY" secondItem="eAA-Rd-ush" secondAttribute="centerY" id="tte-gp-Neb"/>
+                                                                            </constraints>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                    <real key="value" value="8"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </view>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Meo-sh-GYd">
+                                                                            <rect key="frame" x="224" y="8" width="120" height="36"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="120" id="AfV-yM-Kk6"/>
+                                                                                <constraint firstAttribute="height" constant="36" id="Hct-kD-Whe"/>
+                                                                            </constraints>
+                                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                            <state key="normal" image="uploadBtn"/>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="bottom" secondItem="eAA-Rd-ush" secondAttribute="bottom" constant="16" id="4Zf-BV-h5k"/>
+                                                                        <constraint firstItem="eAA-Rd-ush" firstAttribute="top" secondItem="Meo-sh-GYd" secondAttribute="bottom" constant="8" id="6eV-Nt-Upm"/>
+                                                                        <constraint firstItem="eAA-Rd-ush" firstAttribute="leading" secondItem="Uxr-gK-bdk" secondAttribute="leading" id="LZF-eP-zA5"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="eAA-Rd-ush" secondAttribute="trailing" id="S8V-Mv-1Kz"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="Meo-sh-GYd" secondAttribute="trailing" constant="-10" id="XwY-7h-SZA"/>
+                                                                        <constraint firstItem="qyL-KI-zp0" firstAttribute="leading" secondItem="Uxr-gK-bdk" secondAttribute="leading" id="ZH9-ns-IOf"/>
+                                                                        <constraint firstItem="Meo-sh-GYd" firstAttribute="top" secondItem="Uxr-gK-bdk" secondAttribute="top" constant="8" id="deY-RB-ikj"/>
+                                                                        <constraint firstItem="qyL-KI-zp0" firstAttribute="centerY" secondItem="Meo-sh-GYd" secondAttribute="centerY" id="jOM-m6-5bm"/>
+                                                                    </constraints>
+                                                                </tableViewCellContentView>
+                                                                <connections>
+                                                                    <outlet property="closeBtn" destination="sY9-5z-ecR" id="b0Q-Pl-TaR"/>
+                                                                    <outlet property="fileNameLbl" destination="HuI-H4-JV2" id="eat-wh-GX7"/>
+                                                                    <outlet property="uplaodingView" destination="eAA-Rd-ush" id="JqH-xn-tWI"/>
+                                                                    <outlet property="uploadBtn" destination="Meo-sh-GYd" id="Z4o-7h-dWg"/>
+                                                                    <outlet property="yearLbl" destination="qyL-KI-zp0" id="gBl-Bp-s94"/>
+                                                                </connections>
+                                                            </tableViewCell>
+                                                        </prototypes>
+                                                    </tableView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -5774,7 +5781,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcE-O8-KHe">
-                                        <rect key="frame" x="160.66666666666666" y="42" width="92.666666666666657" height="20.333333333333329"/>
+                                        <rect key="frame" x="160.66666666666663" y="42" width="92.666666666666686" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" name="CircularStd-Book" family="Circular Std" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
