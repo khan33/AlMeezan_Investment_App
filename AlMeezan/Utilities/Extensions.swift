@@ -177,8 +177,6 @@ extension UIViewController {
                 }
             }
         }
-        
-        
     }
     func loginOption() {
         if let userAuth = KeychainWrapper.standard.string(forKey: "UserType") {

@@ -76,7 +76,14 @@ class RedemptionVC: UIViewController {
     var imagePicker: UIImagePickerController!
     var image: UIImage? = UIImage()
 
-    
+    var imageUploading: String = ""
+    var uploadingImgArr = [String : UIImage]()
+    var media: [Media] = []
+
+    var tax1Year = "Tax1-Year"
+    var tax2Year = "Tax2-Year"
+    var tax3Year = "Tax3-Year"
+    let container = DependencyContainer()
     override func viewDidLoad() {
         super.viewDidLoad()
         transactionTxtField.delegate = self
@@ -487,79 +494,80 @@ class RedemptionVC: UIViewController {
     }
     
     @IBAction func tapOnContinueBtn(_ sender: Any) {
-        guard let portfolioTxt  = portfolioTxtField.text, !portfolioTxt.isEmpty else {
-            self.showAlert(title: "Alert", message: "Please select your portfolio Id.", controller: self) {
-            }
-            return
-        }
-        guard let fundFromTxt  = fundFromTxtField.text, !fundFromTxt.isEmpty else {
-            self.showAlert(title: "Alert", message: "Please select fund.", controller: self) {
-            }
-            return
-        }
-        
-        guard let transaction_amount  = transactionTxtField.text, !transaction_amount.isEmpty else {
-            self.showAlert(title: "Alert", message: "Please enter transaction amount.", controller: self) {
-            }
-            return
-        }
-        if transaction_amount == "0" || transaction_amount == "0.0" || transaction_amount == "0.00"{
-            self.showAlert(title: "Alert", message: "Insufficient balance in \n \(fundFromTxt).", controller: self) {
-            }
-            return
-        }
-        var message = ""
-        var actualValue = 0.0
-        
-        if selectedSegmentIndex == 0 {
-            message = "Amount Exceeds the available amount."
-            actualValue = self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0
-        } else {
-            message = "Units Exceeds the available units."
-            actualValue = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
-        }
-        
-        let amount = transaction_amount.doubleValue
-        
-        
-        if let value = amount {
-            if value > actualValue {
-                self.showAlert(title: "Alert", message: message, controller: self) {
-                    //return false
-                }
-                return
-            }
-        }
-        
-        
-        
-        if checkBoxBtn.isSelected {
-            let value = transaction_amount.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range: nil)
-            let amount = Int(value) ?? 0
-            if amount < 1000 {
-                self.showAlert(title: "Alert", message: "Sorry, Your transaction amount shoud be greater than or equal to PKR 1000.", controller: self) {
-                }
-                return
-            }
-        }
-        let portfolioId = UserDefaults.standard.string(forKey: "portfolioId")!
-        idPortfolioLbl.text = portfolioId
-        categoryLbl.text = fundFromTxt
-        if transactionType == "Amount" {
-            amountLbl.text = "PKR \(transaction_amount.toCurrencyFormat(withFraction: false))"
-        } else {
-            if transaction_amount.contains(",") {
-                amountLbl.text = "\(transaction_amount.toCurrencyFormat(withFraction: false)) Units"
-            } else {
-                amountLbl.text = "\(transaction_amount.toCurrencyFormat(withFraction: false)) Units"
-            }
-        }
-        transactionLbl.text = "Redemption"
-        proceedView.isHidden = false
-        formView.isHidden = true
-        continueView.isHidden = true
-        let point = CGPoint(x: 0, y: 0)
-        scrollView.setContentOffset(point, animated: true)
+        uploadImageToServer()
+//        guard let portfolioTxt  = portfolioTxtField.text, !portfolioTxt.isEmpty else {
+//            self.showAlert(title: "Alert", message: "Please select your portfolio Id.", controller: self) {
+//            }
+//            return
+//        }
+//        guard let fundFromTxt  = fundFromTxtField.text, !fundFromTxt.isEmpty else {
+//            self.showAlert(title: "Alert", message: "Please select fund.", controller: self) {
+//            }
+//            return
+//        }
+//
+//        guard let transaction_amount  = transactionTxtField.text, !transaction_amount.isEmpty else {
+//            self.showAlert(title: "Alert", message: "Please enter transaction amount.", controller: self) {
+//            }
+//            return
+//        }
+//        if transaction_amount == "0" || transaction_amount == "0.0" || transaction_amount == "0.00"{
+//            self.showAlert(title: "Alert", message: "Insufficient balance in \n \(fundFromTxt).", controller: self) {
+//            }
+//            return
+//        }
+//        var message = ""
+//        var actualValue = 0.0
+//
+//        if selectedSegmentIndex == 0 {
+//            message = "Amount Exceeds the available amount."
+//            actualValue = self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0
+//        } else {
+//            message = "Units Exceeds the available units."
+//            actualValue = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
+//        }
+//
+//        let amount = transaction_amount.doubleValue
+//
+//
+//        if let value = amount {
+//            if value > actualValue {
+//                self.showAlert(title: "Alert", message: message, controller: self) {
+//                    //return false
+//                }
+//                return
+//            }
+//        }
+//
+//
+//
+//        if checkBoxBtn.isSelected {
+//            let value = transaction_amount.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range: nil)
+//            let amount = Int(value) ?? 0
+//            if amount < 1000 {
+//                self.showAlert(title: "Alert", message: "Sorry, Your transaction amount shoud be greater than or equal to PKR 1000.", controller: self) {
+//                }
+//                return
+//            }
+//        }
+//        let portfolioId = UserDefaults.standard.string(forKey: "portfolioId")!
+//        idPortfolioLbl.text = portfolioId
+//        categoryLbl.text = fundFromTxt
+//        if transactionType == "Amount" {
+//            amountLbl.text = "PKR \(transaction_amount.toCurrencyFormat(withFraction: false))"
+//        } else {
+//            if transaction_amount.contains(",") {
+//                amountLbl.text = "\(transaction_amount.toCurrencyFormat(withFraction: false)) Units"
+//            } else {
+//                amountLbl.text = "\(transaction_amount.toCurrencyFormat(withFraction: false)) Units"
+//            }
+//        }
+//        transactionLbl.text = "Redemption"
+//        proceedView.isHidden = false
+//        formView.isHidden = true
+//        continueView.isHidden = true
+//        let point = CGPoint(x: 0, y: 0)
+//        scrollView.setContentOffset(point, animated: true)
         
         
 //        vc.titleStr = "Do you wish to Proceed with your Redemption request?"
@@ -711,9 +719,13 @@ class RedemptionVC: UIViewController {
         cell?.uplaodingView.isHidden = false
         tableView.reloadRows(at: [indexPath], with: .automatic)
         let count = vpsTax.filter{ $0.isExpandable == true }.count
-        print(count)
         tableViewHeightConstraint.constant = (CGFloat(vpsTax.count) * rowHeight ) + (CGFloat( count ) * rowHeight)
-
+        imageUploading = vpsTax[tag].key ?? ""
+        
+        
+        
+        
+        uploadSheet()
     }
     
     @objc func didTapOnCloseBtn(_ sender: UIButton) {
@@ -861,6 +873,7 @@ struct Media {
 
 
 extension RedemptionVC {
+    
     func createDataBody(withParameters params: [String: String]?, media: [Media]?, boundary: String) -> Data {
        let lineBreak = "\r\n"
        var body = Data()
@@ -884,18 +897,28 @@ extension RedemptionVC {
        return body
     }
     func uploadImageToServer() {
+        let CustomerID = KeychainWrapper.standard.string(forKey: "CustomerId")!
+        let AccessToken = KeychainWrapper.standard.string(forKey: "AccessToken")!
         
         let parameters = [
-            "CustomerID"  : "",
-            "AccessToken"    : "",
-            "Tax1-Year": "",
-            "Tax2-Year" : "",
-            "Tax3-Year" : "",
+            "CustomerID"  : CustomerID,
+            "AccessToken" : AccessToken,
+            "Tax1-Year": tax1Year,
+            "Tax2-Year" : tax2Year,
+            "Tax3-Year" : tax3Year,
         ]
         
         
-        guard let mediaImage = Media(withImage: "yourImage", forKey: "image") else { return }
-        guard let url = URL(string: "your url") else { return }
+        
+        
+//
+//
+//        //guard let mediaImage = Media(withImage: "yourImage", forKey: "image") else { return }
+//
+//        uploadingImgArr
+//
+//
+        guard let url = URL(string: BASE_URL + "vpstaxdocumentsubmit") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         //create boundary
@@ -903,29 +926,36 @@ extension RedemptionVC {
         //set content type
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         //call createDataBody method
-        let dataBody = createDataBody(withParameters: parameters, media: [mediaImage], boundary: boundary)
+        let dataBody = createDataBody(withParameters: parameters, media: media, boundary: boundary)
         request.httpBody = dataBody
-        let session = URLSession.shared
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 60.0
+        
+        let session = URLSession(configuration: sessionConfig)
+
+        
         session.dataTask(with: request) { (data, response, error) in
           if let response = response {
              print(response)
           }
-          if let data = data {
-             do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-             } catch {
-                print(error)
-             }
-          }
+            guard let data = data, let responseString = String.init(data: data, encoding: String.Encoding.utf8) else {
+                return
+            }
+            print(responseString)
+            if let str = self.container.createDecryptionManger().decrypt(with: responseString) {
+                self.container.createCodeableManger().decodeArray(str, isCaching: false) { (dataResult: [MTPFDocumentUploadModel] ) in
+                    print(dataResult)
+                }
+            }
+            
+            
         }.resume()
     }
     
     func generateBoundary() -> String {
        return "Boundary-\(NSUUID().uuidString)"
     }
-    
-    
+     
     public override func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print("Cancel")
         imagePicker.dismiss(animated: true, completion: nil)
@@ -935,7 +965,93 @@ extension RedemptionVC {
         imagePicker.dismiss(animated: true, completion: nil)
         image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         
+        if image != nil {
+            
+            
+            if media.count > 0 {
+                if let index = media.firstIndex(where: { $0.key == imageUploading}) {
+                    media.remove(at: index)
+                }
+            }
+            
+            if let med = Media(withImage: image!, forKey: imageUploading) {
+                media.append(med)
+            }
+
+            
+            print(media.count)
+            
+            
+            
+            
+            
+            
+            if uploadingImgArr[imageUploading] != nil {
+                uploadingImgArr.updateValue(image!, forKey: imageUploading)
+            } else {
+                uploadingImgArr[imageUploading] = image!
+            }
+        }
         
+    }
+    
+    
+    func uploadSheet() {
+        imagePicker =  UIImagePickerController()
+        let optionMenu = UIAlertController(title: "Choose Your Option", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
+        let option1 = UIAlertAction(title: "Camera", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.openCamera()
+        })
+        
+        let option2 = UIAlertAction(title: "Photo Library ", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.openGallary()
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancelled")
+        })
+        
+        optionMenu.addAction(option1)
+        optionMenu.addAction(option2)
+        optionMenu.addAction(cancelAction)
+        
+        self.present(optionMenu, animated: true, completion: nil)
+        return
+    }
+    
+    func openCamera() {
+        imagePicker =  UIImagePickerController()
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+            imagePicker.delegate = self
+            self.imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            imagePicker.allowsEditing = true
+            self .present(self.imagePicker, animated: true, completion: nil)
+        }
+        else {
+            let alertWarning = UIAlertView(title:"Warning", message: "You don't have camera", delegate:nil, cancelButtonTitle:"OK")
+            alertWarning.show()
+        }
+    }
+    
+    func openGallary() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+            imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+}
+
+struct MTPFDocumentUploadModel : Codable {
+    let uniqueId : String?
+
+    enum CodingKeys: String, CodingKey {
+
+        case uniqueId = "uniqueId"
     }
 }
