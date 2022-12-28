@@ -17,6 +17,8 @@ enum TransactionType: String {
     case investment = "Investment"
     case conversion = "Conversion"
     case redemption = "Redemption"
+    case mtpfRedemption = "MTPFREDEMPTION"
+    case mtpfChangeOfPlan = "MTPFCHANGEOFPLAN"
 }
 
 enum MarketState: String {

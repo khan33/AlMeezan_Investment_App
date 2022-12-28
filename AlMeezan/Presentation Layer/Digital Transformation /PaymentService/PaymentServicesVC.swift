@@ -216,8 +216,6 @@ class PaymentServiceView: UIView {
         self.image.widthAnchor.constraint(equalToConstant: 30).isActive = true
         self.image.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        
-        
         self.titleLbl.centerYAnchor.constraint(equalTo: self.views.centerYAnchor, constant: -35).isActive = true
         self.titleLbl.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 16).isActive = true
         

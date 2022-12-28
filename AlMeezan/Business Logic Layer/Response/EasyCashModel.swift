@@ -61,3 +61,11 @@ struct VpsTaxDocument: Codable {
         case yearList = "YearList"
     }
 }
+
+
+
+struct RedemptionSubmission: Codable {
+    let OrdId, TransactionDateTime: String?
+    let description: String?
+}
+

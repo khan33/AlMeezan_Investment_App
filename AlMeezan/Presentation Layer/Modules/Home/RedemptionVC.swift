@@ -10,9 +10,11 @@ import UIKit
 import SVProgressHUD
 import EasyTipView
 import SwiftKeychainWrapper
+import Photos
 
-class RedemptionVC: UIViewController {
-
+class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
+    
+    
     @IBOutlet weak var portfolioIdLbl: UILabel!
     @IBOutlet weak var portfolioTxtField: UITextField!
     @IBOutlet weak var portfolioBottomView: UIView!
@@ -22,6 +24,8 @@ class RedemptionVC: UIViewController {
     @IBOutlet weak var unitLbl: UILabel!
     @IBOutlet weak var valueLbl: UILabel!
     @IBOutlet weak var transactionTxtField: UITextField!
+    @IBOutlet weak var valueView: UIView!
+    @IBOutlet weak var valueAmount: UILabel!
     @IBOutlet weak var plusBtn: UIButton!
     @IBOutlet weak var minusBtn: UIButton!
     @IBOutlet weak var segmentControl: UISegmentedControl!
@@ -47,8 +51,12 @@ class RedemptionVC: UIViewController {
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var copyBtn: UIButton!
     
+    @IBOutlet weak var checkBoxLabel: UILabel!
+    @IBOutlet weak var viewOfValue: UIView!
+    @IBOutlet weak var unitView: UIView!
     @IBOutlet weak var amountType: UILabel!
     
+    @IBOutlet weak var segmentControllerHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     var selectedPortfolioId: Int = 0
@@ -67,19 +75,30 @@ class RedemptionVC: UIViewController {
     var cashTxt: [EasyCashModel]?
     var vpsTax: [VpsTaxDocument] = [VpsTaxDocument]()
     var redemptionMTPF: [VpsRedemptionModel]?
+    var redemptionSubmission: [RedemptionSubmission]?
     var transactionDescription = "Redemption"
     var initialFieldString = ""
+    var fileName: String = ""
+    var isAbove900: Bool = false
+    var isTaxable: Bool?
+    var transactionText: String = ""
     
+    var documentUniqueId: String = ""
+    
+    @IBOutlet weak var fileNameLbl: UILabel!
+    @IBOutlet weak var fundPlanBtn: UIButton!
     let tipView = EasyTipView(text: "Tap to copy")
     var rowHeight: CGFloat = 60.0
     
     var imagePicker: UIImagePickerController!
     var image: UIImage? = UIImage()
-
+    
     var imageUploading: String = ""
     var uploadingImgArr = [String : UIImage]()
     var media: [Media] = []
-
+    var document: DocuemntUploadingCell?
+    let randomfileName = UUID().uuidString + ".jpg"
+    
     var tax1Year = "Tax1-Year"
     var tax2Year = "Tax2-Year"
     var tax3Year = "Tax3-Year"
@@ -90,6 +109,10 @@ class RedemptionVC: UIViewController {
         transactionTxtField.isUserInteractionEnabled = false
         successView.isHidden = true
         proceedView.isHidden = true
+        valueView.isHidden = true
+        valueView.backgroundColor = UIColor.init(rgb: 0xF4F6FA)
+        valueAmount.textColor = UIColor.init(rgb: 0x8A269B)
+        document?.uplaodingView.isHidden = true
         
         tableViewHeightConstraint.constant = 0
         
@@ -99,21 +122,8 @@ class RedemptionVC: UIViewController {
         portfolioid_list = Utility.shared.filterIdAscending()
         transactionTxtField.text = "0.0"
         transactionTxtField.textColor = UIColor.themeColor
-    
-//        let portfolioID = UserDefaults.standard.string(forKey: "portfolioId") ?? ""
-//        if portfolioID.contains("-") ?? false {
-//            let ids = portfolioID.components(separatedBy: "-")
-//               let id = Int(ids[1])!
-//            let isExist = (900...999).contains(id)
-//            if isExist == false {
-//                portfolioFunds(portfolioID)
-//            } else {
-//                self.showAlert(title: "Alert", message: Message.MTPFPMessage, controller: self) {
-//                }
-//            }
-//        }
-        
         scrollView.delegate = self
+        scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 1000)
         minusBtn.isUserInteractionEnabled = false
         segmentControl.defaultConfiguration()
         segmentControl.selectedConfiguration()
@@ -167,13 +177,22 @@ class RedemptionVC: UIViewController {
             //self.showErrorMsg(errorMessage)
         }, success: { (response) in
             self.redemptionMTPF = response
+            
             if self.redemptionMTPF?.count ?? 0 > 0 {
-                if let isTaxable = self.redemptionMTPF?[0].isTaxabale , isTaxable == false {
+                self.valueAmount.text = "PKR \(Double(self.redemptionMTPF?[0].bal ?? 0.0))"
+                self.fundFromTxtField.text = self.redemptionMTPF?[0].description
+                self.fundPlanBtn.isEnabled = false
+                self.transactionText = self.redemptionMTPF?[0].description ?? ""
+                self.expectedAmount = Double(self.redemptionMTPF?[0].bal ?? 0.0)
+                self.updatetransactionTxtField()
+                if let isTaxable = self.redemptionMTPF?[0].isTaxabale , isTaxable == true {
                     self.getTaxDocument()
+                } else {
+                    self.tableViewHeightConstraint.constant = 0
                 }
             }
-            }
-        , fail: { (error) in
+        }
+                                               , fail: { (error) in
             print(error.localizedDescription)
         }, showHUD: true)
     }
@@ -193,14 +212,15 @@ class RedemptionVC: UIViewController {
             //self.showErrorMsg(errorMessage)
         }, success: { (response) in
             self.vpsTax = response
+            
             self.tableReload()
-            }
-        , fail: { (error) in
+        }
+                                               , fail: { (error) in
             print(error.localizedDescription)
         }, showHUD: true)
     }
-    
 
+    
     private func chooseValue(_ tag: Int, title: String, _ selected: Int) {
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: 250,height: 200)
@@ -235,19 +255,52 @@ class RedemptionVC: UIViewController {
                 UserDefaults.standard.set(self.portfolioid_list?[self.selectedPortfolioId].portfolioID, forKey: "portfolioId")
                 if let id = self.portfolioid_list?[self.selectedPortfolioId].portfolioID {
                     
-                    if let lastId =  id.components(separatedBy: "-").last, let num = Int(lastId) {
+                    if let lastId = id.components(separatedBy: "-").last, let num = Int(lastId) {
                         print(num)
                         if !(900...999).contains(num) {
                             self.portfolioFunds(id)
+                            self.isAbove900 = false
+                            self.showTransactionDetails()
+                            
                         } else {
                             self.getRedemptionData()
+                            self.hideTransactionDetails()
+                        
+                            self.isAbove900 = true
+                            self.refreshFrom()
+                        
                         }
                     }
                 }
-                
             }
         }))
         self.present(editRadiusAlert, animated: true)
+    }
+    
+    func hideTransactionDetails() {
+        self.valueView.isHidden = false
+        self.checkBoxBtn.isHidden = true
+        self.unitLbl.isHidden = true
+        self.valueLbl.isHidden = true
+        self.unitView.isHidden = true
+        self.viewOfValue.isHidden = true
+        self.checkBoxLabel.isHidden = true
+        self.segmentControl.isHidden = true
+        self.segmentControllerHeight.constant = 0
+    }
+    
+    func showTransactionDetails() {
+        self.valueView.isHidden = true
+        self.segmentControl.isHidden = false
+        self.checkBoxBtn.isHidden = false
+        self.unitLbl.isHidden = false
+        self.valueLbl.isHidden = false
+        self.unitView.isHidden = false
+        self.viewOfValue.isHidden = false
+        self.checkBoxLabel.isHidden = false
+        self.fundPlanBtn.isEnabled = true
+        self.tableViewHeightConstraint.constant = 0
+        self.segmentControllerHeight.constant = 40
     }
     
     func getEasyCashTxt() {
@@ -261,6 +314,7 @@ class RedemptionVC: UIViewController {
             //self.showErrorMsg(errorMessage)
         }, success: { (response) in
             self.cashTxt = response
+            
             if self.cashTxt?.count ?? 0 > 0 {
                 if let txt = self.cashTxt?[0].text {
                     self.transactionDetailLbl.text = txt
@@ -271,9 +325,59 @@ class RedemptionVC: UIViewController {
         }, showHUD: true)
     }
     
+    
+    func transactionSubmissionVPS() {
+        
+        let customerID  :   String? = KeychainWrapper.standard.string(forKey: "CustomerId")
+        let accessToken :   String? = KeychainWrapper.standard.string(forKey: "AccessToken")
+        let portId = portfolioid_list?[self.selectedPortfolioId].portfolioID
+        
+        var trancationAmount = transactionTxtField.text!
+        trancationAmount = trancationAmount.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range: nil)
+        
+        let bodyParam = RedemptionSubmissionRequestBody(customerId: customerID, AccessToken: accessToken, portfolioId: portId ,amount: trancationAmount, fundId: self.redemptionMTPF?[0].fundID ?? "", agentId: self.redemptionMTPF?[0].aGENT_ID ?? "", FundIdTo: "", AgentTo: "", transactionType: "MTPFREDEMPTION", documentId: self.documentUniqueId , isTaxable: true )
+        
+        let bodyRequest = bodyParam.encryptData(bodyParam)
+        let url = URL(string: TRANSACTION_SUBMISSION_VPS)!
+        SVProgressHUD.show()
+        
+        WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: RedemptionSubmission.self, errorMessage: { (errorMessage) in
+            errorResponse = errorMessage
+            self.showErrorMsg(errorMessage)
+        }, success: { (response) in
+            
+            if self.redemptionSubmission?.count ?? 0 > 0  {
+                self.redemptionSubmission = response
+                print("Respnse of Redemption Submission \(self.redemptionSubmission ?? [])")
+            }
+            //self.configTableView()
+        }, fail: { (error) in
+            print(error.localizedDescription)
+        }, showHUD: true)
+    }
+    
+    
     private func disableBtn(_ enable: Bool) {
         minusBtn.isUserInteractionEnabled = enable
         plusBtn.isUserInteractionEnabled  = enable
+    }
+    
+    func checkUploadedImage() {
+        
+        if self.redemptionMTPF?.count ?? 0 > 0 {
+            if let isTaxable = self.redemptionMTPF?[0].isTaxabale , isTaxable == true {
+                if vpsTax.count == media.count {
+                    
+                    self.uploadImageToServer()
+                } else {
+                   
+                    self.showAlert(title: "Image Not Selected!", message: "Please select images", controller: self) {
+                    
+                    }
+                    return
+                }
+            }
+        }
     }
     
     private func refreshFrom() {
@@ -286,8 +390,6 @@ class RedemptionVC: UIViewController {
         isSelectedFund = false
         disableBtn(false)
     }
-    
-    
     
     @IBAction func switchSegmentBtn(_ sender: UISegmentedControl) {
         selectedSegmentIndex = sender.selectedSegmentIndex
@@ -474,7 +576,7 @@ class RedemptionVC: UIViewController {
                 updatetransactionTxtField()
             }
         } else {
-           self.showAlert(title: "Alert", message: "Please select your Fund.", controller: self) {
+            self.showAlert(title: "Alert", message: "Please select your Fund.", controller: self) {
             }
             return
         }
@@ -494,93 +596,115 @@ class RedemptionVC: UIViewController {
     }
     
     @IBAction func tapOnContinueBtn(_ sender: Any) {
-        uploadImageToServer()
-//        guard let portfolioTxt  = portfolioTxtField.text, !portfolioTxt.isEmpty else {
-//            self.showAlert(title: "Alert", message: "Please select your portfolio Id.", controller: self) {
-//            }
-//            return
-//        }
-//        guard let fundFromTxt  = fundFromTxtField.text, !fundFromTxt.isEmpty else {
-//            self.showAlert(title: "Alert", message: "Please select fund.", controller: self) {
-//            }
-//            return
-//        }
-//
-//        guard let transaction_amount  = transactionTxtField.text, !transaction_amount.isEmpty else {
-//            self.showAlert(title: "Alert", message: "Please enter transaction amount.", controller: self) {
-//            }
-//            return
-//        }
-//        if transaction_amount == "0" || transaction_amount == "0.0" || transaction_amount == "0.00"{
-//            self.showAlert(title: "Alert", message: "Insufficient balance in \n \(fundFromTxt).", controller: self) {
-//            }
-//            return
-//        }
-//        var message = ""
-//        var actualValue = 0.0
-//
-//        if selectedSegmentIndex == 0 {
-//            message = "Amount Exceeds the available amount."
-//            actualValue = self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0
-//        } else {
-//            message = "Units Exceeds the available units."
-//            actualValue = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
-//        }
-//
-//        let amount = transaction_amount.doubleValue
-//
-//
-//        if let value = amount {
-//            if value > actualValue {
-//                self.showAlert(title: "Alert", message: message, controller: self) {
-//                    //return false
-//                }
-//                return
-//            }
-//        }
-//
-//
-//
-//        if checkBoxBtn.isSelected {
-//            let value = transaction_amount.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range: nil)
-//            let amount = Int(value) ?? 0
-//            if amount < 1000 {
-//                self.showAlert(title: "Alert", message: "Sorry, Your transaction amount shoud be greater than or equal to PKR 1000.", controller: self) {
-//                }
-//                return
-//            }
-//        }
-//        let portfolioId = UserDefaults.standard.string(forKey: "portfolioId")!
-//        idPortfolioLbl.text = portfolioId
-//        categoryLbl.text = fundFromTxt
-//        if transactionType == "Amount" {
-//            amountLbl.text = "PKR \(transaction_amount.toCurrencyFormat(withFraction: false))"
-//        } else {
-//            if transaction_amount.contains(",") {
-//                amountLbl.text = "\(transaction_amount.toCurrencyFormat(withFraction: false)) Units"
-//            } else {
-//                amountLbl.text = "\(transaction_amount.toCurrencyFormat(withFraction: false)) Units"
-//            }
-//        }
-//        transactionLbl.text = "Redemption"
-//        proceedView.isHidden = false
-//        formView.isHidden = true
-//        continueView.isHidden = true
-//        let point = CGPoint(x: 0, y: 0)
-//        scrollView.setContentOffset(point, animated: true)
+   
+        guard let portfolioTxt  = portfolioTxtField.text, !portfolioTxt.isEmpty else {
+            self.showAlert(title: "Alert", message: "Please select your portfolio Id.", controller: self) {
+            }
+            return
+        }
+        guard let fundFromTxt  = fundFromTxtField.text, !fundFromTxt.isEmpty else {
+            self.showAlert(title: "Alert", message: "Please select fund.", controller: self) {
+            }
+            return
+        }
+        
+        guard let transaction_amount  = transactionTxtField.text, !transaction_amount.isEmpty else {
+            self.showAlert(title: "Alert", message: "Please enter transaction amount.", controller: self) {
+            }
+            return
+        }
+        if transaction_amount == "0" || transaction_amount == "0.0" || transaction_amount == "0.00"{
+            self.showAlert(title: "Alert", message: "Insufficient balance in \n \(fundFromTxt).", controller: self) {
+            }
+            return
+        }
         
         
-//        vc.titleStr = "Do you wish to Proceed with your Redemption request?"
-//        vc.portfolio_id = portfolioId
-//        vc.fund_category = "From: \(fundFromTxt)"
-//        vc.transaction_type = TransactionType.redemption.rawValue
-//        vc.easyCashValue = expectedAmount
-//        vc.investment_delegate = self
-//        present(vc, animated: true, completion: {() -> Void in
-//            print("abc")
-//        })
+        if !isAbove900 {
+            
+            transactionLbl.text = "Redemption"
+            var message = ""
+            var actualValue = 0.0
+            
+            if selectedSegmentIndex == 0 {
+                message = "Amount Exceeds the available amount."
+                actualValue = self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0
+            } else {
+                message = "Units Exceeds the available units."
+                actualValue = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
+            }
+            
+            let amount = transaction_amount.doubleValue
+            
+            if let value = amount {
+                if value > actualValue {
+                    self.showAlert(title: "Alert", message: message, controller: self) {
+                        //return false
+                    }
+                    return
+                }
+            }
+            
+            if checkBoxBtn.isSelected {
+                let value = transaction_amount.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range: nil)
+                let amount = Int(value) ?? 0
+                if amount < 1000 {
+                    self.showAlert(title: "Alert", message: "Sorry, Your transaction amount shoud be greater than or equal to PKR 1000.", controller: self) {
+                    }
+                    return
+                }
+            }
+        } else {
+            
+//            self.checkUploadedImage()
+            if self.redemptionMTPF?.count ?? 0 > 0 {
+                if let isTaxable = self.redemptionMTPF?[0].isTaxabale , isTaxable == true {
+                    if vpsTax.count == media.count {
+                        
+                        self.uploadImageToServer()
+                    } else {
+                       
+                        self.showAlert(title: "Image Not Selected!", message: "Please select images", controller: self) {
+                        
+                        }
+                        return
+                    }
+                }
+            }
+            transactionLbl.text = self.transactionText
+        }
+ t
+        let portfolioId = UserDefaults.standard.string(forKey: "portfolioId")!
+        idPortfolioLbl.text = portfolioId
+        categoryLbl.text = fundFromTxt
+        if transactionType == "Amount" {
+            amountLbl.text = "PKR \(transaction_amount.toCurrencyFormat(withFraction: false))"
+        } else {
+            if transaction_amount.contains(",") {
+                amountLbl.text = "\(transaction_amount.toCurrencyFormat(withFraction: false)) Units"
+            } else {
+                amountLbl.text = "\(transaction_amount.toCurrencyFormat(withFraction: false)) Units"
+            }
+        }
+      //  transactionLbl.text = self.transactionText
+        formView.isHidden = true
+        proceedView.isHidden = false
+        continueView.isHidden = true
+        let point = CGPoint(x: 0, y: 0)
+        scrollView.setContentOffset(point, animated: true)
+        // uploadImageToServer()
+        //
+        //        vc.titleStr = "Do you wish to Proceed with your Redemption request?"
+        //        vc.portfolio_id = portfolioId
+        //        vc.fund_category = "From: \(fundFromTxt)"
+        //        vc.transaction_type = TransactionType.redemption.rawValue
+        //        vc.easyCashValue = expectedAmount
+        //        vc.investment_delegate = self
+        //        present(vc, animated: true, completion: {() -> Void in
+        //            print("abc")
+        //        })
     }
-
+    
     @IBAction func tapONTransactionsBtn(_ sender: Any) {
         let vc = StatusTransactionsVC.instantiateFromAppStroyboard(appStoryboard: .home)
         navigationController?.pushViewController(vc, animated: true)
@@ -592,7 +716,7 @@ class RedemptionVC: UIViewController {
         if resultStr.contains(".") {
             let numberFromField = Double(resultStr)
             if let number = numberFromField {
-                  expectedAmount = NSNumber(value: number).stringValue
+                expectedAmount = NSNumber(value: number).stringValue
             } else {
                 expectedAmount = 0
             }
@@ -620,8 +744,20 @@ class RedemptionVC: UIViewController {
             wordAmountLbl.text = Utility.shared.formatCurrencyInWords(string: amount)
         }
     }
+    
+    func documentMenu(_ documentMenu: UIDocumentMenuViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
+        documentMenu.delegate = self
+        present(documentMenu, animated: true, completion: nil)
+    }
+    
     @IBAction func didTapOnProceedBtn(_ sender: Any) {
-        submitInvestment()
+        
+        if !isAbove900 {
+            submitInvestment()
+        } else {
+            self.transactionSubmissionVPS()
+        }
+        
     }
     @IBAction func didTapOnCopyBtn(_ sender: Any) {
         UIPasteboard.general.string = referenceIdLbl.text
@@ -716,14 +852,11 @@ class RedemptionVC: UIViewController {
         
         let indexPath = IndexPath(row: tag, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as? DocuemntUploadingCell
-        cell?.uplaodingView.isHidden = false
+        cell?.uplaodingView.isHidden = true
         tableView.reloadRows(at: [indexPath], with: .automatic)
         let count = vpsTax.filter{ $0.isExpandable == true }.count
         tableViewHeightConstraint.constant = (CGFloat(vpsTax.count) * rowHeight ) + (CGFloat( count ) * rowHeight)
         imageUploading = vpsTax[tag].key ?? ""
-        
-        
-        
         
         uploadSheet()
     }
@@ -778,7 +911,7 @@ extension RedemptionVC: UIPickerViewDelegate, UIPickerViewDataSource {
         }
         title.font = UIFont(name: "Roboto-Regular", size: pickerTitleFontSize)
         if pickerView.tag == 1 {
-         title.text = funds_list?[row].fundAgentName
+            title.text = funds_list?[row].fundAgentName
         } else {
             title.text =  portfolioid_list?[row].portfolioID
         }
@@ -806,7 +939,7 @@ extension RedemptionVC: UITextFieldDelegate {
             actualValue = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
         }
         let newStr = (textField.text! as NSString)
-                        .replacingCharacters(in: range, with: string)
+            .replacingCharacters(in: range, with: string)
         let amount: Double? = Double(newStr.filter("0123456789.".contains))
         
         if let value = amount {
@@ -846,6 +979,7 @@ extension RedemptionVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.uplaodingView.isHidden = false
         }
+        cell.fileNameLbl.text = randomfileName
         cell.uploadBtn.tag = indexPath.row
         cell.uploadBtn.addTarget(self, action: #selector(didTapOnUploadBtn), for: .touchUpInside)
         cell.closeBtn.tag = indexPath.row
@@ -862,10 +996,10 @@ struct Media {
     let filename: String
     let data: Data
     let mimeType: String
-    init?(withImage image: UIImage, forKey key: String) {
+    init?(withImage image: UIImage, forKey key: String, fileName: String) {
         self.key = key
         self.mimeType = "image/jpeg"
-        self.filename = "imagefile.jpg"
+        self.filename = fileName
         guard let data = image.jpegData(compressionQuality: 0.7) else { return nil }
         self.data = data
     }
@@ -875,26 +1009,26 @@ struct Media {
 extension RedemptionVC {
     
     func createDataBody(withParameters params: [String: String]?, media: [Media]?, boundary: String) -> Data {
-       let lineBreak = "\r\n"
-       var body = Data()
-       if let parameters = params {
-          for (key, value) in parameters {
-             body.append("--\(boundary + lineBreak)")
-             body.append("Content-Disposition: form-data; name=\"\(key)\"\(lineBreak + lineBreak)")
-             body.append("\(value as! String + lineBreak)")
-          }
-       }
-       if let media = media {
-          for photo in media {
-             body.append("--\(boundary + lineBreak)")
-             body.append("Content-Disposition: form-data; name=\"\(photo.key)\"; filename=\"\(photo.filename)\"\(lineBreak)")
-             body.append("Content-Type: \(photo.mimeType + lineBreak + lineBreak)")
-             body.append(photo.data)
-             body.append(lineBreak)
-          }
-       }
-       body.append("--\(boundary)--\(lineBreak)")
-       return body
+        let lineBreak = "\r\n"
+        var body = Data()
+        if let parameters = params {
+            for (key, value) in parameters {
+                body.append("--\(boundary + lineBreak)")
+                body.append("Content-Disposition: form-data; name=\"\(key)\"\(lineBreak + lineBreak)")
+                body.append("\(value as! String + lineBreak)")
+            }
+        }
+        if let media = media {
+            for photo in media {
+                body.append("--\(boundary + lineBreak)")
+                body.append("Content-Disposition: form-data; name=\"\(photo.key)\"; filename=\"\(photo.filename)\"\(lineBreak)")
+                body.append("Content-Type: \(photo.mimeType + lineBreak + lineBreak)")
+                body.append(photo.data)
+                body.append(lineBreak)
+            }
+        }
+        body.append("--\(boundary)--\(lineBreak)")
+        return body
     }
     func uploadImageToServer() {
         let CustomerID = KeychainWrapper.standard.string(forKey: "CustomerId")!
@@ -908,16 +1042,13 @@ extension RedemptionVC {
             "Tax3-Year" : tax3Year,
         ]
         
-        
-        
-        
-//
-//
-//        //guard let mediaImage = Media(withImage: "yourImage", forKey: "image") else { return }
-//
-//        uploadingImgArr
-//
-//
+        //
+        //
+        //        //guard let mediaImage = Media(withImage: "yourImage", forKey: "image") else { return }
+        //
+        //        uploadingImgArr
+        //
+        //
         guard let url = URL(string: BASE_URL + "vpstaxdocumentsubmit") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -932,12 +1063,12 @@ extension RedemptionVC {
         sessionConfig.timeoutIntervalForRequest = 60.0
         
         let session = URLSession(configuration: sessionConfig)
-
+        
         
         session.dataTask(with: request) { (data, response, error) in
-          if let response = response {
-             print(response)
-          }
+            if let response = response {
+                print(response)
+            }
             guard let data = data, let responseString = String.init(data: data, encoding: String.Encoding.utf8) else {
                 return
             }
@@ -945,6 +1076,9 @@ extension RedemptionVC {
             if let str = self.container.createDecryptionManger().decrypt(with: responseString) {
                 self.container.createCodeableManger().decodeArray(str, isCaching: false) { (dataResult: [MTPFDocumentUploadModel] ) in
                     print(dataResult)
+                    if let uniqueId = dataResult[0].uniqueId {
+                        self.documentUniqueId = uniqueId
+                    }
                 }
             }
             
@@ -953,17 +1087,25 @@ extension RedemptionVC {
     }
     
     func generateBoundary() -> String {
-       return "Boundary-\(NSUUID().uuidString)"
+        return "Boundary-\(NSUUID().uuidString)"
     }
-     
+    
     public override func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print("Cancel")
         imagePicker.dismiss(animated: true, completion: nil)
     }
-
+    
     override func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         imagePicker.dismiss(animated: true, completion: nil)
         image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        
+        if let asset = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerPHAsset") ] as? PHAsset{
+            if let fileName = asset.value(forKey: "filename") as? String{
+                self.fileName = fileName
+                
+                print(fileName)
+            }
+        }
         
         if image != nil {
             
@@ -974,22 +1116,20 @@ extension RedemptionVC {
                 }
             }
             
-            if let med = Media(withImage: image!, forKey: imageUploading) {
+            if let med = Media(withImage: image!, forKey: imageUploading, fileName: randomfileName) {
+                
                 media.append(med)
             }
-
+            
             
             print(media.count)
             
-            
-            
-            
-            
-            
             if uploadingImgArr[imageUploading] != nil {
+                
                 uploadingImgArr.updateValue(image!, forKey: imageUploading)
             } else {
                 uploadingImgArr[imageUploading] = image!
+                self.document?.uplaodingView.isHidden = true
             }
         }
         
@@ -1010,6 +1150,11 @@ extension RedemptionVC {
             self.openGallary()
         })
         
+        let documentUpload = UIAlertAction(title: "Documents", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.openGallary()
+        })
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
@@ -1017,6 +1162,7 @@ extension RedemptionVC {
         
         optionMenu.addAction(option1)
         optionMenu.addAction(option2)
+        optionMenu.addAction(documentUpload)
         optionMenu.addAction(cancelAction)
         
         self.present(optionMenu, animated: true, completion: nil)
@@ -1029,12 +1175,18 @@ extension RedemptionVC {
             imagePicker.delegate = self
             self.imagePicker.sourceType = UIImagePickerController.SourceType.camera
             imagePicker.allowsEditing = true
-            self .present(self.imagePicker, animated: true, completion: nil)
+            self.present(self.imagePicker, animated: true, completion: nil)
         }
         else {
             let alertWarning = UIAlertView(title:"Warning", message: "You don't have camera", delegate:nil, cancelButtonTitle:"OK")
             alertWarning.show()
         }
+    }
+    
+    func openDocument() {
+        let importMenu = UIDocumentMenuViewController(documentTypes: [String()], in: .import)
+        importMenu.delegate = self
+        self.present(importMenu, animated: true, completion: nil)
     }
     
     func openGallary() {
@@ -1049,9 +1201,25 @@ extension RedemptionVC {
 
 struct MTPFDocumentUploadModel : Codable {
     let uniqueId : String?
-
+    
     enum CodingKeys: String, CodingKey {
-
+        
         case uniqueId = "uniqueId"
+    }
+}
+
+extension RedemptionVC : UIDocumentPickerDelegate {
+    
+    func documentMenu(_ documentMenu: UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
+        documentPicker.delegate = self
+        self.present(documentPicker, animated: true, completion: nil)
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        print("url = \(url)")
+    }
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        dismiss(animated: true, completion: nil)
     }
 }

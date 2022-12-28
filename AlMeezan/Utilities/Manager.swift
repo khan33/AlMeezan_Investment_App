@@ -34,7 +34,18 @@ class Manager {
 
 struct RequestBody: Codable {
     var CustomerID  :   String? = KeychainWrapper.standard.string(forKey: "CustomerId")
+//    var customerId: String? = KeychainWrapper.standard.string(forKey: "CustomerId")
     var AccessToken :   String? = KeychainWrapper.standard.string(forKey: "AccessToken")
+//    var portfolioId: String?
+//    var amount: String?
+//    var fundId: String?
+//    var agentId: String?
+//    var FundIdTo: String?
+//    var AgentTo: String?
+//    var transactionType: String?
+//    var documentId: String?
+//    var isTaxable: Bool?
+    
     var Date        :   String?
     var StartDate   :   String?
     var EndDate     :   String?
@@ -43,6 +54,7 @@ struct RequestBody: Codable {
     //calculator params
     var Fundid          :   String?
     var PortfolioID :   String?
+   
     var FromFundAgentID :   String?
     var ToFundAgentID   :   String?
     var TransactionType     :   String?
@@ -241,4 +253,104 @@ struct UserDefaultsConfig {
 struct IndicesObject : Codable {
     var indices: [String] = []
     
+}
+
+
+struct RedemptionSubmissionRequestBody: Codable {
+    var customerId: String? = KeychainWrapper.standard.string(forKey: "CustomerId")
+    var AccessToken :   String? = KeychainWrapper.standard.string(forKey: "AccessToken")
+    var portfolioId: String?
+    var amount: String?
+    var fundId: String?
+    var agentId: String?
+    var FundIdTo: String?
+    var AgentTo: String?
+    var transactionType: String?
+    var documentId: String?
+    var isTaxable: Bool?
+    
+    
+    func encryptData(_ data: RedemptionSubmissionRequestBody) -> [String : Any] {
+        
+        let encode = JSONEncoder()
+        let jsonData = try! encode.encode(data)
+        var jsonString = String(data: jsonData, encoding: .utf8)!
+        if jsonString.contains("\\/") {
+            jsonString = jsonString.replacingOccurrences(of: "\\/", with: "/", options: NSString.CompareOptions.literal, range: nil)
+        }
+        var params  =    [ : ] as [String : Any]
+        
+        switch environment {
+        case .production:
+            do {
+                let encryptstr = try Manager.shared.aesEncrypt(dataString: jsonString)
+                params = ["KeyValue": "\(encryptstr)"]
+            } catch {
+                print("Unexpected error: \(error).")
+            }
+        case .development:
+            do {
+                let encryptstr = try Manager.shared.aesEncrypt(dataString: jsonString)
+                params = ["KeyValue": "\(encryptstr)"]
+            } catch {
+                print("Unexpected error: \(error).")
+            }
+            //params = ["KeyValue": "\(jsonString)"]
+        }
+        print("decrypt params = ", params)
+        return params
+    }
+    func encryptMsgData(_ data: RequestBody, _ message: String) -> [String : Any] {
+        let encode = JSONEncoder()
+        let jsonData = try! encode.encode(data)
+        let jsonString = String(data: jsonData, encoding: .utf8)!
+        var params  =    [ : ] as [String : Any]
+        switch environment {
+        case .production:
+            do {
+                let encryptstr = try Manager.shared.aesEncrypt(dataString: jsonString)
+                let encryptMsg = try Manager.shared.aesEncrypt(dataString: message)
+                params = ["KeyValue": "\(encryptstr)", "Message": encryptMsg]
+            } catch {
+                print("Unexpected error: \(error).")
+            }
+        case .development:
+            do {
+                let encryptstr = try Manager.shared.aesEncrypt(dataString: jsonString)
+                let encryptMsg = try Manager.shared.aesEncrypt(dataString: message)
+                params = ["KeyValue": "\(encryptstr)", "Message": encryptMsg]
+            } catch {
+                print("Unexpected error: \(error).")
+            }
+            //params = ["KeyValue": "\(jsonString)", "Message": message]
+        }
+        return params
+    }
+    
+    func encryptComplainData(_ data: RequestBody, _ message: String) -> [String : Any] {
+        let encode = JSONEncoder()
+        let jsonData = try! encode.encode(data)
+        let jsonString = String(data: jsonData, encoding: .utf8)!
+        var params  =    [ : ] as [String : Any]
+        switch environment {
+        case .production:
+            do {
+                let encryptstr = try Manager.shared.aesEncrypt(dataString: jsonString)
+                let encryptMsg = try Manager.shared.aesEncrypt(dataString: message)
+                params = ["KeyValue": "\(encryptstr)", "ComplainMessage": encryptMsg]
+            } catch {
+                print("Unexpected error: \(error).")
+            }
+        case .development:
+            do {
+                let encryptstr = try Manager.shared.aesEncrypt(dataString: jsonString)
+                let encryptMsg = try Manager.shared.aesEncrypt(dataString: message)
+                params = ["KeyValue": "\(encryptstr)", "ComplainMessage": encryptMsg]
+            } catch {
+                print("Unexpected error: \(error).")
+            }
+            //params = ["KeyValue": "\(jsonString)", "ComplainMessage": message]
+        }
+        return params
+    }
 }

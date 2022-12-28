@@ -3688,7 +3688,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 28P3M8S72P;
+				DEVELOPMENT_TEAM = 7U5W5USTW8;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3729,13 +3729,13 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.Almeezan;
+				PRODUCT_BUNDLE_IDENTIFIER = co.Almeezana;
 				PRODUCT_NAME = "AlMeezan Investment";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/attakhan/Documents/iOS Workspace/Al-Meezan-Investment-App/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ahmad/Documents/AlMeezan/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3752,7 +3752,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 28P3M8S72P;
+				DEVELOPMENT_TEAM = 7U5W5USTW8;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3794,14 +3794,14 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Almeezana;
 				PRODUCT_NAME = "AlMeezan Investment";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/attakhan/Documents/iOS Workspace/Al-Meezan-Investment-App/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ahmad/Documents/AlMeezan/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
