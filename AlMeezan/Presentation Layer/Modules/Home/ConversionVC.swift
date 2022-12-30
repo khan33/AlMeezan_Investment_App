@@ -9,6 +9,22 @@
 import UIKit
 import SVProgressHUD
 import EasyTipView
+import SwiftKeychainWrapper
+
+struct VPSChangeOfPlan: Codable {
+    var Portfolio_ID: String?
+    var description: String?
+    var FundID: String?
+    var AGENT_ID: String?
+    var AGENT_NAME: String?
+    var Bal: Double?
+}
+
+struct Planfund: Codable {
+    var FundAgentID: String?
+    var FundAgnetName: String?
+    var IsHighRisk: Bool?
+}
 
 class ConversionVC: UIViewController {
     
@@ -45,9 +61,16 @@ class ConversionVC: UIViewController {
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var copyBtn: UIButton!
     
+    @IBOutlet weak var viewOfValue: UIView!
+    @IBOutlet weak var unitView: UIView!
+    @IBOutlet weak var transactionDetailLbl: UILabel!
+    @IBOutlet weak var valueAmount: UILabel!
+    @IBOutlet weak var ValueView: UIView!
     
     @IBOutlet weak var amountType: UILabel!
     
+    @IBOutlet weak var fundBtn: UIButton!
+    @IBOutlet weak var segmentHeight: NSLayoutConstraint!
     var initialFieldString = ""
     var selectedPortfolioId: Int = 0
     var selectedFundFromId: Int = 0
@@ -58,21 +81,31 @@ class ConversionVC: UIViewController {
     var funds_list: [Summary]?
     var conversion_fund: [ConversionFund]?
     var transaction: [TransactionSubmission]?
+    var vpsChangePlan: [VPSChangeOfPlan]?
+    var planFund: [ConversionFund]?
+    var conversionSubmission: [RedemptionSubmission]?
     var marketValue = 0
     var balanceUnit = 0.0
     var transactionType = "Unit"
     var expectedAmount: Any = 0
     var fundFromId : String = "0"
     var fundToId: String = "0"
+    var isAbove900: Bool = false
+    var fundId: String?
+    var agentId: String?
+    var fundIdTo: String?
+    var AgentTo: String?
     
     let tipView = EasyTipView(text: "Tap to copy")
     override func viewDidLoad() {
         super.viewDidLoad()
         transactionTxtField.delegate = self
         transactionTxtField.isUserInteractionEnabled = false
+        ValueView.isHidden = true
         successView.isHidden = true
         proceedView.isHidden = true
-        
+        ValueView.backgroundColor = UIColor.init(rgb: 0xF4F6FA)
+        valueAmount.textColor = UIColor.init(rgb: 0x8A269B)
         scrollView.delegate = self
     }
 
@@ -80,25 +113,24 @@ class ConversionVC: UIViewController {
         super.viewWillAppear(animated)
 
         portfolioid_list = Utility.shared.filterIdAscending()
-        let portfolioID = UserDefaults.standard.string(forKey: "portfolioId") ?? ""
-        if portfolioID.contains("-") ?? false {
-            let ids = portfolioID.components(separatedBy: "-")
-               let id = Int(ids[1])!
-            let isExist = (900...999).contains(id)
-            if isExist == false {
-                portfolioFunds(portfolioID)
-            } else {
-                self.showAlert(title: "Alert", message: Message.MTPFPMessage, controller: self) {
-                }
-            }
-        }
+//        let portfolioID = UserDefaults.standard.string(forKey: "portfolioId") ?? ""
+//        if portfolioID.contains("-") ?? false {
+//            let ids = portfolioID.components(separatedBy: "-")
+//               let id = Int(ids[1])!
+//            let isExist = (900...999).contains(id)
+//            if isExist == false {
+//                portfolioFunds(portfolioID)
+//            } else {
+//                self.showAlert(title: "Alert", message: Message.MTPFPMessage, controller: self) {
+//                }
+//            }
+//        }
         
         transactionTxtField.text = "0.0"
         transactionTxtField.textColor = UIColor.themeColor
         segmentControl.defaultConfiguration()
         segmentControl.selectedConfiguration()
         hideNavigationBar()
-        getData()
         Utility.shared.analyticsCode("E-services (Conversion)")
         plusBtn.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         plusBtn.layer.cornerRadius = 4
@@ -124,6 +156,7 @@ class ConversionVC: UIViewController {
     
     
     func getData() {
+        self.conversion_fund?.removeAll()
         let bodyParam = RequestBody()
         let bodyRequest = bodyParam.encryptData(bodyParam)
         let url = URL(string: CONVERSION_FUND)!
@@ -133,12 +166,117 @@ class ConversionVC: UIViewController {
             errorResponse = errorMessage
             self.showErrorMsg(errorMessage)
         }, success: { (response) in
+            self.fundBtn.isEnabled = true
+            
             self.conversion_fund = response
         }, fail: { (error) in
             print(error.localizedDescription)
         }, showHUD: true)
 
     }
+    
+    func getVpsChangeofPlan() {
+        
+        let portId = portfolioid_list?[self.selectedPortfolioId].portfolioID
+        let customerID  :   String? = KeychainWrapper.standard.string(forKey: "CustomerId")
+        let accessToken :   String? = KeychainWrapper.standard.string(forKey: "AccessToken")
+        
+        let bodyParam = RequestBody(CustomerID: customerID, AccessToken: accessToken, PortfolioID: portId)
+        let bodyRequest = bodyParam.encryptData(bodyParam)
+        let url = URL(string: VPS_CHANGE_OF_PLAN)!
+        SVProgressHUD.show()
+        
+        WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: VPSChangeOfPlan.self, errorMessage: { (errorMessage) in
+            errorResponse = errorMessage
+            self.showErrorMsg(errorMessage)
+        }, success: { (response) in
+            self.fundBtn.isEnabled = false
+            self.vpsChangePlan = response
+            if self.vpsChangePlan?.count ?? 0 > 0 {
+                self.valueAmount.text = "PKR \(Double(self.vpsChangePlan?[0].Bal ?? 0.0))"
+                self.fundFromTxtField.text = self.vpsChangePlan?[0].description
+                self.expectedAmount = Double(self.vpsChangePlan?[0].Bal ?? 0.0)
+                self.transactionTxtField.text = String(self.vpsChangePlan?[0].Bal ?? 0.0)
+                self.fundFromId = self.vpsChangePlan?[self.selectedFundFromId].FundID ?? "0"
+               
+             //   self.fundToId = self.vpsChangePlan?[0].AGENT_ID ?? ""
+                self.fundToTxtField.text = ""
+
+                self.fundId = self.vpsChangePlan?[0].FundID
+                self.agentId = self.vpsChangePlan?[0].AGENT_ID
+            }
+            
+        }, fail: { (error) in
+            print(error.localizedDescription)
+        }, showHUD: true)
+    }
+    
+    
+    func getChangeOfPlanFund() {
+        
+        self.conversion_fund?.removeAll()
+        let portId = portfolioid_list?[self.selectedPortfolioId].portfolioID
+        let customerID  :   String? = KeychainWrapper.standard.string(forKey: "CustomerId")
+        let accessToken :   String? = KeychainWrapper.standard.string(forKey: "AccessToken")
+        
+        let bodyParam = RequestBody(CustomerID: customerID, AccessToken: accessToken, PortfolioID: portId)
+        let bodyRequest = bodyParam.encryptData(bodyParam)
+        let url = URL(string: CHANGE_OF_PLAN_FUND)!
+        SVProgressHUD.show()
+        
+        WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: ConversionFund.self, errorMessage: { (errorMessage) in
+            errorResponse = errorMessage
+            self.showErrorMsg(errorMessage)
+        }, success: { (response) in
+            self.conversion_fund = response
+            
+             self.isSelectedFund = true
+            // self.selectedFundToId = 0
+             self.fundToTxtField.text = self.conversion_fund?[self.selectedFundToId].fundAgnetName
+            self.fundToId = self.conversion_fund?[self.selectedFundToId].fundAgentID?.components(separatedBy: "~").first ?? "0"
+            self.AgentTo = self.conversion_fund?[self.selectedFundToId].fundAgentID?.components(separatedBy: "~").last ?? "0"
+            
+        }, fail: { (error) in
+            print(error.localizedDescription)
+        }, showHUD: true)
+
+    }
+    
+    func conversionTransactionSubmission() {
+        
+        let customerID  :   String? = KeychainWrapper.standard.string(forKey: "CustomerId")
+        let accessToken :   String? = KeychainWrapper.standard.string(forKey: "AccessToken")
+        let portId = portfolioid_list?[self.selectedPortfolioId].portfolioID
+        var trancationAmount = transactionTxtField.text!
+        trancationAmount = trancationAmount.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range: nil)
+        let bodyParam = RedemptionSubmissionRequestBody(customerId: customerID, AccessToken: accessToken, portfolioId: portId ,amount: trancationAmount, fundId: fundId , agentId: agentId, FundIdTo: fundToId, AgentTo: AgentTo, transactionType: "MTPFCHANGEOFPLAN", documentId: "" , isTaxable: true )
+        
+        let bodyRequest = bodyParam.encryptData(bodyParam)
+        let url = URL(string: TRANSACTION_SUBMISSION_VPS)!
+        SVProgressHUD.show()
+        
+        WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: RedemptionSubmission.self, errorMessage: { (errorMessage) in
+            errorResponse = errorMessage
+            self.showErrorMsg(errorMessage)
+        }, success: { (response) in
+            self.conversionSubmission = response
+            
+            if self.conversionSubmission?.count ?? 0 > 0 {
+                
+                if let id = self.conversionSubmission?[0].OrdId {
+                    self.updateSuccessUI(id)
+                }
+            }
+
+      
+            //self.configTableView()
+        }, fail: { (error) in
+            print(error.localizedDescription)
+        }, showHUD: true)
+    }
+    
+    
+    
     private func chooseValue(_ tag: Int, title: String, _ selected: Int) {
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: 250,height: 200)
@@ -175,12 +313,33 @@ class ConversionVC: UIViewController {
                 self.marketValue = Int(self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0)
                 self.balanceUnit = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
             } else if pickerView.tag == 2 {
-                self.fundToTxtField.text = self.conversion_fund?[self.selectedFundToId].fundAgnetName
-                self.fundToId = self.conversion_fund?[self.selectedFundToId].fundAgentID ?? "0"
+               
+                    self.fundToTxtField.text = self.conversion_fund?[self.selectedFundToId].fundAgnetName
+                self.fundToId = self.conversion_fund?[self.selectedFundToId].fundAgentID ?? ""
+                self.getChangeOfPlanFund()
+           
             } else {
                 self.portfolioTxtField.text = self.portfolioid_list?[self.selectedPortfolioId].portfolioID
                 UserDefaults.standard.set(self.portfolioid_list?[self.selectedPortfolioId].portfolioID, forKey: "portfolioId")
                 self.portfolioFunds(self.portfolioid_list?[self.selectedPortfolioId].portfolioID ?? "")
+                
+                if let id = self.portfolioid_list?[self.selectedPortfolioId].portfolioID {
+                    if let lastId = id.components(separatedBy: "-").last, let num = Int(lastId) {
+                        print(num)
+                        if !(900...999).contains(num) {
+                            self.isAbove900 = false
+                            self.getData()
+                            self.showTransactionDetails()
+                        } else {
+                            self.isAbove900 = true
+                            self.getVpsChangeofPlan()
+                            self.getChangeOfPlanFund()
+                            self.hideTransactionDetails()
+                            self.refreshFrom()
+                        }
+                    }
+                }
+                
             }
         }))
         self.present(editRadiusAlert, animated: true)
@@ -194,14 +353,39 @@ class ConversionVC: UIViewController {
         selectedFundFromId = 0
         selectedFundToId = 0
         fundFromTxtField.text = ""
+        valueAmount.text = ""
         fundToTxtField.text = ""
         unitLbl.text = "-"
         valueLbl.text = "-"
+        valueAmount.text = "0"
         transactionTxtField.text = "0.0"
         segmentControl.selectedSegmentIndex = 2
         transactionTxtField.isUserInteractionEnabled = false
+      //  portfolioTxtField.text = ""
         disableBtn(false)
         
+    }
+    
+    func hideTransactionDetails() {
+        self.ValueView.isHidden = false
+        self.unitLbl.isHidden = true
+        self.valueLbl.isHidden = true
+        self.unitView.isHidden = true
+        self.viewOfValue.isHidden = true
+        self.transactionDetailLbl.isHidden = true
+        self.segmentControl.isHidden = true
+        self.segmentHeight.constant = 0
+    }
+    
+    func showTransactionDetails() {
+        self.ValueView.isHidden = true
+        self.segmentControl.isHidden = false
+        self.unitView.isHidden = false
+        self.viewOfValue.isHidden = false
+        self.transactionDetailLbl.isHidden = false
+        self.unitLbl.isHidden = false
+        self.valueLbl.isHidden = false
+        self.segmentHeight.constant = 40
     }
     
     @IBAction func switchSegmentControl(_ sender: UISegmentedControl) {
@@ -339,29 +523,31 @@ class ConversionVC: UIViewController {
             return
         }
         
-        var message = ""
-        var actualValue = 0.0
-        
-        if selectedSegmentIndex == 0 {
-            message = "Amount Exceeds the available amount."
-            actualValue = self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0
-        } else {
-            message = "Units Exceeds the available units."
-            actualValue = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
-        }
-        
-        let amount = transaction_amount.doubleValue
-        
-        
-        if let value = amount {
-            if value > actualValue {
-                self.showAlert(title: "Alert", message: message, controller: self) {
-                    //return false
-                }
-                return
+        if !isAbove900 {
+            var message = ""
+            var actualValue = 0.0
+            
+            if selectedSegmentIndex == 0 {
+                message = "Amount Exceeds the available amount."
+                actualValue = self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0
+            } else {
+                message = "Units Exceeds the available units."
+                actualValue = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
             }
+            
+            let amount = transaction_amount.doubleValue
+            
+            
+            if let value = amount {
+                if value > actualValue {
+                    self.showAlert(title: "Alert", message: message, controller: self) {
+                        //return false
+                    }
+                    return
+                }
+            }
+            
         }
-        
         
         let portfolioId = UserDefaults.standard.string(forKey: "portfolioId")!
         idPortfolioLbl.text = portfolioId
@@ -379,7 +565,18 @@ class ConversionVC: UIViewController {
         transactionLbl.text = "Conversion"
 
         let isHighRisk = self.conversion_fund?[selectedFundToId].IsHighRisk
-        if isHighRisk == 1 {
+        
+        var val = 0
+        switch isHighRisk {
+        case .boolean(let value):
+            val = value ? 1 : 0
+        case .integer(let value):
+            val = value
+        case .none:
+            val = 0
+        }
+        
+        if val == 1 {
             let vc = ETransactionWebViewVC.instantiateFromAppStroyboard(appStoryboard: .home)
             if #available(iOS 10.0, *) {
                 vc.modalPresentationStyle = .overCurrentContext
@@ -538,7 +735,11 @@ class ConversionVC: UIViewController {
         }
     }
     @IBAction func didTapOnProceedBtn(_ sender: Any) {
-        submitInvestment()
+        if !isAbove900 {
+            submitInvestment()
+        } else {
+            conversionTransactionSubmission()
+        }
     }
     @IBAction func didTapOnCopyBtn(_ sender: Any) {
         UIPasteboard.general.string = referenceIdLbl.text
@@ -555,6 +756,7 @@ class ConversionVC: UIViewController {
         saveBtn.isHidden = true
         okBtn.isHidden = true
         copyBtn.isHidden = true
+        portfolioTxtField.text = ""
         let screenshotImage = successView.image()
         
         if let image = screenshotImage {

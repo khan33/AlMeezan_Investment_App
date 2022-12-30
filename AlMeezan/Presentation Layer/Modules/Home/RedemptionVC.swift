@@ -519,7 +519,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                 updatetransactionTxtField()
             }
         }
-        else if selectedSegmentIndex == 1{
+        else if selectedSegmentIndex == 1 {
             let string = transactionTxtField.text ?? "0"
             let resultStr = string.filter("0123456789.".contains)
             let amount = Double(resultStr)?.rounded(toPlaces: 4)
@@ -673,7 +673,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
             }
             transactionLbl.text = self.transactionText
         }
- t
+        
         let portfolioId = UserDefaults.standard.string(forKey: "portfolioId")!
         idPortfolioLbl.text = portfolioId
         categoryLbl.text = fundFromTxt
