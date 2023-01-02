@@ -838,7 +838,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
     @objc func didTapOnCloseBtn(_ sender: UIButton) {
         let tag = sender.tag
         vpsTax[tag].isExpandable = false
-        media.remove(at: tag)
+      //  media.remove(at: tag)
         let indexPath = IndexPath(row: tag, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as? DocuemntUploadingCell
         cell?.uplaodingView.isHidden = true
