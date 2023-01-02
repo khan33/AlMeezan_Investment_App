@@ -343,6 +343,8 @@
 		E89C47842386FBA600EB4C43 /* KIBORDelayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89C47832386FBA600EB4C43 /* KIBORDelayModel.swift */; };
 		E89C4E9C274662CC00786A9B /* BasicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89C4E9B274662CC00786A9B /* BasicInfoModel.swift */; };
 		E89DA6712546DD75002E1717 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89DA6702546DD75002E1717 /* CircularProgressView.swift */; };
+		E89E0B9E295C4B6700A2A627 /* RedemptionVC + TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E0B9D295C4B6700A2A627 /* RedemptionVC + TableView.swift */; };
+		E89E0BA0295C4BAA00A2A627 /* Redemption + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E0B9F295C4BAA00A2A627 /* Redemption + Extension.swift */; };
 		E89EA9D528DC243300D655E7 /* AddPayeeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EA9D428DC243300D655E7 /* AddPayeeProtocol.swift */; };
 		E89EA9D728DC278B00D655E7 /* AddPayeePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EA9D628DC278B00D655E7 /* AddPayeePresenter.swift */; };
 		E89EA9D928DC43DA00D655E7 /* AddPayeeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89EA9D828DC43DA00D655E7 /* AddPayeeVC.swift */; };
@@ -956,6 +958,8 @@
 		E89C47832386FBA600EB4C43 /* KIBORDelayModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIBORDelayModel.swift; sourceTree = "<group>"; };
 		E89C4E9B274662CC00786A9B /* BasicInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoModel.swift; sourceTree = "<group>"; };
 		E89DA6702546DD75002E1717 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		E89E0B9D295C4B6700A2A627 /* RedemptionVC + TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RedemptionVC + TableView.swift"; sourceTree = "<group>"; };
+		E89E0B9F295C4BAA00A2A627 /* Redemption + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redemption + Extension.swift"; sourceTree = "<group>"; };
 		E89E88D42580E4DD00FF8390 /* AlMeezan 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AlMeezan 4.xcdatamodel"; sourceTree = "<group>"; };
 		E89EA9D428DC243300D655E7 /* AddPayeeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPayeeProtocol.swift; sourceTree = "<group>"; };
 		E89EA9D628DC278B00D655E7 /* AddPayeePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPayeePresenter.swift; sourceTree = "<group>"; };
@@ -2011,6 +2015,16 @@
 			path = AddPayee;
 			sourceTree = "<group>";
 		};
+		E89E0B9C295C4B3700A2A627 /* Redemption */ = {
+			isa = PBXGroup;
+			children = (
+				E8F7FC702370564F003C6317 /* RedemptionVC.swift */,
+				E89E0B9D295C4B6700A2A627 /* RedemptionVC + TableView.swift */,
+				E89E0B9F295C4BAA00A2A627 /* Redemption + Extension.swift */,
+			);
+			path = Redemption;
+			sourceTree = "<group>";
+		};
 		E8A29FC328CF1AFB00ED3ABB /* Digital Transformation  */ = {
 			isa = PBXGroup;
 			children = (
@@ -2577,13 +2591,13 @@
 		E8E33D6A2369CEA9003CB48A /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E89E0B9C295C4B3700A2A627 /* Redemption */,
 				E8169E30245405BC00957EAE /* GuestKeyModel.swift */,
 				E860FB4C23700D9800184965 /* SignUpViewController.swift */,
 				E8F7FC6023703AE1003C6317 /* ProfileDetailsVC.swift */,
 				E8F7FC6223703B49003C6317 /* MyDetailsVC.swift */,
 				E8F7FC6423703B5F003C6317 /* MyProfileVC.swift */,
 				E8F7FC6E237055FB003C6317 /* EServicesVC.swift */,
-				E8F7FC702370564F003C6317 /* RedemptionVC.swift */,
 				E8F7FC722370565F003C6317 /* ConversionVC.swift */,
 				E8F7FC7423705670003C6317 /* InvestmentVC.swift */,
 				E8E8C72C23707B5E0089F282 /* StatusTransactionsVC.swift */,
@@ -3027,6 +3041,7 @@
 				472780DE28EC5EDB0091E218 /* PayeeOTPRouter.swift in Sources */,
 				E89F9A4327A6F50F002F50BE /* DocumentView.swift in Sources */,
 				E8EF073125B0163B000BA9F0 /* Enum.swift in Sources */,
+				E89E0BA0295C4BAA00A2A627 /* Redemption + Extension.swift in Sources */,
 				E8B9BA5F2919149700BB4D78 /* AddBillPresenter.swift in Sources */,
 				E8A88896234C84D30025C90F /* ExtraFeatureCell.swift in Sources */,
 				E8CA4FC627200027008CF84B /* SummeryInteractor.swift in Sources */,
@@ -3423,6 +3438,7 @@
 				E8FEF5732551595900E1F11D /* OTPVerification.swift in Sources */,
 				E8A888A4234CAF5E0025C90F /* KeyFeatureCell.swift in Sources */,
 				E8A29FD028CF3E4900ED3ABB /* TransferFundViewController.swift in Sources */,
+				E89E0B9E295C4B6700A2A627 /* RedemptionVC + TableView.swift in Sources */,
 				E8F7FC6523703B5F003C6317 /* MyProfileVC.swift in Sources */,
 				E85E07AE28D06EA70025529B /* SubscriptionProtocol.swift in Sources */,
 				E83B83AF27968C14007DA130 /* RiskProfileRouter.swift in Sources */,
@@ -3688,7 +3704,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 7U5W5USTW8;
+				DEVELOPMENT_TEAM = 28P3M8S72P;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3729,13 +3745,13 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.Almeezana;
+				PRODUCT_BUNDLE_IDENTIFIER = co.Almeezan;
 				PRODUCT_NAME = "AlMeezan Investment";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ahmad/Documents/AlMeezan/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/attakhan/Documents/iOS Workspace/Al-Meezan-Investment-App/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3752,7 +3768,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7U5W5USTW8;
+				DEVELOPMENT_TEAM = 28P3M8S72P;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3794,14 +3810,14 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Almeezana;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Almeezan;
 				PRODUCT_NAME = "AlMeezan Investment";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ahmad/Documents/AlMeezan/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/attakhan/Documents/iOS Workspace/Al-Meezan-Investment-App/AlMeezan/Utilities/AlMeezan-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

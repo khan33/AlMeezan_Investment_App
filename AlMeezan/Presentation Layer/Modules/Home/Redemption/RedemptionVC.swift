@@ -88,7 +88,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
     @IBOutlet weak var fileNameLbl: UILabel!
     @IBOutlet weak var fundPlanBtn: UIButton!
     let tipView = EasyTipView(text: "Tap to copy")
-    var rowHeight: CGFloat = 60.0
+    var rowHeight: CGFloat = 66.0
     
     var imagePicker: UIImagePickerController!
     var image: UIImage? = UIImage()
@@ -102,6 +102,8 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
     var tax1Year = "Tax1-Year"
     var tax2Year = "Tax2-Year"
     var tax3Year = "Tax3-Year"
+    var imageUploadingIndex = 0
+    
     let container = DependencyContainer()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,10 +122,10 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         portfolioid_list = Utility.shared.filterIdAscending()
-        transactionTxtField.text = "0.0"
+        //transactionTxtField.text = "0.0"
         transactionTxtField.textColor = UIColor.themeColor
         scrollView.delegate = self
-        scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 1000)
+//        scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 1000)
         minusBtn.isUserInteractionEnabled = false
         segmentControl.defaultConfiguration()
         segmentControl.selectedConfiguration()
@@ -141,8 +143,6 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
     
     private func tableReload() {
         tableViewHeightConstraint.constant = CGFloat(vpsTax.count) * rowHeight
-        
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.reloadData()
@@ -261,15 +261,13 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                             self.portfolioFunds(id)
                             self.isAbove900 = false
                             self.showTransactionDetails()
-                            
                         } else {
                             self.getRedemptionData()
                             self.hideTransactionDetails()
-                        
                             self.isAbove900 = true
                             self.refreshFrom()
-                        
                         }
+                        self.media.removeAll()
                     }
                 }
             }
@@ -345,10 +343,11 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
             errorResponse = errorMessage
             self.showErrorMsg(errorMessage)
         }, success: { (response) in
-            
+            self.redemptionSubmission = response
             if self.redemptionSubmission?.count ?? 0 > 0  {
-                self.redemptionSubmission = response
-                print("Respnse of Redemption Submission \(self.redemptionSubmission ?? [])")
+                if let id = self.redemptionSubmission?[0].OrdId {
+                    self.updateSuccessUI(id)
+                }
             }
             //self.configTableView()
         }, fail: { (error) in
@@ -363,16 +362,12 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
     }
     
     func checkUploadedImage() {
-        
         if self.redemptionMTPF?.count ?? 0 > 0 {
             if let isTaxable = self.redemptionMTPF?[0].isTaxabale , isTaxable == true {
                 if vpsTax.count == media.count {
-                    
                     self.uploadImageToServer()
                 } else {
-                   
                     self.showAlert(title: "Image Not Selected!", message: "Please select images", controller: self) {
-                    
                     }
                     return
                 }
@@ -621,11 +616,9 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
         
         
         if !isAbove900 {
-            
             transactionLbl.text = "Redemption"
             var message = ""
             var actualValue = 0.0
-            
             if selectedSegmentIndex == 0 {
                 message = "Amount Exceeds the available amount."
                 actualValue = self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0
@@ -633,9 +626,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                 message = "Units Exceeds the available units."
                 actualValue = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
             }
-            
             let amount = transaction_amount.doubleValue
-            
             if let value = amount {
                 if value > actualValue {
                     self.showAlert(title: "Alert", message: message, controller: self) {
@@ -655,17 +646,12 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                 }
             }
         } else {
-            
-//            self.checkUploadedImage()
             if self.redemptionMTPF?.count ?? 0 > 0 {
                 if let isTaxable = self.redemptionMTPF?[0].isTaxabale , isTaxable == true {
                     if vpsTax.count == media.count {
-                        
                         self.uploadImageToServer()
                     } else {
-                       
                         self.showAlert(title: "Image Not Selected!", message: "Please select images", controller: self) {
-                        
                         }
                         return
                     }
@@ -673,7 +659,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
             }
             transactionLbl.text = self.transactionText
         }
- t
+ 
         let portfolioId = UserDefaults.standard.string(forKey: "portfolioId")!
         idPortfolioLbl.text = portfolioId
         categoryLbl.text = fundFromTxt
@@ -686,23 +672,11 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                 amountLbl.text = "\(transaction_amount.toCurrencyFormat(withFraction: false)) Units"
             }
         }
-      //  transactionLbl.text = self.transactionText
         formView.isHidden = true
         proceedView.isHidden = false
         continueView.isHidden = true
         let point = CGPoint(x: 0, y: 0)
         scrollView.setContentOffset(point, animated: true)
-        // uploadImageToServer()
-        //
-        //        vc.titleStr = "Do you wish to Proceed with your Redemption request?"
-        //        vc.portfolio_id = portfolioId
-        //        vc.fund_category = "From: \(fundFromTxt)"
-        //        vc.transaction_type = TransactionType.redemption.rawValue
-        //        vc.easyCashValue = expectedAmount
-        //        vc.investment_delegate = self
-        //        present(vc, animated: true, completion: {() -> Void in
-        //            print("abc")
-        //        })
     }
     
     @IBAction func tapONTransactionsBtn(_ sender: Any) {
@@ -755,6 +729,13 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
         if !isAbove900 {
             submitInvestment()
         } else {
+            if self.redemptionMTPF?.count ?? 0 > 0 {
+                if let isTaxable = self.redemptionMTPF?[0].isTaxabale , ( isTaxable == true && self.documentUniqueId == "" ) {
+                    self.showAlert(title: "Alert!", message: "Image not uploaded yet! please try again.", controller: self) {
+                    }
+                    return
+                }
+            }
             self.transactionSubmissionVPS()
         }
         
@@ -785,6 +766,9 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
     }
     @IBAction func didTapOnOKBtn(_ sender: Any) {
         self.refreshFrom()
+        self.showTransactionDetails()
+        tableViewHeightConstraint.constant = 0
+        self.portfolioTxtField.text = ""
         formView.isHidden = false
         continueView.isHidden = false
         proceedView.isHidden = true
@@ -847,379 +831,20 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
     
     
     @objc func didTapOnUploadBtn(_ sender: UIButton) {
-        let tag = sender.tag
-        vpsTax[tag].isExpandable = true
-        
-        let indexPath = IndexPath(row: tag, section: 0)
-        let cell = tableView.cellForRow(at: indexPath) as? DocuemntUploadingCell
-        cell?.uplaodingView.isHidden = true
-        tableView.reloadRows(at: [indexPath], with: .automatic)
-        let count = vpsTax.filter{ $0.isExpandable == true }.count
-        tableViewHeightConstraint.constant = (CGFloat(vpsTax.count) * rowHeight ) + (CGFloat( count ) * rowHeight)
-        imageUploading = vpsTax[tag].key ?? ""
-        
+        imageUploadingIndex = sender.tag
         uploadSheet()
     }
     
     @objc func didTapOnCloseBtn(_ sender: UIButton) {
         let tag = sender.tag
         vpsTax[tag].isExpandable = false
+        media.remove(at: tag)
         let indexPath = IndexPath(row: tag, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as? DocuemntUploadingCell
         cell?.uplaodingView.isHidden = true
         tableView.reloadRows(at: [indexPath], with: .automatic)
         let count = vpsTax.filter{ $0.isExpandable == true }.count
-        print(count)
         tableViewHeightConstraint.constant = (CGFloat(vpsTax.count) * rowHeight ) + (CGFloat( count ) * rowHeight)
         
-    }
-}
-extension RedemptionVC: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView.tag == 1 {
-            return funds_list?.count ?? 0
-        } else {
-            return portfolioid_list?.count ?? 0
-        }
-        
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView.tag == 1 {
-            return funds_list?[row].fundAgentName
-        } else {
-            return portfolioid_list?[row].portfolioID
-        }
-        
-    }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView.tag == 1 {
-            fundFromTxtField.text = funds_list?[row].fundAgentName
-            selectedFundFromId = row
-        } else {
-            portfolioTxtField.text = portfolioid_list?[row].portfolioID
-            selectedPortfolioId = row
-        }
-        
-    }
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        var title = UILabel()
-        if let titleLbl = view {
-            title = titleLbl as! UILabel
-        }
-        title.font = UIFont(name: "Roboto-Regular", size: pickerTitleFontSize)
-        if pickerView.tag == 1 {
-            title.text = funds_list?[row].fundAgentName
-        } else {
-            title.text =  portfolioid_list?[row].portfolioID
-        }
-        
-        title.textAlignment = .center
-        return title
-    }
-}
-extension RedemptionVC: UITextFieldDelegate {
-    
-    
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        convertCurrencyIntoWord(textField.text!)
-    }
-    
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        var message = ""
-        var actualValue = 0.0
-        if selectedSegmentIndex == 0 {
-            message = "Amount Exceeds the available amount."
-            actualValue = self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0
-        } else {
-            message = "Units Exceeds the available units."
-            actualValue = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
-        }
-        let newStr = (textField.text! as NSString)
-            .replacingCharacters(in: range, with: string)
-        let amount: Double? = Double(newStr.filter("0123456789.".contains))
-        
-        if let value = amount {
-            if value > actualValue {
-                self.showAlert(title: "Alert", message: message, controller: self) {
-                    //return false
-                }
-            }
-        }
-        return true
-    }
-}
-extension RedemptionVC: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        tipView.dismiss()
-    }
-}
-
-
-extension RedemptionVC: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vpsTax.count
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if vpsTax[indexPath.row].isExpandable == true {
-            return 120
-        } else {
-            return rowHeight
-            
-        }
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(with: DocuemntUploadingCell.self, for: indexPath)
-        cell.yearLbl.text = vpsTax[indexPath.row].yearList
-        if vpsTax[indexPath.row].isExpandable == false {
-            cell.uplaodingView.isHidden = true
-        } else {
-            cell.uplaodingView.isHidden = false
-        }
-        cell.fileNameLbl.text = randomfileName
-        cell.uploadBtn.tag = indexPath.row
-        cell.uploadBtn.addTarget(self, action: #selector(didTapOnUploadBtn), for: .touchUpInside)
-        cell.closeBtn.tag = indexPath.row
-        cell.closeBtn.addTarget(self, action: #selector(didTapOnCloseBtn), for: .touchUpInside)
-        
-        return cell
-    }
-    
-    
-}
-
-struct Media {
-    let key: String
-    let filename: String
-    let data: Data
-    let mimeType: String
-    init?(withImage image: UIImage, forKey key: String, fileName: String) {
-        self.key = key
-        self.mimeType = "image/jpeg"
-        self.filename = fileName
-        guard let data = image.jpegData(compressionQuality: 0.7) else { return nil }
-        self.data = data
-    }
-}
-
-
-extension RedemptionVC {
-    
-    func createDataBody(withParameters params: [String: String]?, media: [Media]?, boundary: String) -> Data {
-        let lineBreak = "\r\n"
-        var body = Data()
-        if let parameters = params {
-            for (key, value) in parameters {
-                body.append("--\(boundary + lineBreak)")
-                body.append("Content-Disposition: form-data; name=\"\(key)\"\(lineBreak + lineBreak)")
-                body.append("\(value as! String + lineBreak)")
-            }
-        }
-        if let media = media {
-            for photo in media {
-                body.append("--\(boundary + lineBreak)")
-                body.append("Content-Disposition: form-data; name=\"\(photo.key)\"; filename=\"\(photo.filename)\"\(lineBreak)")
-                body.append("Content-Type: \(photo.mimeType + lineBreak + lineBreak)")
-                body.append(photo.data)
-                body.append(lineBreak)
-            }
-        }
-        body.append("--\(boundary)--\(lineBreak)")
-        return body
-    }
-    func uploadImageToServer() {
-        let CustomerID = KeychainWrapper.standard.string(forKey: "CustomerId")!
-        let AccessToken = KeychainWrapper.standard.string(forKey: "AccessToken")!
-        
-        let parameters = [
-            "CustomerID"  : CustomerID,
-            "AccessToken" : AccessToken,
-            "Tax1-Year": tax1Year,
-            "Tax2-Year" : tax2Year,
-            "Tax3-Year" : tax3Year,
-        ]
-        
-        //
-        //
-        //        //guard let mediaImage = Media(withImage: "yourImage", forKey: "image") else { return }
-        //
-        //        uploadingImgArr
-        //
-        //
-        guard let url = URL(string: BASE_URL + "vpstaxdocumentsubmit") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        //create boundary
-        let boundary = generateBoundary()
-        //set content type
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        //call createDataBody method
-        let dataBody = createDataBody(withParameters: parameters, media: media, boundary: boundary)
-        request.httpBody = dataBody
-        let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 60.0
-        
-        let session = URLSession(configuration: sessionConfig)
-        
-        
-        session.dataTask(with: request) { (data, response, error) in
-            if let response = response {
-                print(response)
-            }
-            guard let data = data, let responseString = String.init(data: data, encoding: String.Encoding.utf8) else {
-                return
-            }
-            print(responseString)
-            if let str = self.container.createDecryptionManger().decrypt(with: responseString) {
-                self.container.createCodeableManger().decodeArray(str, isCaching: false) { (dataResult: [MTPFDocumentUploadModel] ) in
-                    print(dataResult)
-                    if let uniqueId = dataResult[0].uniqueId {
-                        self.documentUniqueId = uniqueId
-                    }
-                }
-            }
-            
-            
-        }.resume()
-    }
-    
-    func generateBoundary() -> String {
-        return "Boundary-\(NSUUID().uuidString)"
-    }
-    
-    public override func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        print("Cancel")
-        imagePicker.dismiss(animated: true, completion: nil)
-    }
-    
-    override func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        imagePicker.dismiss(animated: true, completion: nil)
-        image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-        
-        if let asset = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerPHAsset") ] as? PHAsset{
-            if let fileName = asset.value(forKey: "filename") as? String{
-                self.fileName = fileName
-                
-                print(fileName)
-            }
-        }
-        
-        if image != nil {
-            
-            
-            if media.count > 0 {
-                if let index = media.firstIndex(where: { $0.key == imageUploading}) {
-                    media.remove(at: index)
-                }
-            }
-            
-            if let med = Media(withImage: image!, forKey: imageUploading, fileName: randomfileName) {
-                
-                media.append(med)
-            }
-            
-            
-            print(media.count)
-            
-            if uploadingImgArr[imageUploading] != nil {
-                
-                uploadingImgArr.updateValue(image!, forKey: imageUploading)
-            } else {
-                uploadingImgArr[imageUploading] = image!
-                self.document?.uplaodingView.isHidden = true
-            }
-        }
-        
-    }
-    
-    
-    func uploadSheet() {
-        imagePicker =  UIImagePickerController()
-        let optionMenu = UIAlertController(title: "Choose Your Option", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-        
-        let option1 = UIAlertAction(title: "Camera", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.openCamera()
-        })
-        
-        let option2 = UIAlertAction(title: "Photo Library ", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.openGallary()
-        })
-        
-        let documentUpload = UIAlertAction(title: "Documents", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.openGallary()
-        })
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
-            print("Cancelled")
-        })
-        
-        optionMenu.addAction(option1)
-        optionMenu.addAction(option2)
-        optionMenu.addAction(documentUpload)
-        optionMenu.addAction(cancelAction)
-        
-        self.present(optionMenu, animated: true, completion: nil)
-        return
-    }
-    
-    func openCamera() {
-        imagePicker =  UIImagePickerController()
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-            imagePicker.delegate = self
-            self.imagePicker.sourceType = UIImagePickerController.SourceType.camera
-            imagePicker.allowsEditing = true
-            self.present(self.imagePicker, animated: true, completion: nil)
-        }
-        else {
-            let alertWarning = UIAlertView(title:"Warning", message: "You don't have camera", delegate:nil, cancelButtonTitle:"OK")
-            alertWarning.show()
-        }
-    }
-    
-    func openDocument() {
-        let importMenu = UIDocumentMenuViewController(documentTypes: [String()], in: .import)
-        importMenu.delegate = self
-        self.present(importMenu, animated: true, completion: nil)
-    }
-    
-    func openGallary() {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            imagePicker.allowsEditing = true
-            self.present(imagePicker, animated: true, completion: nil)
-        }
-    }
-}
-
-struct MTPFDocumentUploadModel : Codable {
-    let uniqueId : String?
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case uniqueId = "uniqueId"
-    }
-}
-
-extension RedemptionVC : UIDocumentPickerDelegate {
-    
-    func documentMenu(_ documentMenu: UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
-        documentPicker.delegate = self
-        self.present(documentPicker, animated: true, completion: nil)
-    }
-    
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
-        print("url = \(url)")
-    }
-    
-    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        dismiss(animated: true, completion: nil)
     }
 }

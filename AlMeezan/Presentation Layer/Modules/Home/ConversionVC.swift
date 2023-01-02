@@ -122,11 +122,15 @@ class ConversionVC: UIViewController {
         }
     }
     
-    
+    // !900
     func getData() {
+        
+        
         let bodyParam = RequestBody()
         let bodyRequest = bodyParam.encryptData(bodyParam)
         let url = URL(string: CONVERSION_FUND)!
+       
+        
         SVProgressHUD.show()
         
         WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: ConversionFund.self, errorMessage: { (errorMessage) in
@@ -139,6 +143,9 @@ class ConversionVC: UIViewController {
         }, showHUD: true)
 
     }
+    
+    // 900
+    
     private func chooseValue(_ tag: Int, title: String, _ selected: Int) {
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: 250,height: 200)
@@ -379,6 +386,7 @@ class ConversionVC: UIViewController {
         transactionLbl.text = "Conversion"
 
         let isHighRisk = self.conversion_fund?[selectedFundToId].IsHighRisk
+        
         if isHighRisk == 1 {
             let vc = ETransactionWebViewVC.instantiateFromAppStroyboard(appStoryboard: .home)
             if #available(iOS 10.0, *) {
