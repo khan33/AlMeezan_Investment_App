@@ -13,21 +13,49 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 import Foundation
 struct ConversionFund : Codable {
-	let fundAgentID : String?
-	let fundAgnetName : String?
-    let IsHighRisk: Int?
-	enum CodingKeys: String, CodingKey {
+    let fundAgentID : String?
+    let fundAgnetName : String?
+    let IsHighRisk: ValueUnion?
+    enum CodingKeys: String, CodingKey {
 
-		case fundAgentID = "FundAgentID"
-		case fundAgnetName = "FundAgnetName"
+        case fundAgentID = "FundAgentID"
+        case fundAgnetName = "FundAgnetName"
         case IsHighRisk = "IsHighRisk"
-	}
+    }
 
-	init(from decoder: Decoder) throws {
-		let values = try decoder.container(keyedBy: CodingKeys.self)
-		fundAgentID = try values.decodeIfPresent(String.self, forKey: .fundAgentID)
-		fundAgnetName = try values.decodeIfPresent(String.self, forKey: .fundAgnetName)
-        IsHighRisk = try values.decodeIfPresent(Int.self, forKey: .IsHighRisk)
-	}
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        fundAgentID = try values.decodeIfPresent(String.self, forKey: .fundAgentID)
+        fundAgnetName = try values.decodeIfPresent(String.self, forKey: .fundAgnetName)
+        IsHighRisk = try values.decodeIfPresent(ValueUnion.self, forKey: .IsHighRisk)
+    }
 
+}
+
+enum ValueUnion: Codable {
+    case boolean(Bool)
+    case integer(Int)
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let x = try? container.decode(Bool.self) {
+            self = .boolean(x)
+            return
+        }
+        if let x = try? container.decode(Int.self) {
+            self = .integer(x)
+            return
+        }
+        throw DecodingError.typeMismatch(ValueUnion.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for ValueUnion"))
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .boolean(let x):
+            try container.encode(x)
+        case .integer(let x):
+            try container.encode(x)
+        }
+    }
 }
