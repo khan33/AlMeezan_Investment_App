@@ -3245,12 +3245,13 @@
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PKR 1,001" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9r-ua-gah">
                                                                 <rect key="frame" x="20" y="33" width="79.666666666666671" height="21.666666666666671"/>
+                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" name="AccentColor"/>
+                                                        <color key="backgroundColor" systemColor="systemGray3Color"/>
                                                         <constraints>
                                                             <constraint firstItem="w9r-ua-gah" firstAttribute="top" secondItem="2bd-kj-Ec9" secondAttribute="bottom" constant="5" id="C1C-tf-Qap"/>
                                                             <constraint firstItem="2bd-kj-Ec9" firstAttribute="leading" secondItem="JuC-kP-cn8" secondAttribute="leading" constant="20" id="K7h-AR-b02"/>
@@ -6957,6 +6958,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
