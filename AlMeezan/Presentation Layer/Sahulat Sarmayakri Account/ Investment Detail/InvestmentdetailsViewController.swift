@@ -350,18 +350,18 @@ class InvestmentdetailsViewController: UIViewController {
                 return
             }
             
-            if self.onlineAccountType == OnlineAccountType.SSA.rawValue {
-                if let amount = Int(self.transactionDetailTxt) {
-                    if amount < 5000 {
-                        self.showAlert(title: "Alert", message: "Amount should be greater than 5000.", controller: self) {
-                        }
-                        return
+            
+            if let amount = Int(self.transactionDetailTxt) {
+                if amount < 5000 {
+                    self.showAlert(title: "Alert", message: "Amount should be greater than 5000.", controller: self) {
                     }
+                    return
+                }
+                if self.onlineAccountType == OnlineAccountType.SSA.rawValue {
                     if amount > 400000 {
                         self.showAlert(title: "Alert", message: "Maximum initial investment amount should be Rs. 400,000/-.", controller: self) {
                         }
                         return
-                        
                     }
                 }
             }

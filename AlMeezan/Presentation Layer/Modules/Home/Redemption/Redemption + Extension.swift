@@ -146,10 +146,10 @@ extension RedemptionVC {
             self.openGallary()
         })
         
-        let documentUpload = UIAlertAction(title: "Documents", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.openGallary()
-        })
+//        let documentUpload = UIAlertAction(title: "Documents", style: .default, handler: {
+//            (alert: UIAlertAction!) -> Void in
+//            self.openGallary()
+//        })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
@@ -158,7 +158,7 @@ extension RedemptionVC {
         
         optionMenu.addAction(option1)
         optionMenu.addAction(option2)
-        optionMenu.addAction(documentUpload)
+//        optionMenu.addAction(documentUpload)
         optionMenu.addAction(cancelAction)
         
         self.present(optionMenu, animated: true, completion: nil)
@@ -236,9 +236,14 @@ extension RedemptionVC: UITextFieldDelegate {
         if selectedSegmentIndex == 0 {
             message = "Amount Exceeds the available amount."
             actualValue = self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0
-        } else {
+        } else if selectedSegmentIndex == 1 {
             message = "Units Exceeds the available units."
             actualValue = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
+        } else if selectedSegmentIndex == 3 {
+            message = "Amount Exceeds the available amount."
+            if self.redemptionMTPF?.count ?? 0 > 0 {
+                actualValue = self.redemptionMTPF?[0].bal ?? 0.0
+            }
         }
         let newStr = (textField.text! as NSString)
             .replacingCharacters(in: range, with: string)

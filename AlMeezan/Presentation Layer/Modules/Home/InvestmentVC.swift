@@ -85,12 +85,11 @@ class InvestmentVC: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         popupView.addGestureRecognizer(tap)
         
-        
         preferences.drawing.foregroundColor = UIColor.white
         preferences.drawing.backgroundColor = UIColor.themeColor
         preferences.drawing.font = UIFont(name: "Roboto-Regular", size: 14)!
         preferences.drawing.textAlignment = NSTextAlignment.justified
-        
+        tipView.backgroundColor = .themeColor
         preferences.animating.dismissTransform = CGAffineTransform(translationX: 0, y: -15)
         preferences.animating.showInitialTransform = CGAffineTransform(translationX: 0, y: 15)
         preferences.animating.showInitialAlpha = 0
@@ -192,7 +191,7 @@ class InvestmentVC: UIViewController {
         
         let bodyParam = RequestBody(CustomerID: customerID, AccessToken: accessToken, PortfolioID: portId)
         let bodyRequest = bodyParam.encryptData(bodyParam)
-        let url = URL(string: "https://members.almeezangroup.com/Webapitest/api/vpsinvestmentseries")!
+        let url = URL(string: VPS_INVESTMENT_SERIES)!
         SVProgressHUD.show()
         
         WebServiceManager.sharedInstance.fetchObject(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: VpsInvestment.self, errorMessage: { (errorMessage) in
@@ -203,11 +202,16 @@ class InvestmentVC: UIViewController {
             self.fundCategory = response
             self.fundCategoryTxtField.isUserInteractionEnabled = false
             self.fundTxtField.isUserInteractionEnabled = false
-            self.fundCategoryTxtField.text = self.fundCategory?.funds?[0].category
-            self.fundTxtField.text = self.fundCategory?.funds?[0].fundName
-            self.agent_id = self.fundCategory?.funds?[0].agentID ?? ""
-            self.fund_id = self.fundCategory?.funds?[0].fundID ?? ""
-            self.fundCategory?.funds?[0].isHighRisk = 0
+            
+            if self.fundCategory?.funds?.count ?? 0 > 0 {
+                self.fundCategoryTxtField.text = self.fundCategory?.funds?[0].category
+                self.fundTxtField.text = self.fundCategory?.funds?[0].fundName
+                self.agent_id = self.fundCategory?.funds?[0].agentID ?? ""
+                self.fund_id = self.fundCategory?.funds?[0].fundID ?? ""
+                self.fundCategory?.funds?[0].isHighRisk = 0
+            }
+            
+            
             
             
             //self.configTableView()
@@ -219,7 +223,7 @@ class InvestmentVC: UIViewController {
     func getRestrictedIDs() {
         let bodyParam = RequestBody()
         let bodyRequest = bodyParam.encryptData(bodyParam)
-        let url = URL(string: "https://members.almeezangroup.com/Webapitest/api/vpsinvestmentrestrictedseries")!
+        let url = URL(string: VPS_INVESTMENT_RESTRICTED_SERIES)!
         SVProgressHUD.show()
         
         WebServiceManager.sharedInstance.fetchObject(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: RestrictSeries.self, errorMessage: { (errorMessage) in
@@ -496,6 +500,7 @@ class InvestmentVC: UIViewController {
     
     
     func refreshFrom() {
+        portfolioTxtField.text = ""
         bankID = ""
         bankLstTxtField.text = ""
         selectedPortfolioId = 0

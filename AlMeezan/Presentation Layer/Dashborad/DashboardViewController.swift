@@ -72,7 +72,7 @@ class DashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //router?.navigationController = navigationController
-
+        accountStatementIcon.isHidden = true
         let isShow = UserDefaults.standard.integer(forKey: "isSurveyShow")
         if isShow == 1 {
             //setupViews()

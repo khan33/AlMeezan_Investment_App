@@ -103,7 +103,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
     var tax2Year = "Tax2-Year"
     var tax3Year = "Tax3-Year"
     var imageUploadingIndex = 0
-    
+    var preferences = EasyTipView.globalPreferences
     let container = DependencyContainer()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,8 +115,13 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
         valueView.backgroundColor = UIColor.init(rgb: 0xF4F6FA)
         valueAmount.textColor = UIColor.init(rgb: 0x8A269B)
         document?.uplaodingView.isHidden = true
-        
         tableViewHeightConstraint.constant = 0
+        valueAmount.text = ""
+        preferences.drawing.foregroundColor = UIColor.white
+        preferences.drawing.backgroundColor = UIColor.themeColor
+        preferences.drawing.font = UIFont(name: "Roboto-Regular", size: 14)!
+        preferences.drawing.textAlignment = NSTextAlignment.justified
+        tipView.backgroundColor = .themeColor
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -188,6 +193,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                 if let isTaxable = self.redemptionMTPF?[0].isTaxabale , isTaxable == true {
                     self.getTaxDocument()
                 } else {
+                    self.media.removeAll()
                     self.tableViewHeightConstraint.constant = 0
                 }
             }
@@ -258,14 +264,21 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                     if let lastId = id.components(separatedBy: "-").last, let num = Int(lastId) {
                         print(num)
                         if !(900...999).contains(num) {
+                            self.transactionTxtField.text = "0.0"
+                            self.segmentControl.selectedSegmentIndex = 2
                             self.portfolioFunds(id)
                             self.isAbove900 = false
                             self.showTransactionDetails()
                         } else {
+                            self.media.removeAll()
+                            self.tableViewHeightConstraint.constant = 0
+                            self.fundFromTxtField.text = ""
                             self.getRedemptionData()
                             self.hideTransactionDetails()
                             self.isAbove900 = true
-                            self.refreshFrom()
+                            self.selectedSegmentIndex = 3
+                            self.transactionTxtField.isUserInteractionEnabled = true
+                            self.disableBtn(true)
                         }
                         self.media.removeAll()
                     }
@@ -376,6 +389,9 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
     }
     
     private func refreshFrom() {
+        portfolioTxtField.text = ""
+        tableViewHeightConstraint.constant = 0
+        valueAmount.text = ""
         fundFromTxtField.text = ""
         unitLbl.text = "0"
         valueLbl.text = "0"
@@ -384,6 +400,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
         transactionTxtField.isUserInteractionEnabled = false
         isSelectedFund = false
         disableBtn(false)
+        self.showTransactionDetails()
     }
     
     @IBAction func switchSegmentBtn(_ sender: UISegmentedControl) {
@@ -485,10 +502,32 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                     }
                     expectedAmount = value.rounded(toPlaces: 4)
                     updatetransactionTxtField()
-                    
                 }
             }
+        }
+        
+        else if selectedSegmentIndex == 3 {
+            let string = transactionTxtField.text ?? "0"
+            let resultStr = string.filter("0123456789.".contains)
+            let amount: Double? = Double(resultStr)?.rounded(toPlaces: 4)
             
+            if self.redemptionMTPF?.count ?? 0 > 0 {
+               if let actualValue = self.redemptionMTPF?[0].bal {
+                   if var value = amount {
+                       if value < actualValue {
+                           let diff = actualValue - value
+                           if diff < minimumUnit {
+                               value = value + diff
+                           } else {
+                               value = value + minimumUnit
+                           }
+                           
+                       }
+                       expectedAmount = value.rounded(toPlaces: 4)
+                       updatetransactionTxtField()
+                   }
+                }
+            }
         }
         else {
             //disableBtn(false)
@@ -514,7 +553,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                 updatetransactionTxtField()
             }
         }
-        else if selectedSegmentIndex == 1{
+        else if selectedSegmentIndex == 1 {
             let string = transactionTxtField.text ?? "0"
             let resultStr = string.filter("0123456789.".contains)
             let amount = Double(resultStr)?.rounded(toPlaces: 4)
@@ -531,6 +570,27 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                 }
             }
         }
+        
+        else if selectedSegmentIndex == 3 {
+            let string = transactionTxtField.text ?? "0"
+            let resultStr = string.filter("0123456789.".contains)
+            let amount = Double(resultStr)?.rounded(toPlaces: 4)
+            
+            if self.redemptionMTPF?.count ?? 0 > 0 {
+                if let actualUnit = self.redemptionMTPF?[0].bal {
+                    if var value = amount {
+                        if value <= actualUnit && value > minimumUnit {
+                            value = value - minimumUnit
+                        } else if value <= minimumUnit {
+                            value = 0.0
+                        }
+                        expectedAmount = value.rounded(toPlaces: 4)
+                        updatetransactionTxtField()
+                    }
+                }
+            }
+        }
+        
         else {
             //disableBtn(false)
         }
@@ -839,6 +899,10 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
         let tag = sender.tag
         vpsTax[tag].isExpandable = false
       //  media.remove(at: tag)
+        let key = vpsTax[tag].key
+        if let index = media.firstIndex(where: { $0.key == key } ) {
+            media.remove(at: index)
+        }
         let indexPath = IndexPath(row: tag, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as? DocuemntUploadingCell
         cell?.uplaodingView.isHidden = true

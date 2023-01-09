@@ -95,7 +95,7 @@ class ConversionVC: UIViewController {
     var agentId: String?
     var fundIdTo: String?
     var AgentTo: String?
-    
+    var preferences = EasyTipView.globalPreferences
     let tipView = EasyTipView(text: "Tap to copy")
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +107,11 @@ class ConversionVC: UIViewController {
         ValueView.backgroundColor = UIColor.init(rgb: 0xF4F6FA)
         valueAmount.textColor = UIColor.init(rgb: 0x8A269B)
         scrollView.delegate = self
+        preferences.drawing.foregroundColor = UIColor.white
+        preferences.drawing.backgroundColor = UIColor.themeColor
+        preferences.drawing.font = UIFont(name: "Roboto-Regular", size: 14)!
+        preferences.drawing.textAlignment = NSTextAlignment.justified
+        tipView.backgroundColor = .themeColor
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -185,7 +190,6 @@ class ConversionVC: UIViewController {
         let bodyRequest = bodyParam.encryptData(bodyParam)
         let url = URL(string: VPS_CHANGE_OF_PLAN)!
         SVProgressHUD.show()
-        
         WebServiceManager.sharedInstance.fetch(params: bodyRequest as Dictionary<String, AnyObject>, url: url, serviceType: "Nav Fund", modelType: VPSChangeOfPlan.self, errorMessage: { (errorMessage) in
             errorResponse = errorMessage
             self.showErrorMsg(errorMessage)
@@ -218,7 +222,6 @@ class ConversionVC: UIViewController {
         let portId = portfolioid_list?[self.selectedPortfolioId].portfolioID
         let customerID  :   String? = KeychainWrapper.standard.string(forKey: "CustomerId")
         let accessToken :   String? = KeychainWrapper.standard.string(forKey: "AccessToken")
-        
         let bodyParam = RequestBody(CustomerID: customerID, AccessToken: accessToken, PortfolioID: portId)
         let bodyRequest = bodyParam.encryptData(bodyParam)
         let url = URL(string: CHANGE_OF_PLAN_FUND)!
@@ -229,13 +232,9 @@ class ConversionVC: UIViewController {
             self.showErrorMsg(errorMessage)
         }, success: { (response) in
             self.conversion_fund = response
-            
-             self.isSelectedFund = true
-            // self.selectedFundToId = 0
-             self.fundToTxtField.text = self.conversion_fund?[self.selectedFundToId].fundAgnetName
-            self.fundToId = self.conversion_fund?[self.selectedFundToId].fundAgentID?.components(separatedBy: "~").first ?? "0"
-            self.AgentTo = self.conversion_fund?[self.selectedFundToId].fundAgentID?.components(separatedBy: "~").last ?? "0"
-            
+            self.isSelectedFund = true
+            //self.fundToTxtField.text = self.conversion_fund?[self.selectedFundToId].fundAgnetName
+
         }, fail: { (error) in
             print(error.localizedDescription)
         }, showHUD: true)
@@ -314,15 +313,20 @@ class ConversionVC: UIViewController {
                 self.balanceUnit = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
             } else if pickerView.tag == 2 {
                
-                    self.fundToTxtField.text = self.conversion_fund?[self.selectedFundToId].fundAgnetName
+                self.fundToTxtField.text = self.conversion_fund?[self.selectedFundToId].fundAgnetName
                 self.fundToId = self.conversion_fund?[self.selectedFundToId].fundAgentID ?? ""
-                self.getChangeOfPlanFund()
+
+                if self.isAbove900 {
+                    self.fundToId = self.conversion_fund?[self.selectedFundToId].fundAgentID?.components(separatedBy: "~").first ?? "0"
+                    self.AgentTo = self.conversion_fund?[self.selectedFundToId].fundAgentID?.components(separatedBy: "~").last ?? "0"
+                }
            
             } else {
                 self.portfolioTxtField.text = self.portfolioid_list?[self.selectedPortfolioId].portfolioID
                 UserDefaults.standard.set(self.portfolioid_list?[self.selectedPortfolioId].portfolioID, forKey: "portfolioId")
                 self.portfolioFunds(self.portfolioid_list?[self.selectedPortfolioId].portfolioID ?? "")
-                
+                self.fundBtn.isUserInteractionEnabled = true
+
                 if let id = self.portfolioid_list?[self.selectedPortfolioId].portfolioID {
                     if let lastId = id.components(separatedBy: "-").last, let num = Int(lastId) {
                         print(num)
@@ -331,6 +335,7 @@ class ConversionVC: UIViewController {
                             self.getData()
                             self.showTransactionDetails()
                         } else {
+                            self.fundBtn.isUserInteractionEnabled = false
                             self.isAbove900 = true
                             self.getVpsChangeofPlan()
                             self.getChangeOfPlanFund()
@@ -485,6 +490,7 @@ class ConversionVC: UIViewController {
     
     
     @IBAction func tapOnResetBtn(_ sender: Any) {
+        portfolioTxtField.text = ""
         refreshFrom()
     }
     
@@ -770,6 +776,7 @@ class ConversionVC: UIViewController {
     }
     @IBAction func didTapOnOKBtn(_ sender: Any) {
         self.refreshFrom()
+        portfolioTxtField.text = ""
         formView.isHidden = false
         continueView.isHidden = false
         proceedView.isHidden = true

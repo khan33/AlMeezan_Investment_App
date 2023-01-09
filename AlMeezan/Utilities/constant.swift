@@ -99,6 +99,8 @@ let ACCOUNT_OPENING     =   BASE_URL + "AccountOpening"
 let ACCOUNT_OPENING_FUNDS =   BASE_URL + "AccountOpeningFunds"
 let ACCOUNT_OPENING_INVESTMENT =   BASE_URL + "AccountOpeningInvestment"
 let ROSHAN_ACCOUNT      =   BASE_URL + "OTPSendRoshan"
+let VPS_INVESTMENT_SERIES = BASE_URL + "vpsinvestmentseries"
+let VPS_INVESTMENT_RESTRICTED_SERIES = BASE_URL + "vpsinvestmentrestrictedseries"
 
 
 
