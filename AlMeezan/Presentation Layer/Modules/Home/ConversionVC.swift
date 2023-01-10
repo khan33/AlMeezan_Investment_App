@@ -302,6 +302,7 @@ class ConversionVC: UIViewController {
                     //"\(String(describing: self.expectedAmount).toCurrencyFormat(withFraction: false))"
                     self.updatetransactionTxtField()
                 }
+                self.transactionType = "Unit"
                 self.segmentControl.selectedSegmentIndex = 2
                 self.disableBtn(false)
                 
@@ -365,6 +366,7 @@ class ConversionVC: UIViewController {
         valueAmount.text = "0"
         transactionTxtField.text = "0.0"
         segmentControl.selectedSegmentIndex = 2
+        self.transactionType = "Unit"
         transactionTxtField.isUserInteractionEnabled = false
       //  portfolioTxtField.text = ""
         disableBtn(false)

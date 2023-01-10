@@ -72,7 +72,7 @@ class LeftSideMenuVC: UIViewController, MainViewProtocol {
         menuItems.append(invest)
         
         if loginStutus == .logout {
-            menuItems.append(payment_service)
+           // menuItems.append(payment_service)
         }
         
         

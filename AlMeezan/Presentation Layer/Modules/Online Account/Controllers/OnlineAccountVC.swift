@@ -51,6 +51,7 @@ class OnlineAccountVC: UIViewController {
     var cnicValid: Bool = false
     var otp_response_data: [OTPModel]?
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         descLbl.text = "\u{2022} Basic investment account with the option to invest in Income and Money Market Funds Only. \n\u{2022} Maximum Investment Amount: \nRs. 100,000 at any point. \n\u{2022} Single investment amount should not exceed Rs. 25,000"
         progressBarTitleLbl.text = "1 of 6"

@@ -243,15 +243,22 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                 self.isSelectedFund = true
                 self.fundFromTxtField.text = self.funds_list?[self.selectedFundFromId].fundAgentName
                 self.fundFromId = self.funds_list?[self.selectedFundFromId].fundAgentId ?? "0"
+                let marketValue = self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0
                 
                 if let balance_unit = self.funds_list?[self.selectedFundFromId].balunits {
-                    self.expectedAmount = Double(balance_unit)
+                    if !self.checkBoxBtn.isSelected {
+                        self.expectedAmount = Double(balance_unit)
+                    } else {
+                        self.expectedAmount = Int(marketValue)
+                    }
                     self.unitLbl.text = "\(String(describing: balance_unit))"
-                    self.updatetransactionTxtField()
                 }
+                
+                self.updatetransactionTxtField()
                 self.segmentControl.selectedSegmentIndex = 2
+                self.transactionType = "Unit"
                 self.disableBtn(false)
-                let marketValue = self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0
+                
                 self.valueLbl.text = "PKR \(String(describing: marketValue).toCurrencyFormat(withFraction: false))"
                 
                 self.marketValue = Int(self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0)
@@ -266,6 +273,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                         if !(900...999).contains(num) {
                             self.transactionTxtField.text = "0.0"
                             self.segmentControl.selectedSegmentIndex = 2
+                            self.transactionType = "Unit"
                             self.portfolioFunds(id)
                             self.isAbove900 = false
                             self.showTransactionDetails()
@@ -389,6 +397,9 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
     }
     
     private func refreshFrom() {
+        
+        checkBoxBtn.isSelected = false
+        uncheckedEasyBox()
         portfolioTxtField.text = ""
         tableViewHeightConstraint.constant = 0
         valueAmount.text = ""
@@ -397,10 +408,12 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
         valueLbl.text = "0"
         transactionTxtField.text = "0.0"
         segmentControl.selectedSegmentIndex = 2
+        self.transactionType = "Unit"
         transactionTxtField.isUserInteractionEnabled = false
         isSelectedFund = false
         disableBtn(false)
         self.showTransactionDetails()
+        
     }
     
     @IBAction func switchSegmentBtn(_ sender: UISegmentedControl) {
@@ -604,6 +617,20 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
         convertCurrencyIntoWord(transactionTxtField.text!)
     }
     
+    fileprivate func uncheckedEasyBox() {
+        selectedSegmentIndex = 2
+        self.segmentControl.selectedSegmentIndex = 2
+        self.transactionType = "Unit"
+        transactionDescription = "Redemption"
+        plusBtn.isHidden = false
+        minusBtn.isHidden = false
+        segmentControl.isHidden = false
+        valueBtn.isHidden = true
+        transactionDetailLbl.text = "Transaction Detail"
+        expectedAmount = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
+        updatetransactionTxtField()
+    }
+    
     @IBAction func tapOnCheckBox(_ sender: UIButton) {
         if fundFromTxtField.text != "" {
             sender.isSelected = !sender.isSelected
@@ -621,14 +648,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
                 expectedAmount = Int(self.funds_list?[self.selectedFundFromId].marketValue ?? 0.0)
                 updatetransactionTxtField()
             } else {
-                transactionDescription = "Redemption"
-                plusBtn.isHidden = false
-                minusBtn.isHidden = false
-                segmentControl.isHidden = false
-                valueBtn.isHidden = true
-                transactionDetailLbl.text = "Transaction Detail"
-                expectedAmount = Double(self.funds_list?[self.selectedFundFromId].balunits ?? 0.0)
-                updatetransactionTxtField()
+                uncheckedEasyBox()
             }
         } else {
             self.showAlert(title: "Alert", message: "Please select your Fund.", controller: self) {
@@ -697,6 +717,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
             }
             
             if checkBoxBtn.isSelected {
+                self.transactionType = "Amount"
                 let value = transaction_amount.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range: nil)
                 let amount = Int(value) ?? 0
                 if amount < 1000 {
@@ -862,6 +883,7 @@ class RedemptionVC: UIViewController, UIDocumentMenuDelegate {
         let date = Date().toString(format: "yyyy-MM-dd HH:mm:ss.SSS")
         var trancationAmount = transactionTxtField.text!
         trancationAmount        =   trancationAmount.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range: nil)
+        
         let bodyParam = RequestBody(PortfolioID: portfolioId, FromFundAgentID: self.fundFromId, ToFundAgentID: "NULL", TransactionType: self.transactionType, TransactionDescription: transactionDescription, ExpectedAmount: trancationAmount, TransactionDate: date)
         let bodyRequest = bodyParam.encryptData(bodyParam)
         let url = URL(string: TRANSACTION_SUBMISSION)!

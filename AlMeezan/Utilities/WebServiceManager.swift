@@ -150,8 +150,6 @@ class WebServiceManager: NSObject {
                 case .success(_):
                     if let data = response.result.value {
                         let value = data.replacingOccurrences(of: "\"", with: "")
-                        
-                        
                         let dec = try! self.aesDecrypt(key: key, iv: iv, value)
                         
                         let dataa = dec.data(using: .utf8)!

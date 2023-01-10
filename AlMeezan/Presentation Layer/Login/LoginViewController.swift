@@ -63,8 +63,8 @@ class LoginViewController: UIViewController {
         router?.navigationController = navigationController
         interactor?.viewDidLoad()
         
-        customerIdTxtField.text = "176399"
-        passwordTxtField.text = "Today321"
+//        customerIdTxtField.text = "176399"
+//        passwordTxtField.text = "Today321"
 
         
         // 100132
@@ -243,9 +243,6 @@ class LoginViewController: UIViewController {
                 }
                 
                 UserDefaults.standard.set(false, forKey: "isCorporateId")
-                
-                
-                
                 NotificationCenter.default.post(name: .tabBarSwitchNotifications, object: nil, userInfo: ["Index": 8])
                 NotificationCenter.default.post(name: .menuItemsSwitchNotifications, object: nil)
                 

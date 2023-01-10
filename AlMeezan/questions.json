@@ -13,7 +13,7 @@
             "id": 2,
             "question":"I can take the following level of “Risk” on my investment",
             "isSelected": false,
-            "options":[{"answer": "A. Low Risk"},{"answer": "B. Medicore Risk"},{"answer": "C. High Risk"}],
+            "options":[{"answer": "A. Low Risk"},{"answer": "B. Medium Risk"},{"answer": "C. High Risk"}],
             "weight":[{"value": 1 },{"value": 4},{"value": 8}
             ]
         },

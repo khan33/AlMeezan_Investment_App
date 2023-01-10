@@ -79,7 +79,7 @@ enum LoginEntity {
         let dataStatus : String?
         let errId: String?
         var IsNPSShow: Int?
-        var isCorporateId: Bool = true
+        var isCorporateId: Bool = false
         
         enum CodingKeys: String, CodingKey {
             case statusCode = "statusCode"

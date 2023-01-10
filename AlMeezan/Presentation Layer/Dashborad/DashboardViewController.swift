@@ -74,8 +74,8 @@ class DashboardViewController: UIViewController {
         //router?.navigationController = navigationController
         accountStatementIcon.isHidden = true
         let isShow = UserDefaults.standard.integer(forKey: "isSurveyShow")
-        if isShow == 1 {
-            //setupViews()
+        if isShow == 1 && !isFromSideMenu {
+            setupViews()
         }
         
         if isFromSideMenu {
